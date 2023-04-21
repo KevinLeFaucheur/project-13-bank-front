@@ -1,29 +1,11 @@
 import React from 'react'
 import { Footer } from '../layout/Footer'
+import { Navbar } from '../layout/Navbar'
 
 export const User = () => {
   return (
     <div>
-      <nav class="main-nav">
-        <a class="main-nav-logo" href="./index.html">
-          <img
-            class="main-nav-logo-image"
-            src="./img/argentBankLogo.png"
-            alt="Argent Bank Logo"
-          />
-          <h1 class="sr-only">Argent Bank</h1>
-        </a>
-        <div>
-          <a class="main-nav-item" href="./user.html">
-            <i class="fa fa-user-circle"></i>
-            Tony
-          </a>
-          <a class="main-nav-item" href="./index.html">
-            <i class="fa fa-sign-out"></i>
-            Sign Out
-          </a>
-        </div>
-      </nav>
+      <Navbar />
       <main class="main bg-dark">
         <div class="header">
           <h1>Welcome back<br />Tony Jarvis!</h1>
