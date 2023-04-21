@@ -1,4 +1,5 @@
 import React from 'react'
+import { Footer } from '../layout/Footer'
 
 export const User = () => {
   return (
@@ -60,9 +61,7 @@ export const User = () => {
           </div>
         </section>
       </main>
-      <footer class="footer">
-        <p class="footer-text">Copyright 2020 Argent Bank</p>
-      </footer>
+        <Footer />
     </div>
   )
 }

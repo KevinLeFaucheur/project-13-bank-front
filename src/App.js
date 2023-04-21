@@ -1,3 +1,5 @@
+import { Footer } from "./layout/Footer";
+
 export const App = () => {
   return (
     <div className="App">
@@ -62,10 +64,8 @@ export const App = () => {
             </p>
           </div>
         </section>
+        <Footer />
       </main>
-      <footer class="footer">
-        <p class="footer-text">Copyright 2020 Argent Bank</p>
-      </footer>
     </div>
   );
 }

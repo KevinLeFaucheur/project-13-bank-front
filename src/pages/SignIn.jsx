@@ -1,4 +1,5 @@
 import React from 'react'
+import { Footer } from '../layout/Footer'
 
 export const SignIn = () => {
   return (
@@ -45,9 +46,7 @@ export const SignIn = () => {
           </form>
         </section>
       </main>
-      <footer class="footer">
-        <p class="footer-text">Copyright 2020 Argent Bank</p>
-      </footer>
+        <Footer />
     </div>
   )
 }
