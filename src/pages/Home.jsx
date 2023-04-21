@@ -1,25 +1,21 @@
 import React from 'react'
 import { Footer } from '../layout/Footer'
 import { Navbar } from '../layout/Navbar'
+import iconChat from '../images/icon-chat.png'
+import iconMoney from '../images/icon-money.png'
+import iconSecurity from '../images/icon-security.png'
+import { Hero } from '../components/Hero'
 
 export const Home = () => {
   return (
     <div>
       <Navbar />
       <main>
-        <div className="hero">
-          <section className="hero-content">
-            <h2 className="sr-only">Promoted Content</h2>
-            <p className="subtitle">No fees.</p>
-            <p className="subtitle">No minimum deposit.</p>
-            <p className="subtitle">High interest rates.</p>
-            <p className="text">Open a savings account with Argent Bank today!</p>
-          </section>
-        </div>
+        <Hero />
         <section className="features">
           <h2 className="sr-only">Features</h2>
           <div className="feature-item">
-            <img src="./img/icon-chat.png" alt="Chat Icon" className="feature-icon" />
+            <img src={iconChat} alt="Chat Icon" className="feature-icon" />
             <h3 className="feature-item-title">You are our #1 priority</h3>
             <p>
               Need to talk to a representative? You can get in touch through our
@@ -28,7 +24,7 @@ export const Home = () => {
           </div>
           <div className="feature-item">
             <img
-              src="./img/icon-money.png"
+              src={iconMoney}
               alt="Chat Icon"
               className="feature-icon"
             />
@@ -39,7 +35,7 @@ export const Home = () => {
           </div>
           <div className="feature-item">
             <img
-              src="./img/icon-security.png"
+              src={iconSecurity}
               alt="Chat Icon"
               className="feature-icon"
             />
