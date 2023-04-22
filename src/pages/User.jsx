@@ -4,7 +4,7 @@ import { Navbar } from '../layout/Navbar'
 
 export const User = () => {
   return (
-    <div>
+    <>
       <Navbar />
       <main className="main bg-dark">
         <div className="header">
@@ -43,7 +43,7 @@ export const User = () => {
           </div>
         </section>
       </main>
-        <Footer />
-    </div>
+      <Footer />
+    </>
   )
 }

@@ -9,7 +9,7 @@ export default createGlobalStyle`
     color: #2c3e50;
   }
 
-  body {
+  body, #root {
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -18,5 +18,9 @@ export default createGlobalStyle`
 
   .main {
     flex: 1;
+  }
+
+  .bg-dark {
+    background-color: #12002b;
   }
 `

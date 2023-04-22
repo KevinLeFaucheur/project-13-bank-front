@@ -25,12 +25,10 @@ export const Home = () => {
         <Hero />
         <Section>
           <H2>Features</H2>
-          <Feature feature={features[0]} />
-          <Feature feature={features[1]} />
-          <Feature feature={features[2]} />
+          {features.map(feature => <Feature feature={feature} /> )}
         </Section>
-        <Footer />
       </main>
+      <Footer />
     </>
   )
 }
