@@ -54,6 +54,16 @@ export const Navbar = () => {
           <i className="fa fa-user-circle"></i>
           &nbsp;Sign In
         </SignIn>
+      </div>     
+      <div>
+        <a class="main-nav-item" href="./user.html">
+          <i class="fa fa-user-circle"></i>
+          &nbsp;Tony
+        </a>
+        <a class="main-nav-item" href="./index.html">
+          <i class="fa fa-sign-out"></i>
+          &nbsp;Sign Out
+        </a>
       </div>
     </NavbarWrapper>
   )
