@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import bankTree from '../images/bank-tree.jpeg';
+import { H2 } from '../styles/Headers';
 
 const HeroWrapper = styled.div`
   background-image: url(${props => props.background});
@@ -32,10 +33,8 @@ const HeroWrapper = styled.div`
   }
 
   @media (min-width: 920px) {
-    .hero {
-      height: 400px;
-      background-position: 0% 33%;
-    }
+    height: 400px;
+    background-position: 0% 33%;
 
     .hero-content {
       position: absolute;
@@ -59,7 +58,7 @@ export const Hero = () => {
   return (
     <HeroWrapper background={bankTree} >
       <section className="hero-content">
-        <h2 className="sr-only">Promoted Content</h2>
+        <H2>Promoted Content</H2>
         <p className="subtitle">No fees.</p>
         <p className="subtitle">No minimum deposit.</p>
         <p className="subtitle">High interest rates.</p>

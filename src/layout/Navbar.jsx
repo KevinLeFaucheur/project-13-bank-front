@@ -18,15 +18,6 @@ const NavbarWrapper = styled.nav`
     color: #42b983;
   }
 
-  .main-nav-item {
-    text-decoration: none;
-    margin-right: 0.5rem;
-  }
-
-  .main-nav-item:hover {
-    text-decoration: underline;
-  }
-
   .main-nav-logo {
     display: flex;
     align-items: center;
@@ -35,6 +26,15 @@ const NavbarWrapper = styled.nav`
   .main-nav-logo-image {
     max-width: 100%;
     width: 200px;
+  }
+`
+
+const SignIn = styled(Link)`
+  text-decoration: none;
+  margin-right: 0.5rem;
+
+  &:hover {
+    text-decoration: underline;
   }
 `
 
@@ -50,10 +50,10 @@ export const Navbar = () => {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <div>
-        <Link className="main-nav-item" to='/signin'>
+        <SignIn to='/signin'>
           <i className="fa fa-user-circle"></i>
-          Sign In
-        </Link>
+          &nbsp;Sign In
+        </SignIn>
       </div>
     </NavbarWrapper>
   )

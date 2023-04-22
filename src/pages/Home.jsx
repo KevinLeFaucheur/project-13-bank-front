@@ -19,18 +19,18 @@ const Section = styled.section`
 export const Home = () => {
 
   return (
-    <div>
+    <>
       <Navbar />
       <main>
         <Hero />
         <Section>
-          <H2 textContent={'Features'} />
+          <H2>Features</H2>
           <Feature feature={features[0]} />
           <Feature feature={features[1]} />
           <Feature feature={features[2]} />
         </Section>
         <Footer />
       </main>
-    </div>
+    </>
   )
 }
