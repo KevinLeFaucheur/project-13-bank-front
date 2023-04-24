@@ -16,7 +16,7 @@ const FooterText = styled.p`
 export const Footer = () => {
   return (
     <FooterWrapper>
-      <FooterText>Copyright 2020 Argent Bank</FooterText>
+      <FooterText>Copyright 2023 Argent Bank</FooterText>
     </FooterWrapper>
   )
 }

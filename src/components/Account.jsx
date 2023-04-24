@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const AccountSection = styled.section`
@@ -48,7 +49,7 @@ const ContentWrapper = styled.div`
   }
 `
 
-const Button = styled.button`
+const ViewTransactions = styled(Link)`
   display: block;
   width: 100%;
   padding: 8px;
@@ -75,7 +76,7 @@ export const Account = ({ account }) => {
         <p className="account-amount-description">{description}</p>
       </ContentWrapper>
       <ContentWrapper className="cta">
-        <Button>View transactions</Button>
+        <ViewTransactions to="/user/transactions" state={{ account: account }}>View transactions</ViewTransactions>
       </ContentWrapper>
     </AccountSection>
   )

@@ -29,7 +29,7 @@ const NavbarWrapper = styled.nav`
   }
 `
 
-const SignIn = styled(Link)`
+const NavItem = styled(Link)`
   text-decoration: none;
   margin-right: 0.5rem;
 
@@ -48,22 +48,20 @@ export const Navbar = () => {
           alt="Argent Bank Logo"
         />
         <h1 className="sr-only">Argent Bank</h1>
-      </Link>
+      </Link>  
       <div>
-        <SignIn to='/signin'>
+        <NavItem to='/signin'>
           <i className="fa fa-user-circle"></i>
           &nbsp;Sign In
-        </SignIn>
-      </div>     
-      <div>
-        <a class="main-nav-item" href="./user.html">
-          <i class="fa fa-user-circle"></i>
-          &nbsp;Tony
-        </a>
-        <a class="main-nav-item" href="./index.html">
-          <i class="fa fa-sign-out"></i>
+        </NavItem>
+        <NavItem to="/user/accounts">
+          <i className="fa fa-user-circle"></i>
+          &nbsp;Tony&nbsp;
+        </NavItem>
+        <NavItem to="/">
+          <i className="fa fa-sign-out"></i>
           &nbsp;Sign Out
-        </a>
+        </NavItem>
       </div>
     </NavbarWrapper>
   )

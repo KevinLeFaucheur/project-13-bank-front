@@ -25,7 +25,7 @@ export const Home = () => {
         <Hero />
         <Section>
           <H2>Features</H2>
-          {features.map(feature => <Feature feature={feature} /> )}
+          {features.map((feature, index) => <Feature key={index} feature={feature} /> )}
         </Section>
       </main>
       <Footer />

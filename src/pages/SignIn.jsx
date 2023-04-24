@@ -75,7 +75,7 @@ export const SignIn = () => {
               <label htmlFor="remember-me">Remember me</label>
             </InputRememberMe>
             {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-            <Link className="sign-in-button" to='/user'>Sign In</Link>
+            <Link className="sign-in-button" to='/user/accounts'>Sign In</Link>
             {/* <!-- SHOULD BE THE BUTTON BELOW -->
             <!-- <button className="sign-in-button">Sign In</button> -->
             <!--  --> */}
