@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { Footer } from '../layout/Footer'
 import { Navbar } from '../layout/Navbar'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { login } from '../services'
 
 const InputWrapper = styled.div`
   display: flex;
@@ -54,6 +55,14 @@ const SignInSection = styled.section`
 `
 
 export const SignIn = () => {
+  const usernameInput = useRef();
+  const passwordInput = useRef();
+  const rememberMeInput = useRef();
+
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  const [rememberMe, setRememberMe] = useState();
+
   return (
     <>
       <Navbar />
@@ -64,18 +73,18 @@ export const SignIn = () => {
           <form>
             <InputWrapper>
               <label htmlFor="username">Username</label>
-              <input type="text" id="username" />
+              <input type="text" id="username" ref={usernameInput} onBlur={e => setUsername(e.target.value)}/>
             </InputWrapper>
             <InputWrapper>
               <label htmlFor="password">Password</label>
-              <input type="password" id="password" />
+              <input type="password" id="password" ref={passwordInput} onBlur={e => setPassword(e.target.value)}/>
             </InputWrapper>
             <InputRememberMe>
-              <input type="checkbox" id="remember-me" />
+              <input type="checkbox" id="remember-me" ref={rememberMeInput} onClick={e => setRememberMe(e.target.value)}/>
               <label htmlFor="remember-me">Remember me</label>
             </InputRememberMe>
             {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-            <Link className="sign-in-button" to='/user/accounts'>Sign In</Link>
+            <Link onClick={() => login({ email: username, password })} className="sign-in-button" to='/user/accounts'>Sign In</Link>
             {/* <!-- SHOULD BE THE BUTTON BELOW -->
             <!-- <button className="sign-in-button">Sign In</button> -->
             <!--  --> */}
