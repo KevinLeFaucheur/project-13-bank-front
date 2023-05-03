@@ -4,7 +4,8 @@ import { Navbar } from '../layout/Navbar'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { login } from '../services'
-
+import Cookies from 'universal-cookie';
+ 
 const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -47,6 +48,10 @@ const SignInSection = styled.section`
     border-color: #00bc77;
     background-color: #00bc77;
     color: #fff;
+
+    cursor: pointer;
+    text-decoration: underline;
+    border: none;
   }
 
   .fa .sign-in-icon {
@@ -63,6 +68,17 @@ export const SignIn = () => {
   const [password, setPassword] = useState();
   const [rememberMe, setRememberMe] = useState();
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+      const jwt = await login({ email: username, password });
+
+      const cookies = new Cookies();
+      
+      cookies.set('jwt', jwt, { path: '/' });
+      console.log(cookies.get('jwt'));
+  }
+
   return (
     <>
       <Navbar />
@@ -70,7 +86,7 @@ export const SignIn = () => {
         <SignInSection>
           <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <InputWrapper>
               <label htmlFor="username">Username</label>
               <input type="text" id="username" ref={usernameInput} onBlur={e => setUsername(e.target.value)}/>
@@ -84,7 +100,8 @@ export const SignIn = () => {
               <label htmlFor="remember-me">Remember me</label>
             </InputRememberMe>
             {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-            <Link onClick={() => login({ email: username, password })} className="sign-in-button" to='/user/accounts'>Sign In</Link>
+            {/* {<Link onClick={() => login({ email: username, password })} className="sign-in-button" to='/user/accounts'>Sign In</Link>} */}
+            <button type='submit' className="sign-in-button">Sign In</button>
             {/* <!-- SHOULD BE THE BUTTON BELOW -->
             <!-- <button className="sign-in-button">Sign In</button> -->
             <!--  --> */}
