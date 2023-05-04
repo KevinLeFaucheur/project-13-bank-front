@@ -9,7 +9,7 @@ const API_URL = 'http://localhost:3001/api/v1/';
  * 
  * @returns {token: string} data object or Error object
 */
-export const login = async ({ email, password }) => {
+export const signin = async ({ email, password }) => {
     try {
         const { data: { body } } = await axios.post(`${API_URL}user/login`, 
         {

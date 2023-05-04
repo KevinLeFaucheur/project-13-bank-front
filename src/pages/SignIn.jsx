@@ -1,10 +1,12 @@
-import React, { useRef, useState } from 'react'
-import { Footer } from '../layout/Footer'
-import { Navbar } from '../layout/Navbar'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import { login } from '../services'
+import React, { useRef, useState } from 'react';
+import { Footer } from '../layout/Footer';
+import { Navbar } from '../layout/Navbar';
+import styled from 'styled-components';
+import { signin } from '../services';
 import Cookies from 'universal-cookie';
+
+import { useDispatch } from 'react-redux';
+import { login } from '../features/user';
  
 const InputWrapper = styled.div`
   display: flex;
@@ -68,15 +70,20 @@ export const SignIn = () => {
   const [password, setPassword] = useState();
   const [rememberMe, setRememberMe] = useState();
 
+  const dispatch = useDispatch();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-      const jwt = await login({ email: username, password });
+      const jwt = await signin({ email: username, password });
 
       const cookies = new Cookies();
       
       cookies.set('jwt', jwt, { path: '/' });
+      
       console.log(cookies.get('jwt'));
+
+      dispatch(login({ username: username, firstName: 'Tony', lastName: 'Stark' }));
   }
 
   return (

@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import logo from '../images/argentBankLogo.png';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { logout } from '../features/user';
+import Cookies from 'universal-cookie';
 
 const NavbarWrapper = styled.nav`
   display: flex;
@@ -39,6 +43,21 @@ const NavItem = styled(Link)`
 `
 
 export const Navbar = () => {
+  const user = useSelector((state) => state.user.value );
+  const dispatch = useDispatch();
+
+  const signOut = () => {
+    dispatch(logout());
+
+    const cookies = new Cookies();
+    
+    cookies.remove('jwt', { path: '/' });
+
+    console.log(cookies.get('jwt'));
+
+    // Navigate();
+  };
+
   return (
     <NavbarWrapper>
       <Link className="main-nav-logo" to='/'>
@@ -49,20 +68,24 @@ export const Navbar = () => {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>  
+      {user.username === '' ?
       <div>
         <NavItem to='/signin'>
           <i className="fa fa-user-circle"></i>
           &nbsp;Sign In
         </NavItem>
+      </div> 
+      :
+      <div>
         <NavItem to="/user/accounts">
           <i className="fa fa-user-circle"></i>
-          &nbsp;Tony&nbsp;
+          &nbsp;{user?.firstName}&nbsp;
         </NavItem>
-        <NavItem to="/">
+        <NavItem onClick={signOut} to="/signin">
           <i className="fa fa-sign-out"></i>
           &nbsp;Sign Out
         </NavItem>
-      </div>
+      </div>}
     </NavbarWrapper>
   )
 }

@@ -22,7 +22,6 @@ const FeatureItem = styled.div`
 
 export const Feature = ({ feature }) => {
   const { icon, title, text } = feature;
-  console.log(icon);
 
   return (
     <FeatureItem>

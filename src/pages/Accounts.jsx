@@ -1,8 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Account } from '../components/Account'
-import { H2 } from '../styles/Headers'
-import { accounts } from '../data/accountsMock'
+import React from 'react';
+import styled from 'styled-components';
+import { Account } from '../components/Account';
+import { H2 } from '../styles/Headers';
+import { accounts } from '../data/accountsMock';
+
+import { useSelector } from 'react-redux';
 
 const Header = styled.div`
   color: #fff;
@@ -18,10 +20,12 @@ const EditButton = styled.button`
 `
 
 export const Accounts = () => {
+  const user = useSelector((state) => state.user.value );
+
   return (
     <main className="main bg-dark">
       <Header>
-        <h1>Welcome back<br />Tony Jarvis!</h1>
+        <h1>Welcome back<br />{user?.firstName + user?.lastName}!</h1>
         <EditButton>Edit Name</EditButton>
       </Header>
       <H2>Accounts</H2>
