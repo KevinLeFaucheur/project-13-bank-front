@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Account } from '../components/Account';
 import { H2 } from '../styles/Headers';
 import { accounts } from '../data/accountsMock';
 
-import { useSelector } from 'react-redux';
+import { getUserProfile } from '../services';
+import Cookies from 'universal-cookie';
 
 const Header = styled.div`
   color: #fff;
@@ -20,12 +21,32 @@ const EditButton = styled.button`
 `
 
 export const Accounts = () => {
-  const user = useSelector((state) => state.user.value );
+  // const user = useSelector((state) => state.user.value );
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    // declare the data fetching function
+    const fetchData = async () => {
+
+      const jwt = new Cookies().get('jwt', { path: '/' });
+
+      console.log(jwt);
+
+      return await getUserProfile(jwt);
+    }
+
+    // call the function
+    fetchData()
+      .then(data => setUser({ firstName: data.body.firstName, lastName: data.body.lastName }))
+      .catch(console.error);
+
+    // 
+  }, []);
 
   return (
     <main className="main bg-dark">
       <Header>
-        <h1>Welcome back<br />{user?.firstName + user?.lastName}!</h1>
+        <h1>Welcome back<br />{user?.firstName + ' ' +  user?.lastName}!</h1>
         <EditButton>Edit Name</EditButton>
       </Header>
       <H2>Accounts</H2>
