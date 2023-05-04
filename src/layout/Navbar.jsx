@@ -81,7 +81,7 @@ export const Navbar = () => {
           <i className="fa fa-user-circle"></i>
           &nbsp;{user?.firstName}&nbsp;
         </NavItem>
-        <NavItem onClick={signOut} to="/signin">
+        <NavItem onClick={signOut} to="/">
           <i className="fa fa-sign-out"></i>
           &nbsp;Sign Out
         </NavItem>
