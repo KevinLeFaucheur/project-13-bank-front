@@ -9,6 +9,7 @@ const Header = styled.header`
 `
 
 const Button = styled.button`
+  cursor: pointer;
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
@@ -21,7 +22,6 @@ const Input = styled.input`
   font-weight: bold;
   padding: 10px;
   margin-bottom: 1rem;
-
 `
 const HeaderEdit = styled.div`
   display: flex;

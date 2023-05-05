@@ -11,6 +11,8 @@ const ContentWrapper = styled.div`
 `
 const ContentHeader = styled.div`
   display: flex;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
 `
 
 const CollapseIcon = styled.div`
@@ -18,6 +20,7 @@ const CollapseIcon = styled.div`
   margin-right: 1rem;
 
   i {
+    cursor: pointer;
     font-size: 1.5rem;
     font-weight: 800;
   }
@@ -34,6 +37,7 @@ const ContentReveal = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding-left: calc(1rem + 20px);
 `
 
 const ContentRevealItem = styled.div`
@@ -42,10 +46,27 @@ const ContentRevealItem = styled.div`
   text-align: left;
 
   i {
+    cursor: pointer;
     width: 16px;
     height: 16px;
     margin-left: 1rem;
   }
+`
+
+const Button = styled.button`
+  cursor: pointer;
+  border-color: #00bc77;
+  background-color: #00bc77;
+  color: #fff;
+  font-weight: bold;
+  min-width: 100px;
+  padding: 2px;
+  margin-left: 0.25rem;
+`
+
+const Input = styled.input`
+  font-weight: bold;
+  padding: 2px;
 `
 
 export const Transaction = ({ transaction }) => {
@@ -117,7 +138,7 @@ export const Transaction = ({ transaction }) => {
         </>
         :
         <>
-          <input ref={noteInputRef} placeholder='Write something' /><button onClick={handleNoteEdit}>Save</button><button onClick={handleNoteEdit}>Cancel</button>
+          <Input ref={noteInputRef} placeholder='Write something' /><Button onClick={handleNoteEdit}>Save</Button><Button onClick={handleNoteEdit}>Cancel</Button>
         </>}
         </ContentRevealItem>}
       </ContentReveal> : ''}
