@@ -63,7 +63,7 @@ const TableHeader = styled.div`
   width: 100%;
   margin-bottom: 4px;
   color: #fff;
-  padding: 0 2rem;
+  padding: 0 2rem 0 calc(2rem + 20px);
 `
 
 const Table = styled.div`

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 
 const ContentWrapper = styled.div`
@@ -6,12 +6,16 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   background-color: #fff;
   width: 100%;
-  padding: 0.75rem 2rem;
+  padding: 0.75rem 2rem 0.75rem 1rem;
   margin: 2px 0;
+`
+const ContentHeader = styled.div`
+  display: flex;
 `
 
 const CollapseIcon = styled.div`
   width: 20px;
+  margin-right: 1rem;
 
   i {
     font-size: 1.5rem;
@@ -46,9 +50,24 @@ const ContentRevealItem = styled.div`
 
 export const Transaction = ({ transaction }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isCategoryEditing, setIsCategoryEditing] = useState(false);
+  const [isNotesEditing, setIsNotesEditing] = useState(false);
+
+  const selectRef = useRef('');
+  const noteInputRef = useRef('');
 
   const openCollapseHandler = () => {
     setIsOpen(!isOpen);
+    // setIsCategoryEditing(!isCategoryEditing);
+    // setIsNotesEditing(!isNotesEditing);
+  }
+
+  const handleCategoryEdit = () => {
+    setIsCategoryEditing(!isCategoryEditing);
+  }
+
+  const handleNoteEdit = () => {
+    setIsNotesEditing(!isNotesEditing);
   }
 
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -60,22 +79,47 @@ export const Transaction = ({ transaction }) => {
   ];
 
   return (
-    <ContentWrapper onClick={openCollapseHandler} >
-      <Content>
+    <ContentWrapper>
+      <ContentHeader onClick={openCollapseHandler}>
         <CollapseIcon>{isOpen ? 
               <i className="fa fa-solid fa-angle-down"></i> :
               <i className="fa fa-solid fa-angle-up"></i>}
         </CollapseIcon>
-        <div>{month + ' ' + day + 'th, ' + year}</div>
-        <div>{transaction?.description}</div>
-        <div>${transaction?.amount}</div>
-        <div>${transaction?.balance}</div>
-      </Content>
+        <Content>
+          <div>{month + ' ' + day + 'th, ' + year}</div>
+          <div>{transaction?.description}</div>
+          <div>${transaction?.amount}</div>
+          <div>${transaction?.balance}</div>
+        </Content>
+      </ContentHeader>
       {isOpen ? 
       <ContentReveal>
         {<ContentRevealItem>Transaction Type: {transaction?.infos?.transactionType}</ContentRevealItem>}
-        {<ContentRevealItem>Category: {transaction?.infos?.category}<i className="fa fa-solid fa-pencil"></i></ContentRevealItem>}
-        {<ContentRevealItem>Notes: {transaction?.infos?.notes}<i className="fa fa-solid fa-pencil"></i></ContentRevealItem>}
+        {<ContentRevealItem>Category:&nbsp;
+          {!isCategoryEditing ? 
+          <>
+            {/* {transaction?.infos?.category} */ selectRef === '' ? '' : selectRef.current.value}
+            <i onClick={handleCategoryEdit} className="fa fa-solid fa-pencil" />
+          </>
+          :
+          <select onChange={handleCategoryEdit} ref={selectRef} name="categories" id="category-select">
+            <option value="">--Please choose a category--</option>
+            <option value="Food">Food</option>
+            <option value="Animals">Animals</option>
+            <option value="Energy">Energy</option>
+          </select>}
+        </ContentRevealItem>}
+        {<ContentRevealItem>Notes:&nbsp;
+        {!isNotesEditing ?
+        <>
+          {/* {transaction?.infos?.notes} */ noteInputRef === '' ? '' : noteInputRef.current.value}
+          <i onClick={handleNoteEdit} className="fa fa-solid fa-pencil" />
+        </>
+        :
+        <>
+          <input ref={noteInputRef} placeholder='Write something' /><button onClick={handleNoteEdit}>Save</button><button onClick={handleNoteEdit}>Cancel</button>
+        </>}
+        </ContentRevealItem>}
       </ContentReveal> : ''}
     </ContentWrapper>
   )
