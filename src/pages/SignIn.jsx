@@ -7,6 +7,7 @@ import Cookies from 'universal-cookie';
 
 import { useDispatch } from 'react-redux';
 import { login } from '../features/user';
+import { useNavigate } from 'react-router-dom';
  
 const InputWrapper = styled.div`
   display: flex;
@@ -70,6 +71,8 @@ export const SignIn = () => {
   const [password, setPassword] = useState();
   const [rememberMe, setRememberMe] = useState();
 
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
@@ -84,6 +87,8 @@ export const SignIn = () => {
       console.log(cookies.get('jwt'));
 
       dispatch(login({ username: username, firstName: 'Tony', lastName: 'Stark' }));
+
+      navigate('/user/accounts');
   }
 
   return (
@@ -96,11 +101,11 @@ export const SignIn = () => {
           <form onSubmit={handleSubmit}>
             <InputWrapper>
               <label htmlFor="username">Username</label>
-              <input type="text" id="username" ref={usernameInput} onBlur={e => setUsername(e.target.value)}/>
+              <input type="text" id="username" ref={usernameInput} onChange={e => setUsername(e.target.value)}/>
             </InputWrapper>
             <InputWrapper>
               <label htmlFor="password">Password</label>
-              <input type="password" id="password" ref={passwordInput} onBlur={e => setPassword(e.target.value)}/>
+              <input type="password" id="password" ref={passwordInput} onChange={e => setPassword(e.target.value)}/>
             </InputWrapper>
             <InputRememberMe>
               <input type="checkbox" id="remember-me" ref={rememberMeInput} onClick={e => setRememberMe(e.target.value)}/>

@@ -79,8 +79,8 @@ export const Transaction = ({ transaction }) => {
 
   const openCollapseHandler = () => {
     setIsOpen(!isOpen);
-    // setIsCategoryEditing(!isCategoryEditing);
-    // setIsNotesEditing(!isNotesEditing);
+    // setIsCategoryEditing(false);
+    // setIsNotesEditing(false);
   }
 
   const handleCategoryEdit = () => {
