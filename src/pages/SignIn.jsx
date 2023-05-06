@@ -1,13 +1,11 @@
 import React, { useRef, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+
 import { Footer } from '../layout/Footer';
 import { Navbar } from '../layout/Navbar';
-import styled from 'styled-components';
-import { signin } from '../services';
-import Cookies from 'universal-cookie';
-
-import { useDispatch } from 'react-redux';
 import { login } from '../features/user';
-import { useNavigate } from 'react-router-dom';
  
 const InputWrapper = styled.div`
   display: flex;
@@ -63,32 +61,29 @@ const SignInSection = styled.section`
 `
 
 export const SignIn = () => {
-  const usernameInput = useRef();
+  const emailInput = useRef();
   const passwordInput = useRef();
   const rememberMeInput = useRef();
 
-  const [username, setUsername] = useState();
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [rememberMe, setRememberMe] = useState();
 
+  const { isLogged } = useSelector(state => state.user);
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-      const jwt = await signin({ email: username, password });
+      dispatch(login({ email, password }))
+        .then(() => {
+          navigate('/user/accounts')
+        });
+  }
 
-      const cookies = new Cookies();
-      
-      cookies.set('jwt', jwt, { path: '/' });
-      
-      console.log(cookies.get('jwt'));
-
-      dispatch(login({ username: username, firstName: 'Tony', lastName: 'Stark' }));
-
-      navigate('/user/accounts');
+  if(isLogged) {
+    return <Navigate to='/user/accounts' />
   }
 
   return (
@@ -100,8 +95,8 @@ export const SignIn = () => {
           <h1>Sign In</h1>
           <form onSubmit={handleSubmit}>
             <InputWrapper>
-              <label htmlFor="username">Username</label>
-              <input type="text" id="username" ref={usernameInput} onChange={e => setUsername(e.target.value)}/>
+              <label htmlFor="email">Username</label>
+              <input type="text" id="email" ref={emailInput} onChange={e => setEmail(e.target.value)}/>
             </InputWrapper>
             <InputWrapper>
               <label htmlFor="password">Password</label>
@@ -112,7 +107,7 @@ export const SignIn = () => {
               <label htmlFor="remember-me">Remember me</label>
             </InputRememberMe>
             {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-            {/* {<Link onClick={() => login({ email: username, password })} className="sign-in-button" to='/user/accounts'>Sign In</Link>} */}
+            {/* {<Link onClick={() => login({ email: email, password })} className="sign-in-button" to='/user/accounts'>Sign In</Link>} */}
             <button type='submit' className="sign-in-button">Sign In</button>
             {/* <!-- SHOULD BE THE BUTTON BELOW -->
             <!-- <button className="sign-in-button">Sign In</button> -->

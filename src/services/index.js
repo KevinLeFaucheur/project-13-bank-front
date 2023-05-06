@@ -1,10 +1,12 @@
 import axios from "axios";
+import Cookies from "universal-cookie";
 
 // const API_URL = process.env.REACT_APP_API_URL;
 const API_URL = 'http://localhost:3001/api/v1/';
+const cookies = new Cookies();
 
 /**
- * Retrieves general data by endpoint /user/:userId
+ * Retrieves general data by endpoint /user/:userId and set JWT cookie on success
  * @param {{ email: string, username: string}} loginObject 
  * 
  * @returns {token: string} data object or Error object
@@ -16,9 +18,13 @@ export const signin = async ({ email, password }) => {
       "email": email,
       "password": password
     });
-    return body;
 
-  } catch ({ response: { data } }) { 
+    const { token } = body;
+    cookies.set('jwt', token, { path: '/' });
+
+    return { email, password };
+  } 
+  catch ({ response: { data } }) { 
 
     switch(data.status) {
       case 404: console.log(data.message);
@@ -31,6 +37,13 @@ export const signin = async ({ email, password }) => {
     }
     // return new Error(`${data.message}, please try again later.`);
   }
+};
+
+/**
+ * Removes JWT from cookies
+ */
+export const signout = () => {
+  cookies.remove('jwt', { path: '/' });
 };
 
 /**
@@ -48,9 +61,10 @@ export const signup = async ({ email, password, firstName, lastName }) => {
       "lastName": lastName
     });
     console.log(data);
-    return data;
 
-  } catch (error) { 
+    return data;
+  } 
+  catch (error) { 
     console.log(error.response);
     // return new Error(`${data.message}, please try again later.`);
   }
@@ -62,19 +76,21 @@ export const signup = async ({ email, password, firstName, lastName }) => {
  * 
  * @returns {  }
  */
-export const getUserProfile = async ({ token }) => {
+export const getUserProfile = async () => {
   try {
-      const  { data }  = await axios.post(`${API_URL}user/profile`, {},
-      {
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}` 
-        }
-      });
-      console.log(data);
-      return data;
+    const token = cookies.get('jwt', { path: '/' });
+    const  { data: { body } }  = await axios.post(`${API_URL}user/profile`, {},
+    {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}` 
+      }
+    });
+    console.log(body);
 
-  } catch (error) { 
+    return body;
+  } 
+  catch (error) { 
     console.log(error.response);
       // return new Error(`${data.message}, please try again later.`);
   }
@@ -86,9 +102,10 @@ export const getUserProfile = async ({ token }) => {
  * 
  * @returns {  }
  */
-export const updateUserProfile = async ({ email, password, token }) => {
+export const updateUserProfile = async ({ email, password }) => {
   try {
-    const  { data }  = await axios.put(`${API_URL}user/profile`,
+    const token = cookies.get('jwt', { path: '/' });
+    const  { data: { body } }  = await axios.put(`${API_URL}user/profile`,
     {
       "firstName": email,
       "lastName": password
@@ -97,10 +114,11 @@ export const updateUserProfile = async ({ email, password, token }) => {
       headers: { "Authorization": `Bearer ${token}` }
     }
     );
-    console.log(data);
-    return data;
+    console.log(body);
 
-  } catch (error) { 
+    return body;
+  } 
+  catch (error) { 
     console.log(error.response);
     // return new Error(`${data.message}, please try again later.`);
   }

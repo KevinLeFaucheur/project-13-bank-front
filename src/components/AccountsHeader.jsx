@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Cookies from 'universal-cookie';
-import { getUserProfile } from '../services';
+import { Navigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProfile } from '../features/user';
 
 const Header = styled.header`
   color: #fff;
@@ -43,33 +44,22 @@ const HeaderRight = styled.div`
 `
 
 export const AccountsHeader = () => {
-  // const user = useSelector((state) => state.user.value );
-  const [user, setUser] = useState({});
   const [isEditing, setIsEditing] = useState(false);
+  const { infos } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  console.log(infos);
+
+  useEffect(() => {
+    dispatch(getProfile());
+  }, [dispatch]);
+
+  // if (!infos) {
+  //   return <Navigate to="/signin" />;
+  // };
 
   const handleIsEdit = () => {
     setIsEditing(!isEditing);
   };
-
-  const fetchData = async () => {
-
-    const jwt = new Cookies().get('jwt', { path: '/' });
-
-    console.log(jwt);
-
-    return await getUserProfile(jwt);
-  };
-
-  useEffect(() => {
-    // declare the data fetching function
-
-    // call the function
-    fetchData()
-      .then(data => setUser({ firstName: data.body.firstName, lastName: data.body.lastName }))
-      .catch(console.error);
-
-    // 
-  }, []);
 
   return (
     <Header>
@@ -78,18 +68,18 @@ export const AccountsHeader = () => {
         <h1>Welcome back</h1>
         <HeaderEdit>
           <HeaderLeft>
-              <Input placeholder={`${user?.firstName}`} />
+              <Input placeholder={`${infos?.firstName}`} />
               <Button onClick={handleIsEdit} >Save</Button>
           </HeaderLeft>
           <HeaderRight>
-              <Input placeholder={`${user?.lastName}`} />
+              <Input placeholder={`${infos?.lastName}`} />
               <Button onClick={handleIsEdit} >Cancel</Button>
           </HeaderRight>
         </HeaderEdit>
       </>
       : 
       <>
-        <h1>Welcome back<br />{user?.firstName + ' ' +  user?.lastName}!</h1>
+        <h1>Welcome back<br />{infos?.firstName + ' ' +  infos?.lastName}!</h1>
         <Button onClick={handleIsEdit}>Edit Name</Button>
       </>}
     </Header>
