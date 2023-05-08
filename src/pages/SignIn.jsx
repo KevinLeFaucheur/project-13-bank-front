@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { Footer } from '../layout/Footer';
 import { Navbar } from '../layout/Navbar';
-import { getProfile, login } from '../features/user';
+import { getProfile, login, rememberUsername } from '../features/user';
  
 const InputWrapper = styled.div`
   display: flex;
@@ -61,39 +61,48 @@ const SignInSection = styled.section`
 `
 
 export const SignIn = () => {
-  const emailInput = useRef();
+  const usernameInput = useRef();
   const passwordInput = useRef();
   const rememberMeInput = useRef();
 
-  const [email, setEmail] = useState();
+  const [username, setUsername] = useState();
   const [password, setPassword] = useState();
 
   const { isLogged } = useSelector(state => state.user);
-  // const { rememberMe } = useSelector(state => state.user);
+  const { rememberMe } = useSelector(state => state.user);
+  const { email } = useSelector(state => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
 	const handleRememberMe = () => {
-		// dispatch(rememberUsername);
+		dispatch(rememberUsername(rememberMeInput.current.checked));
 	}
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-      dispatch(login({ email, password }))
+      dispatch(login({ email: username, password }))
         .then(() => {
 
           dispatch(getProfile())
 						.then(() => {
+							console.log('do i get here');
 
 							navigate('/user/accounts');
 						})
         });
   }
 
-  if(isLogged) {
-    return <Navigate to='/user/accounts' />
-  }
+	useEffect(() => {
+		// if(isLogged) {
+		// 	return <Navigate to='/user/accounts' />
+		// }
+
+		if(rememberMe) {
+			usernameInput.value = email;
+		}
+	}, [email, rememberMe])
+		
 
   return (
     <>
@@ -104,19 +113,19 @@ export const SignIn = () => {
           <h1>Sign In</h1>
           <form onSubmit={handleSubmit}>
             <InputWrapper>
-              <label htmlFor="email">Username</label>
-              <input type="text" id="email" ref={emailInput} onChange={e => setEmail(e.target.value)}/>
+              <label htmlFor="username">Username</label>
+              <input type="text" id="username" ref={usernameInput} onChange={e => setUsername(e.target.value)}/>
             </InputWrapper>
             <InputWrapper>
               <label htmlFor="password">Password</label>
               <input type="password" id="password" ref={passwordInput} onChange={e => setPassword(e.target.value)}/>
             </InputWrapper>
             <InputRememberMe>
-              <input type="checkbox" id="remember-me" ref={rememberMeInput} onClick={e => handleRememberMe(e.target.value)}/>
+              <input type="checkbox" id="remember-me" ref={rememberMeInput} onClick={handleRememberMe}/>
               <label htmlFor="remember-me">Remember me</label>
             </InputRememberMe>
             {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-            {/* {<Link onClick={() => login({ email: email, password })} className="sign-in-button" to='/user/accounts'>Sign In</Link>} */}
+            {/* {<Link onClick={() => login({ username: username, password })} className="sign-in-button" to='/user/accounts'>Sign In</Link>} */}
             <button type='submit' className="sign-in-button">Sign In</button>
             {/* <!-- SHOULD BE THE BUTTON BELOW -->
             <!-- <button className="sign-in-button">Sign In</button> -->

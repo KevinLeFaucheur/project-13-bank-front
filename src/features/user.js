@@ -4,7 +4,8 @@ import { getUserProfile, signin, signout } from "../services";
 // const initialStateValue = { username: '',  firstName: '', lastName: '' };
 const initialState = { 
   isLogged: false,
-  credentials: null
+  credentials: null,
+  rememberMe: false
 };
 
 export const login = createAsyncThunk(
@@ -41,6 +42,9 @@ export const { actions, reducer } = createSlice({
       signout();
       state.credentials = null;
       state.isLogged = false;
+    },
+    rememberUsername: (state, action) => {
+      state.rememberMe = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -54,5 +58,5 @@ export const { actions, reducer } = createSlice({
   }
 });
 
-export const { logout } = actions;
+export const { logout, rememberUsername } = actions;
 export default reducer;
