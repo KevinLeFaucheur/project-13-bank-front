@@ -4,16 +4,14 @@ import { getUserProfile, signin, signout } from "../services";
 // const initialStateValue = { username: '',  firstName: '', lastName: '' };
 const initialState = { 
   isLogged: false,
-  credentials: null,
-  infos: null
+  credentials: null
 };
 
 export const login = createAsyncThunk(
   'user/login',
   async ({ email, password }, thunkAPI) => {
     try {
-      const data = await signin({ email, password });
-      return { credentials: data };
+      return await signin({ email, password });
     } 
     catch (error) {
       console.log(error);
@@ -27,7 +25,7 @@ export const getProfile = createAsyncThunk(
     try {
       const data = await getUserProfile();
       console.log(data);
-      return { infos: data };
+      return { credentials: data };
     } 
     catch (error) {
       console.log(error);
@@ -42,18 +40,16 @@ export const { actions, reducer } = createSlice({
     logout: (state) => {
       signout();
       state.credentials = null;
-      state.infos = null;
       state.isLogged = false;
     }
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(login.fulfilled, (state, action) => {
-      state.credentials = action.payload.credentials;
       state.isLogged = true;
     })
     builder.addCase(getProfile.fulfilled, (state, action) => {
-      state.infos = action.payload.infos;
+      state.credentials = action.payload.credentials;
     })
   }
 });

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfile } from '../features/user';
 
@@ -45,17 +44,13 @@ const HeaderRight = styled.div`
 
 export const AccountsHeader = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const { infos } = useSelector((state) => state.user);
+  const { credentials } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  console.log(infos);
+  console.log(credentials);
 
   useEffect(() => {
     dispatch(getProfile());
   }, [dispatch]);
-
-  // if (!infos) {
-  //   return <Navigate to="/signin" />;
-  // };
 
   const handleIsEdit = () => {
     setIsEditing(!isEditing);
@@ -68,18 +63,18 @@ export const AccountsHeader = () => {
         <h1>Welcome back</h1>
         <HeaderEdit>
           <HeaderLeft>
-              <Input placeholder={`${infos?.firstName}`} />
+              <Input placeholder={`${credentials?.firstName}`} />
               <Button onClick={handleIsEdit} >Save</Button>
           </HeaderLeft>
           <HeaderRight>
-              <Input placeholder={`${infos?.lastName}`} />
+              <Input placeholder={`${credentials?.lastName}`} />
               <Button onClick={handleIsEdit} >Cancel</Button>
           </HeaderRight>
         </HeaderEdit>
       </>
       : 
       <>
-        <h1>Welcome back<br />{infos?.firstName + ' ' +  infos?.lastName}!</h1>
+        <h1>Welcome back<br />{credentials?.firstName + ' ' +  credentials?.lastName}!</h1>
         <Button onClick={handleIsEdit}>Edit Name</Button>
       </>}
     </Header>

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { Footer } from '../layout/Footer';
 import { Navbar } from '../layout/Navbar';
-import { login } from '../features/user';
+import { getProfile, login } from '../features/user';
  
 const InputWrapper = styled.div`
   display: flex;
@@ -67,18 +67,27 @@ export const SignIn = () => {
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [rememberMe, setRememberMe] = useState();
 
   const { isLogged } = useSelector(state => state.user);
+  // const { rememberMe } = useSelector(state => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+	const handleRememberMe = () => {
+		// dispatch(rememberUsername);
+	}
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
       dispatch(login({ email, password }))
         .then(() => {
-          navigate('/user/accounts')
+
+          dispatch(getProfile())
+						.then(() => {
+
+							navigate('/user/accounts');
+						})
         });
   }
 
@@ -103,7 +112,7 @@ export const SignIn = () => {
               <input type="password" id="password" ref={passwordInput} onChange={e => setPassword(e.target.value)}/>
             </InputWrapper>
             <InputRememberMe>
-              <input type="checkbox" id="remember-me" ref={rememberMeInput} onClick={e => setRememberMe(e.target.value)}/>
+              <input type="checkbox" id="remember-me" ref={rememberMeInput} onClick={e => handleRememberMe(e.target.value)}/>
               <label htmlFor="remember-me">Remember me</label>
             </InputRememberMe>
             {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}

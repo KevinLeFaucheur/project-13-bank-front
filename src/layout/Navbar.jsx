@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 import logo from '../images/argentBankLogo.png';
 import { logout } from '../features/user';
-import { signout } from '../services';
 
 const NavbarWrapper = styled.nav`
   display: flex;
@@ -43,7 +42,7 @@ const NavItem = styled(Link)`
 `
 
 export const Navbar = () => {
-  const { infos } = useSelector((state) => state.user );
+  const { credentials } = useSelector((state) => state.user );
   const dispatch = useDispatch();
 
   const handleSignOut = () => {
@@ -60,7 +59,7 @@ export const Navbar = () => {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>  
-      {!infos ?
+      {!credentials ?
       <div>
         <NavItem to='/signin'>
           <i className="fa fa-user-circle"></i>
@@ -71,7 +70,7 @@ export const Navbar = () => {
       <div>
         <NavItem to="/user/accounts">
           <i className="fa fa-user-circle"></i>
-          &nbsp;{infos.firstName}&nbsp;
+          &nbsp;{credentials.firstName}&nbsp;
         </NavItem>
         <NavItem onClick={handleSignOut} to="/">
           <i className="fa fa-sign-out"></i>
