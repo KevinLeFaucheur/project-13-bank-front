@@ -72,21 +72,21 @@ export const signup = async ({ email, password, firstName, lastName }) => {
 
 /**
  * Retrieves user profile if JWT is validated
- * @param {string} token Passing current user JWT from cookie as authorization
+ * @param {} token Passing current user JWT from cookie as authorization
  * 
  * @returns {  }
  */
 export const getUserProfile = async () => {
   try {
     const token = cookies.get('jwt', { path: '/' });
-    const  { data: { body } }  = await axios.post(`${API_URL}user/profile`, {},
+    const  { data: { body } }  = await axios.post(`${API_URL}user/profile`, 
+    {},
     {
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${token}` 
       }
     });
-    console.log(body);
 
     return body;
   } 
@@ -98,23 +98,24 @@ export const getUserProfile = async () => {
 
 /**
  * Updates user profile if JWT is validated
- * @param {{ email: string, password: string, token: string}}
+ * @param {{ firstName: string, lastName: string }}
  * 
  * @returns {  }
  */
-export const updateUserProfile = async ({ email, password }) => {
+export const updateUserProfile = async ({ firstName, lastName }) => {
   try {
     const token = cookies.get('jwt', { path: '/' });
     const  { data: { body } }  = await axios.put(`${API_URL}user/profile`,
     {
-      "firstName": email,
-      "lastName": password
+      "firstName": firstName,
+      "lastName": lastName
     },
-    { 
-      headers: { "Authorization": `Bearer ${token}` }
-    }
-    );
-    console.log(body);
+    {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}` 
+      }
+    });
 
     return body;
   } 

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProfile } from '../features/user';
+import { getProfile, updateProfile } from '../features/user';
 
 const Header = styled.header`
   color: #fff;
@@ -46,7 +46,9 @@ export const AccountsHeader = () => {
   const [isEditing, setIsEditing] = useState(false);
   const { credentials } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  console.log(credentials);
+
+  const firstNameRef = useRef('');
+  const lastNameRef = useRef('');
 
   useEffect(() => {
     dispatch(getProfile());
@@ -54,6 +56,13 @@ export const AccountsHeader = () => {
 
   const handleIsEdit = () => {
     setIsEditing(!isEditing);
+    dispatch(getProfile());
+  };
+
+  const handleSaveEdit = () => {
+    setIsEditing(!isEditing);
+    if(firstNameRef.current.value === '' || lastNameRef.current.value === '') return;
+    dispatch(updateProfile({ firstName: firstNameRef.current.value, lastName: lastNameRef.current.value }));
   };
 
   return (
@@ -63,11 +72,11 @@ export const AccountsHeader = () => {
         <h1>Welcome back</h1>
         <HeaderEdit>
           <HeaderLeft>
-              <Input placeholder={`${credentials?.firstName}`} />
-              <Button onClick={handleIsEdit} >Save</Button>
+              <Input ref={firstNameRef} placeholder={`${credentials?.firstName}`} />
+              <Button onClick={handleSaveEdit} >Save</Button>
           </HeaderLeft>
           <HeaderRight>
-              <Input placeholder={`${credentials?.lastName}`} />
+              <Input ref={lastNameRef} placeholder={`${credentials?.lastName}`} />
               <Button onClick={handleIsEdit} >Cancel</Button>
           </HeaderRight>
         </HeaderEdit>

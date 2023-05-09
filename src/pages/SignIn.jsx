@@ -86,8 +86,6 @@ export const SignIn = () => {
 
           dispatch(getProfile())
 						.then(() => {
-							console.log('do i get here');
-
 							navigate('/user/accounts');
 						})
         });
