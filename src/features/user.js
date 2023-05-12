@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getUserProfile, signin, signout, updateUserProfile } from "../services/auth";
+import { getUserProfile, signin, signout, signup, updateUserProfile } from "../services/auth";
 
 const initialState = { 
   isLogged: false,
@@ -12,6 +12,18 @@ export const login = createAsyncThunk(
   async ({ email, password }, thunkAPI) => {
     try {
       return await signin({ email, password });
+    } 
+    catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const register = createAsyncThunk(
+  'user/register',
+  async ({ email, password, firstName, lastName }, thunkAPI) => {
+    try {
+      return await signup({ email, password, firstName, lastName });
     } 
     catch (error) {
       console.log(error);
@@ -59,9 +71,11 @@ export const { actions, reducer } = createSlice({
     }
   },
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLogged = true;
+    })
+    builder.addCase(register.fulfilled, (state, action) => {
+      console.log(action.payload);
     })
     builder.addCase(getProfile.fulfilled, (state, action) => {
       state.credentials = action.payload.credentials;
