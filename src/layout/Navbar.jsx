@@ -61,7 +61,7 @@ export const Navbar = () => {
       </Link>  
       {!credentials ?
       <div>
-        <NavItem to='/signin'>
+        <NavItem to='/login'>
           <i className="fa fa-user-circle"></i>
           &nbsp;Sign In
         </NavItem>

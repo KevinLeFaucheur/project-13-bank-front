@@ -15,6 +15,6 @@ export const User = () => {
       <Footer />
     </>
     :
-    <Navigate to={'/signin'} state={{ message: 'Please log in!' }} />
+    <Navigate to={'/login'} state={{ message: 'Please log in!' }} />
   )
 }
