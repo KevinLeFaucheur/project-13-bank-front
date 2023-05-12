@@ -87,16 +87,12 @@ export const SignIn = () => {
 
           dispatch(getProfile())
 						.then(() => {
-							navigate('/user/accounts');
+							navigate('/user/profile');
 						})
         });
   }
 
 	useEffect(() => {
-		// if(isLogged) {
-		// 	return <Navigate to='/user/accounts' />
-		// }
-
 		if(rememberMe) {
 			usernameInput.value = email;
 		}
@@ -124,7 +120,7 @@ export const SignIn = () => {
               <label htmlFor="remember-me">Remember me</label>
             </InputRememberMe>
             {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-            {/* {<Link onClick={() => login({ username: username, password })} className="sign-in-button" to='/user/accounts'>Sign In</Link>} */}
+            {/* {<Link onClick={() => login({ username: username, password })} className="sign-in-button" to='/user/profile'>Sign In</Link>} */}
             <button type='submit' className="sign-in-button">Sign In</button>
             {/* <!-- SHOULD BE THE BUTTON BELOW -->
             <!-- <button className="sign-in-button">Sign In</button> -->

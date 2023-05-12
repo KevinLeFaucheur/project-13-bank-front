@@ -68,7 +68,7 @@ export const Navbar = () => {
       </div> 
       :
       <div>
-        <NavItem to="/user/accounts">
+        <NavItem to="/user/profile">
           <i className="fa fa-user-circle"></i>
           &nbsp;{credentials.firstName}&nbsp;
         </NavItem>

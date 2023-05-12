@@ -90,13 +90,13 @@ export const SignUp = () => {
 
       dispatch(register(/*{ email: username, password, firstName, lastName }*/ signup))
         .then(() => {
-					navigate('/signin');
+					navigate('/login');
         });
   }
 
 	useEffect(() => {
 		// if(isLogged) {
-		// 	return <Navigate to='/user/accounts' />
+		// 	return <Navigate to='/user/profile' />
 		// }
 
 		if(rememberMe) {

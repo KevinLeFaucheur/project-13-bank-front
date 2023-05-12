@@ -13,7 +13,7 @@ export const App = () => {
       <Route path="/login" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/user" element={<User />} >
-        <Route path="accounts" element={<Accounts />} />
+        <Route path="profile" element={<Accounts />} />
         <Route path="transactions" element={<Transactions />} />
       </Route>
       {/* <Route path="*" element={<Error />} /> */}
