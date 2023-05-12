@@ -115,19 +115,19 @@ export const SignUp = () => {
           <form onSubmit={handleSubmit}>
             <InputWrapper>
               <label htmlFor="username">Username</label>
-              <input placeholder='email' type="text" id="username" ref={usernameInput} onChange={e => handleRegister({ email: e.target.value})}/>
+              <input placeholder='email' type="email" id="username" ref={usernameInput} onChange={e => handleRegister({ email: e.target.value})} required />
             </InputWrapper>
             <InputWrapper>
               <label htmlFor="firstName">First Name</label>
-              <input type="text" id="firstName" ref={firstNameInput} onChange={e => handleRegister({ firstName: e.target.value})}/>
+              <input type="text" id="firstName" ref={firstNameInput} onChange={e => handleRegister({ firstName: e.target.value})} required />
             </InputWrapper>
             <InputWrapper>
               <label htmlFor="lastName">Last Name</label>
-              <input type="text" id="lastName" ref={lastNameInput} onChange={e => handleRegister({ lastName: e.target.value})}/>
+              <input type="text" id="lastName" ref={lastNameInput} onChange={e => handleRegister({ lastName: e.target.value})} required />
             </InputWrapper>
             <InputWrapper>
               <label htmlFor="password">Password</label>
-              <input type="password" id="password" ref={passwordInput} onChange={e => handleRegister({ password: e.target.value})}/>
+              <input type="password" id="password" ref={passwordInput} onChange={e => handleRegister({ password: e.target.value})} required />
             </InputWrapper>
             {/* <InputWrapper>
               <label htmlFor="confirmPassword">Confirm Password</label>

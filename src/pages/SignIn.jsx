@@ -83,6 +83,7 @@ export const SignIn = () => {
     event.preventDefault();
 
       dispatch(login({ email: username, password }))
+        .unwrap()
         .then(() => {
 
           dispatch(getProfile())
@@ -106,6 +107,7 @@ export const SignIn = () => {
         <SignInSection>
           <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
+          {state?.message ? <p>{state.message} or <a href='/signup'>sign up</a></p> : ''}
           <form onSubmit={handleSubmit}>
             <InputWrapper>
               <label htmlFor="username">Username</label>
