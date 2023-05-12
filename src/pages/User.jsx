@@ -5,16 +5,16 @@ import { Navbar } from '../layout/Navbar';
 import { useSelector } from 'react-redux';
 
 export const User = () => {
-  // const isLogged = useSelector(state => state.user.value);
+  const { isLogged } = useSelector((state) => state.user );
 
   return (
-    // isLogged ?
+    isLogged ?
     <>
       <Navbar />
       <Outlet />
       <Footer />
     </>
-    // :
-    // <Navigate to={'/signin'} />
+    :
+    <Navigate to={'/signin'} state={{ message: 'Please log in!' }} />
   )
 }

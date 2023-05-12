@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -72,6 +72,7 @@ export const SignIn = () => {
   const { rememberMe } = useSelector(state => state.user);
   const { email } = useSelector(state => state.user);
   const navigate = useNavigate();
+  const { state } = useLocation();
   const dispatch = useDispatch();
 
 	const handleRememberMe = () => {

@@ -83,7 +83,6 @@ export const SignUp = () => {
 
   const handleRegister = (value) => {
     setSignup({ ...signup, ...value });
-    console.log(signup);
   };
 
   const handleSubmit = async (event) => {
