@@ -61,6 +61,10 @@ const SignInSection = styled.section`
 `
 
 export const SignIn = () => {
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const dispatch = useDispatch();
+
   const usernameInput = useRef();
   const passwordInput = useRef();
   const rememberMeInput = useRef();
@@ -71,9 +75,6 @@ export const SignIn = () => {
   const { isLogged } = useSelector(state => state.user);
   const { rememberMe } = useSelector(state => state.user);
   const { email } = useSelector(state => state.user);
-  const navigate = useNavigate();
-  const { state } = useLocation();
-  const dispatch = useDispatch();
 
 	const handleRememberMe = () => {
 		dispatch(rememberUsername(rememberMeInput.current.checked));
@@ -83,13 +84,13 @@ export const SignIn = () => {
     event.preventDefault();
 
       dispatch(login({ email: username, password }))
-        .unwrap()
         .then(() => {
+          navigate('/user/profile');
 
-          dispatch(getProfile())
-						.then(() => {
-							navigate('/user/profile');
-						})
+          // dispatch(getProfile())
+					// 	.then(() => {
+					// 		navigate('/user/profile');
+					// 	})
         });
   }
 
@@ -98,7 +99,11 @@ export const SignIn = () => {
 			usernameInput.value = email;
 		}
 	}, [email, rememberMe])
-		
+
+  if(isLogged) {
+    console.log('test');
+    return <Navigate to='/user/profile' />;
+  }
 
   return (
     <>
@@ -121,12 +126,7 @@ export const SignIn = () => {
               <input type="checkbox" id="remember-me" ref={rememberMeInput} onClick={handleRememberMe}/>
               <label htmlFor="remember-me">Remember me</label>
             </InputRememberMe>
-            {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-            {/* {<Link onClick={() => login({ username: username, password })} className="sign-in-button" to='/user/profile'>Sign In</Link>} */}
             <button type='submit' className="sign-in-button">Sign In</button>
-            {/* <!-- SHOULD BE THE BUTTON BELOW -->
-            <!-- <button className="sign-in-button">Sign In</button> -->
-            <!--  --> */}
           </form>
         </SignInSection>
       </main>

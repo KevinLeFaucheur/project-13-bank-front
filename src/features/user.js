@@ -74,6 +74,10 @@ export const { actions, reducer } = createSlice({
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLogged = true;
     })
+    builder.addCase(login.rejected, (state, action) => {
+      state.credentials = null;
+      state.isLogged = false;
+    })
     builder.addCase(register.fulfilled, (state, action) => {
       console.log(action.payload);
     })
