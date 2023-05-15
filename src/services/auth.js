@@ -116,7 +116,7 @@ export const getUserProfile = async () => {
 export const updateUserProfile = async ({ firstName, lastName }) => {
   try {
     const token = cookies.get('jwt', { path: '/' });
-    const  { data: { body } }  = await axios.put(`${API_URL}user/profile`,
+    const { data } = await axios.put(`${API_URL}user/profile`,
     {
       "firstName": firstName,
       "lastName": lastName
@@ -128,7 +128,7 @@ export const updateUserProfile = async ({ firstName, lastName }) => {
       }
     });
 
-    return body;
+    return data;
   } 
   catch (error) { 
     console.log(error.response);

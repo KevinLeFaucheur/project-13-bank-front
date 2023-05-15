@@ -43,7 +43,7 @@ export const register = createAsyncThunk(
 
 export const getProfile = createAsyncThunk(
   'user/profile',
-  async (something, thunkAPI) => {
+  async (payload, thunkAPI) => {
     const response = await getUserProfile();
     thunkAPI.dispatch(setMessage(response.message));
     console.log(response);
@@ -63,14 +63,18 @@ export const getProfile = createAsyncThunk(
 export const updateProfile = createAsyncThunk(
   'user/update',
   async ({ firstName, lastName }, thunkAPI) => {
-    try {
-      const response = await updateUserProfile({ firstName, lastName });
-      thunkAPI.dispatch(setMessage(response.message));
-      return response ;
-    } 
-    catch (error) {
-      console.log(error);
-    }
+    const response = await updateUserProfile({ firstName, lastName });
+    thunkAPI.dispatch(setMessage(response.message));
+    console.log(response);
+    return response.body;
+    // try {
+    //   const response = await updateUserProfile({ firstName, lastName });
+    //   thunkAPI.dispatch(setMessage(response.message));
+    //   return response ;
+    // } 
+    // catch (error) {
+    //   console.log(error);
+    // }
   }
 );
 
