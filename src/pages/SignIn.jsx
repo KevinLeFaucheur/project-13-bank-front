@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { Footer } from '../layout/Footer';
 import { Navbar } from '../layout/Navbar';
-import { getProfile, login, rememberUsername } from '../features/user';
+import { login, rememberUsername } from '../features/user';
  
 const InputWrapper = styled.div`
   display: flex;
@@ -84,13 +84,12 @@ export const SignIn = () => {
     event.preventDefault();
 
       dispatch(login({ email: username, password }))
+        .unwrap()
         .then(() => {
-          navigate('/user/profile');
-
-          // dispatch(getProfile())
-					// 	.then(() => {
-					// 		navigate('/user/profile');
-					// 	})
+          navigate('/user/profile'); 
+        })
+        .catch((error) => {
+          console.log(error);
         });
   }
 
@@ -101,7 +100,6 @@ export const SignIn = () => {
 	}, [email, rememberMe])
 
   if(isLogged) {
-    console.log('test');
     return <Navigate to='/user/profile' />;
   }
 

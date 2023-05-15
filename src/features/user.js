@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getUserProfile, signin, signout, signup, updateUserProfile } from "../services/auth";
+import { setMessage } from "./message";
 
 const initialState = { 
   isLogged: false,
@@ -10,12 +11,18 @@ const initialState = {
 export const login = createAsyncThunk(
   'user/login',
   async ({ email, password }, thunkAPI) => {
-    try {
-      return await signin({ email, password });
-    } 
-    catch (error) {
-      console.log(error);
-    }
+    const response = await signin({ email, password });
+    thunkAPI.dispatch(setMessage(response.message));
+    return response.message;
+    // try {
+    //   const response = await signin({ email, password });
+    //   console.log(response);
+    //   return response;
+    // } 
+    // catch (error) {
+    //   console.log('rejectWithValue');
+    //   return thunkAPI.rejectWithValue();
+    // }
   }
 );
 
@@ -75,6 +82,7 @@ export const { actions, reducer } = createSlice({
       state.isLogged = true;
     })
     builder.addCase(login.rejected, (state, action) => {
+      console.log('login.rejected');
       state.credentials = null;
       state.isLogged = false;
     })

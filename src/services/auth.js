@@ -12,31 +12,41 @@ const cookies = new Cookies();
  * @returns {token: string} data object or Error object
 */
 export const signin = async ({ email, password }) => {
-  try {
-    const { data: { body } } = await axios.post(`${API_URL}user/login`, 
-    {
-      "email": email,
-      "password": password
-    });
-
-    const { token } = body;
-    cookies.set('jwt', token, { path: '/' });
-
-    return { email, password };
-  } 
-  catch ({ response: { data } }) { 
-
-    switch(data.status) {
-      case 404: console.log(data.message);
-      break;
-      case 400: console.log(data.message);
-      break;
-      case 500: console.log(data.message);
-      break;
-      default:
+  return await axios.post(`${API_URL}user/login`, 
+  {
+    "email": email,
+    "password": password
+  }).then((response) => {
+    if(response.data.body.token) {
+      const { token } = response.data.body;
+      cookies.set('jwt', token, { path: '/' });
+      return response.data;
     }
-    // return new Error(`${data.message}, please try again later.`);
-  }
+  })
+  // try {
+  //   const { data: { body } } = await axios.post(`${API_URL}user/login`, 
+  //   {
+  //     "email": email,
+  //     "password": password
+  //   });
+
+  //   const { token } = body;
+  //   cookies.set('jwt', token, { path: '/' });
+
+  //   return { email, password };
+  // } 
+  // catch ({ response: { data } }) { 
+  //   cookies.remove('jwt', { path: '/' });
+
+  //   switch(data.status) {
+  //     case 400: Promise.reject(data); break;
+  //     case 401: Promise.reject(data); break;
+  //     case 404: Promise.reject(data); break;
+  //     case 500: Promise.reject(data); break;
+  //     default:
+  //   }
+  //   return new Error(`${data.message}, please try again later.`);
+  // }
 };
 
 /**
