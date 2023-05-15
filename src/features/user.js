@@ -13,7 +13,7 @@ export const login = createAsyncThunk(
   async ({ email, password }, thunkAPI) => {
     const response = await signin({ email, password });
     thunkAPI.dispatch(setMessage(response.message));
-    return response.message;
+    return response;
     // try {
     //   const response = await signin({ email, password });
     //   console.log(response);
@@ -29,25 +29,34 @@ export const login = createAsyncThunk(
 export const register = createAsyncThunk(
   'user/register',
   async ({ email, password, firstName, lastName }, thunkAPI) => {
-    try {
-      return await signup({ email, password, firstName, lastName });
-    } 
-    catch (error) {
-      console.log(error);
-    }
+    const response = await signup({ email, password, firstName, lastName });
+    thunkAPI.dispatch(setMessage(response.message));
+    return response.message;
+    // try {
+    //   return await signup({ email, password, firstName, lastName });
+    // } 
+    // catch (error) {
+    //   console.log(error);
+    // }
   }
 );
 
 export const getProfile = createAsyncThunk(
   'user/profile',
-  async () => {
-    try {
-      const data = await getUserProfile();
-      return { credentials: data };
-    } 
-    catch (error) {
-      console.log(error);
-    }
+  async (something, thunkAPI) => {
+    const response = await getUserProfile();
+    thunkAPI.dispatch(setMessage(response.message));
+    console.log(response);
+    return { credentials: response.body };
+    // try {
+    //   const response = await getUserProfile();
+    //   thunkAPI.dispatch(setMessage(response.message));
+    //   console.log(response.message);
+    //   return { credentials: response.body };
+    // } 
+    // catch (error) {
+    //   console.log(error);
+    // }
   }
 );
 
@@ -55,8 +64,9 @@ export const updateProfile = createAsyncThunk(
   'user/update',
   async ({ firstName, lastName }, thunkAPI) => {
     try {
-      const data = await updateUserProfile({ firstName, lastName });
-      return data ;
+      const response = await updateUserProfile({ firstName, lastName });
+      thunkAPI.dispatch(setMessage(response.message));
+      return response ;
     } 
     catch (error) {
       console.log(error);
@@ -90,6 +100,7 @@ export const { actions, reducer } = createSlice({
       console.log(action.payload);
     })
     builder.addCase(getProfile.fulfilled, (state, action) => {
+      console.log('getProfile.fulfilled');
       state.credentials = action.payload.credentials;
     })
     builder.addCase(updateProfile.fulfilled, (state, action) => {

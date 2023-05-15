@@ -89,7 +89,7 @@ export const signup = async ({ email, password, firstName, lastName }) => {
 export const getUserProfile = async () => {
   try {
     const token = cookies.get('jwt', { path: '/' });
-    const  { data: { body } }  = await axios.post(`${API_URL}user/profile`, 
+    const  { data }  = await axios.post(`${API_URL}user/profile`, 
     {},
     {
       headers: {
@@ -97,8 +97,9 @@ export const getUserProfile = async () => {
         Authorization: `Bearer ${token}` 
       }
     });
+    console.log(data);
 
-    return body;
+    return data;
   } 
   catch (error) { 
     console.log(error.response);
