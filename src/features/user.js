@@ -11,38 +11,69 @@ const initialState = {
 export const login = createAsyncThunk(
   'user/login',
   async ({ email, password }, thunkAPI) => {
-    const response = await signin({ email, password });
-    thunkAPI.dispatch(setMessage(response.message));
-    return response;
+    try {
+      const response = await signin({ email, password });
+      console.log(response);
+      thunkAPI.dispatch(setMessage(response.message));
+
+      return response;
+    } 
+    catch (error) {
+      thunkAPI.dispatch(setMessage(error.message));
+
+      return thunkAPI.rejectWithValue();
+    }
   }
 );
 
 export const register = createAsyncThunk(
   'user/register',
   async ({ email, password, firstName, lastName }, thunkAPI) => {
-    const response = await signup({ email, password, firstName, lastName });
-    thunkAPI.dispatch(setMessage(response.message));
-    return response.message;
+    try {
+      const response = await signup({ email, password, firstName, lastName });
+      thunkAPI.dispatch(setMessage(response.message));
+
+      return response.message;
+    } 
+    catch (error) {
+      thunkAPI.dispatch(setMessage(error.message));
+
+      return thunkAPI.rejectWithValue();
+    }
   }
 );
 
 export const getProfile = createAsyncThunk(
   'user/profile',
   async (payload, thunkAPI) => {
-    const response = await getUserProfile();
-    thunkAPI.dispatch(setMessage(response.message));
-    console.log(response);
-    return { credentials: response.body };
+    try {
+      const response = await getUserProfile();
+      thunkAPI.dispatch(setMessage(response.message));
+      console.log(response);
+      return { credentials: response.body };
+    } 
+    catch (error) {
+      thunkAPI.dispatch(setMessage(error.message));
+
+      return thunkAPI.rejectWithValue();      
+    }
   }
 );
 
 export const updateProfile = createAsyncThunk(
   'user/update',
   async ({ firstName, lastName }, thunkAPI) => {
-    const response = await updateUserProfile({ firstName, lastName });
-    thunkAPI.dispatch(setMessage(response.message));
-    console.log(response);
-    return response.body;
+    try {
+      const response = await updateUserProfile({ firstName, lastName });
+      thunkAPI.dispatch(setMessage(response.message));
+      console.log(response);
+      return response.body;
+    } 
+    catch (error) {
+      thunkAPI.dispatch(setMessage(error.message));
+
+      return thunkAPI.rejectWithValue();      
+    }
   }
 );
 

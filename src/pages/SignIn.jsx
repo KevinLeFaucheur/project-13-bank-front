@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Footer } from '../layout/Footer';
 import { Navbar } from '../layout/Navbar';
 import { login, rememberUsername } from '../features/user';
+import { clearMessage } from '../features/message';
  
 const InputWrapper = styled.div`
   display: flex;
@@ -75,6 +76,7 @@ export const SignIn = () => {
   const { isLogged } = useSelector(state => state.user);
   const { rememberMe } = useSelector(state => state.user);
   const { email } = useSelector(state => state.user);
+  const { message } = useSelector(state => state.message);
 
 	const handleRememberMe = () => {
 		dispatch(rememberUsername(rememberMeInput.current.checked));
@@ -94,10 +96,12 @@ export const SignIn = () => {
   }
 
 	useEffect(() => {
-		if(rememberMe) {
-			usernameInput.value = email;
-		}
-	}, [email, rememberMe])
+    dispatch(clearMessage());
+
+		// if(rememberMe) {
+		// 	usernameInput.value = email;
+		// }
+	}, [/*email, rememberMe,*/ dispatch])
 
   if(isLogged) {
     return <Navigate to='/user/profile' />;
@@ -127,6 +131,7 @@ export const SignIn = () => {
             <button type='submit' className="sign-in-button">Sign In</button>
           </form>
         </SignInSection>
+        {message ? <p>{message?.message}</p> : ''}
       </main>
       <Footer />
     </>
