@@ -14,15 +14,6 @@ export const login = createAsyncThunk(
     const response = await signin({ email, password });
     thunkAPI.dispatch(setMessage(response.message));
     return response;
-    // try {
-    //   const response = await signin({ email, password });
-    //   console.log(response);
-    //   return response;
-    // } 
-    // catch (error) {
-    //   console.log('rejectWithValue');
-    //   return thunkAPI.rejectWithValue();
-    // }
   }
 );
 
@@ -32,12 +23,6 @@ export const register = createAsyncThunk(
     const response = await signup({ email, password, firstName, lastName });
     thunkAPI.dispatch(setMessage(response.message));
     return response.message;
-    // try {
-    //   return await signup({ email, password, firstName, lastName });
-    // } 
-    // catch (error) {
-    //   console.log(error);
-    // }
   }
 );
 
@@ -48,15 +33,6 @@ export const getProfile = createAsyncThunk(
     thunkAPI.dispatch(setMessage(response.message));
     console.log(response);
     return { credentials: response.body };
-    // try {
-    //   const response = await getUserProfile();
-    //   thunkAPI.dispatch(setMessage(response.message));
-    //   console.log(response.message);
-    //   return { credentials: response.body };
-    // } 
-    // catch (error) {
-    //   console.log(error);
-    // }
   }
 );
 
@@ -67,14 +43,6 @@ export const updateProfile = createAsyncThunk(
     thunkAPI.dispatch(setMessage(response.message));
     console.log(response);
     return response.body;
-    // try {
-    //   const response = await updateUserProfile({ firstName, lastName });
-    //   thunkAPI.dispatch(setMessage(response.message));
-    //   return response ;
-    // } 
-    // catch (error) {
-    //   console.log(error);
-    // }
   }
 );
 

@@ -23,30 +23,6 @@ export const signin = async ({ email, password }) => {
       return response.data;
     }
   })
-  // try {
-  //   const { data: { body } } = await axios.post(`${API_URL}user/login`, 
-  //   {
-  //     "email": email,
-  //     "password": password
-  //   });
-
-  //   const { token } = body;
-  //   cookies.set('jwt', token, { path: '/' });
-
-  //   return { email, password };
-  // } 
-  // catch ({ response: { data } }) { 
-  //   cookies.remove('jwt', { path: '/' });
-
-  //   switch(data.status) {
-  //     case 400: Promise.reject(data); break;
-  //     case 401: Promise.reject(data); break;
-  //     case 404: Promise.reject(data); break;
-  //     case 500: Promise.reject(data); break;
-  //     default:
-  //   }
-  //   return new Error(`${data.message}, please try again later.`);
-  // }
 };
 
 /**
