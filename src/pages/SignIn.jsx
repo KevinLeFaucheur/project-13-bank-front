@@ -59,6 +59,17 @@ const SignInSection = styled.section`
   .fa .sign-in-icon {
     font-size: 5rem;
   }
+    
+`
+
+
+
+const Error = styled.p`
+  background-color: #FFF;
+  color: #990000;
+  padding: 10px;
+  margin: 1rem auto;
+  width: 300px;
 `
 
 export const SignIn = () => {
@@ -74,8 +85,8 @@ export const SignIn = () => {
   const [password, setPassword] = useState();
 
   const { isLogged } = useSelector(state => state.user);
-  const { rememberMe } = useSelector(state => state.user);
-  const { email } = useSelector(state => state.user);
+  // const { rememberMe } = useSelector(state => state.user);
+  // const { email } = useSelector(state => state.user);
   const { message } = useSelector(state => state.message);
 
 	const handleRememberMe = () => {
@@ -131,7 +142,7 @@ export const SignIn = () => {
             <button type='submit' className="sign-in-button">Sign In</button>
           </form>
         </SignInSection>
-        {message ? <p>{message?.message}</p> : ''}
+        {message ? <Error>{message}</Error> : ''}
       </main>
       <Footer />
     </>

@@ -56,7 +56,7 @@ export const AccountsHeader = () => {
 
   const handleIsEdit = () => {
     setIsEditing(!isEditing);
-    dispatch(getProfile());
+    // dispatch(getProfile());
   };
 
   const handleSaveEdit = () => {

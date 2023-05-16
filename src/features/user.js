@@ -18,8 +18,10 @@ export const login = createAsyncThunk(
 
       return response;
     } 
-    catch (error) {
-      thunkAPI.dispatch(setMessage(error.message));
+    catch ({ response }) {
+      thunkAPI.dispatch(setMessage(response.data.message));
+
+      console.log(response.data);
 
       return thunkAPI.rejectWithValue();
     }
@@ -47,10 +49,10 @@ export const getProfile = createAsyncThunk(
   'user/profile',
   async (payload, thunkAPI) => {
     try {
-      const response = await getUserProfile();
-      thunkAPI.dispatch(setMessage(response.message));
-      console.log(response);
-      return { credentials: response.body };
+      const { data } = await getUserProfile();
+      thunkAPI.dispatch(setMessage(data.message));
+      console.log(data);
+      return { credentials: data.body };
     } 
     catch (error) {
       thunkAPI.dispatch(setMessage(error.message));
@@ -95,7 +97,7 @@ export const { actions, reducer } = createSlice({
       state.isLogged = true;
     })
     builder.addCase(login.rejected, (state, action) => {
-      console.log('login.rejected');
+      // console.log('login.rejected');
       state.credentials = null;
       state.isLogged = false;
     })
@@ -103,7 +105,7 @@ export const { actions, reducer } = createSlice({
       console.log(action.payload);
     })
     builder.addCase(getProfile.fulfilled, (state, action) => {
-      console.log('getProfile.fulfilled');
+      // console.log('getProfile.fulfilled');
       state.credentials = action.payload.credentials;
     })
     builder.addCase(updateProfile.fulfilled, (state, action) => {
