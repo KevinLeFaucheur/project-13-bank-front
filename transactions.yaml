@@ -1,0 +1,183 @@
+swagger: '2.0'
+info:
+  title: Bank Argent API documentation
+  description: Contains available API endpoints for the transactions
+  version: '1.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /transactions/current_month/{user_id}:
+    get:
+      tags:
+        - Transaction Module
+      summary: Visualize all transactions for the current month
+      description: API for Transaction
+      parameters:
+        - in: query
+          name: user_id
+          description: This is the unique identifier for the requested user
+          required: true
+          type: integer
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successful Request
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Transaction'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /transactions/{transaction_id}:
+    get:
+      tags:
+        - Transaction Module
+      summary: Visualize a transaction's details
+      description: API for Transaction Details
+      parameters:
+        - in: query
+          name: transaction_id
+          description: This is the unique identifier for the requested transaction
+          required: true
+          type: integer
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successful Request
+          schema:
+            $ref: '#/definitions/Transaction'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Update a transaction's details
+      description: API for updating a transaction's details
+      parameters:
+        - in: query
+          name: transaction_id
+          description: This is the unique identifier for the requested transaction
+          required: true
+          type: integer
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Update transaction's details
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionDetails'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction's details retrieved successully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Delete a transaction
+      description: API for deleteing a transaction by its unique id
+      parameters:
+        - in: query
+          name: transaction_id
+          description: This is the unique identifier for the requested transaction
+          required: true
+          type: integer
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction Successully Deleted
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  Transaction:
+    properties:
+      id:
+        type: string
+        description: transaction id
+      date:
+        type: string
+        description: transaction date
+      descritpion:
+        type: string
+        description: transaction descritpion
+      amount:
+        type: integer
+        description: transaction amount
+      type:
+        type: string
+        description: transaction type
+      category:
+        type: string
+        description: transaction category
+      notes:
+        type: string
+        description: transaction notes
+  TransactionsResponse:
+    type: object
+    properties:
+      transaction:
+        type: string
+  TransactionDetails:
+    type: object
+    properties:
+      transactionType:
+        type: string
+      category:
+        type: string
+      note:
+        type: string
+  ApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      id:
+        type: integer
+      date:
+        type: string
+      message:
+        type: string
