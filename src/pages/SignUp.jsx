@@ -88,22 +88,21 @@ export const SignUp = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-      dispatch(register(/*{ email: username, password, firstName, lastName }*/ signup))
+      dispatch(register(signup))
         .then(() => {
 					navigate('/login');
         });
   }
 
 	useEffect(() => {
-		// if(isLogged) {
-		// 	return <Navigate to='/user/profile' />
-		// }
-
 		if(rememberMe) {
 			usernameInput.value = email;
 		}
-	}, [email, rememberMe])
-		
+	}, [email, rememberMe]);
+
+  if(isLogged) {
+    return <Navigate to='/user/profile' />;
+  }
 
   return (
     <>
@@ -119,11 +118,11 @@ export const SignUp = () => {
             </InputWrapper>
             <InputWrapper>
               <label htmlFor="firstName">First Name</label>
-              <input type="text" id="firstName" ref={firstNameInput} onChange={e => handleRegister({ firstName: e.target.value})} required />
+              <input placeholder='John' type="text" id="firstName" ref={firstNameInput} onChange={e => handleRegister({ firstName: e.target.value})} required />
             </InputWrapper>
             <InputWrapper>
               <label htmlFor="lastName">Last Name</label>
-              <input type="text" id="lastName" ref={lastNameInput} onChange={e => handleRegister({ lastName: e.target.value})} required />
+              <input placeholder='Smith' type="text" id="lastName" ref={lastNameInput} onChange={e => handleRegister({ lastName: e.target.value})} required />
             </InputWrapper>
             <InputWrapper>
               <label htmlFor="password">Password</label>

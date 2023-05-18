@@ -6,10 +6,11 @@ const API_URL = 'http://localhost:3001/api/v1/';
 const cookies = new Cookies();
 
 /**
- * Retrieves general data by endpoint /user/:userId and set JWT cookie on success
+ * Sends user credentials to API by endpoint /user/:userId for login
+ * Then retrieves JWT and sets a cookie on success
  * @param {{ email: string, username: string}} loginObject 
  * 
- * @returns {token: string} data object or Error object
+ * @returns {{ body: { token: string }, message: string, status: number }} data object
 */
 export const signin = async ({ email, password }) => {
   return await axios.post(`${API_URL}user/login`, 
@@ -17,6 +18,7 @@ export const signin = async ({ email, password }) => {
     "email": email,
     "password": password
   }).then((response) => {
+
     if(response.data.body.token) {
       const { token } = response.data.body;
       cookies.set('jwt', token, { path: '/' });
@@ -36,9 +38,18 @@ export const signout = () => {
 };
 
 /**
- * @param 
+ * Sends new user credentials to API for registration
+ * @param {{ { email: string, password: string, firstName: string, lastName: string } }} loginObject 
  * 
- * @returns 
+ * @returns {{ body: { 
+ *                createdAt: string, 
+ *                email: string, 
+ *                firstName: string, 
+ *                lastName: string, 
+ *                password: string, 
+ *                updatedAt: string 
+ *                  }, 
+ *            message: string, status: number }} data object
  */
 export const signup = async ({ email, password, firstName, lastName }) => {
   return await axios.post(`${API_URL}user/signup`, 
@@ -56,10 +67,16 @@ export const signup = async ({ email, password, firstName, lastName }) => {
 };
 
 /**
- * Retrieves user profile if JWT is validated
- * @param {} token Passing current user JWT from cookie as authorization
- * 
- * @returns {  }
+ * Retrieves user profile by endpoint /user/profile and Authorization token
+ * @returns {{ body: { 
+ *                createdAt: string, 
+ *                email: string, 
+ *                firstName: string, 
+ *                lastName: string, 
+ *                id: string, 
+ *                updatedAt: string 
+ *                  }, 
+ *            message: string, status: number }} data object
  */
 export const getUserProfile = async () => {
   const token = cookies.get('jwt', { path: '/' });
@@ -70,21 +87,26 @@ export const getUserProfile = async () => {
       Accept: 'application/json',
       Authorization: `Bearer ${token}` 
     }
+  }).then((response) => {
+
+    console.log(response);
+
+    return response.data;
   })
-  // .then((response) => {
-
-  //   console.log(response);
-
-  //   return response.data;
-  // })
-
 };
 
 /**
- * Updates user profile if JWT is validated
- * @param {{ firstName: string, lastName: string }}
- * 
- * @returns {  }
+ * Updates user profile by endpoint /user/profile and Authorization token
+ * @param {{ firstName: string, lastName: string }} loginObject 
+ * @returns {{ body: { 
+ *                createdAt: string, 
+ *                email: string, 
+ *                firstName: string, 
+ *                lastName: string, 
+ *                id: string, 
+ *                updatedAt: string 
+ *                  }, 
+ *            message: string, status: number }} data object
  */
 export const updateUserProfile = async ({ firstName, lastName }) => {
   const token = cookies.get('jwt', { path: '/' });

@@ -49,7 +49,7 @@ export const getProfile = createAsyncThunk(
   'user/profile',
   async (payload, thunkAPI) => {
     try {
-      const { data } = await getUserProfile();
+      const data = await getUserProfile();
       thunkAPI.dispatch(setMessage(data.message));
       console.log(data);
       return { credentials: data.body };
@@ -102,7 +102,6 @@ export const { actions, reducer } = createSlice({
       state.isLogged = false;
     })
     builder.addCase(register.fulfilled, (state, action) => {
-      console.log(action.payload);
     })
     builder.addCase(getProfile.fulfilled, (state, action) => {
       // console.log('getProfile.fulfilled');

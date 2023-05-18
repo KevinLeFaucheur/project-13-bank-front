@@ -102,7 +102,7 @@ export const SignIn = () => {
           navigate('/user/profile'); 
         })
         .catch((error) => {
-          console.log(error);
+
         });
   }
 
