@@ -93,6 +93,7 @@ const ContentRevealItem = styled.div`
   text-align: left;
 
   i {
+    visibility: ${(props => props.visibility ? 'collapse' : 'visible')};
     cursor: pointer;
     width: 16px;
     height: 16px;
@@ -111,6 +112,15 @@ const Button = styled.button`
   margin-left: 0.25rem;
 `
 
+const Select = styled.select`
+  visibility: ${(props => props.visibility ? 'visible' : 'collapse')};
+`
+
+const NotesEdit = styled.div`
+  display: flex;
+  visibility: ${(props => props.visibility ? 'visible' : 'collapse')};
+`
+
 const Input = styled.input`
   font-weight: bold;
   padding: 2px;
@@ -121,20 +131,29 @@ export const Transaction = ({ transaction }) => {
   const [isCategoryEditing, setIsCategoryEditing] = useState(false);
   const [isNotesEditing, setIsNotesEditing] = useState(false);
 
-  const selectRef = useRef('');
-  const noteInputRef = useRef('');
+  const [selectValue, setSelectValue] = useState('');
+  const [noteInputValue, setNoteInputValue] = useState('');
+  const inputRef = useRef('');
 
   const openCollapseHandler = () => {
     setIsOpen(!isOpen);
-    // setIsCategoryEditing(false);
-    // setIsNotesEditing(false);
   }
 
   const handleCategoryEdit = () => {
     setIsCategoryEditing(!isCategoryEditing);
   }
 
+  const handleSetSelectValue = (value) => {
+    setSelectValue(value);
+    setIsCategoryEditing(!isCategoryEditing);
+  }
+
   const handleNoteEdit = () => {
+    setIsNotesEditing(!isNotesEditing);
+  }
+
+  const handleSetNotesValue = (value) => {
+    setNoteInputValue(value);
     setIsNotesEditing(!isNotesEditing);
   }
 
@@ -169,29 +188,27 @@ export const Transaction = ({ transaction }) => {
       <ContentReveal>
         {<ContentRevealItem>Transaction Type: {transaction?.infos?.transactionType}</ContentRevealItem>}
         {<ContentRevealItem>Category:&nbsp;
-          {!isCategoryEditing ? 
           <>
-            {selectRef === '' ? '' : selectRef.current.value}
-            <i onClick={handleCategoryEdit} className="fa fa-solid fa-pencil" />
+            {selectValue}
+            <i /*visibility={isCategoryEditing}*/ onClick={handleCategoryEdit} className="fa fa-solid fa-pencil" />
           </>
-          :
-          <select onChange={handleCategoryEdit} ref={selectRef} name="categories" id="category-select">
+          <Select visibility={isCategoryEditing} onChange={(e) => handleSetSelectValue(e.target.value)} name="categories" id="category-select">
             <option value="">--Please choose a category--</option>
             <option value="Food">Food</option>
             <option value="Animals">Animals</option>
             <option value="Energy">Energy</option>
-          </select>}
+          </Select>
         </ContentRevealItem>}
         {<ContentRevealItem>Notes:&nbsp;
-        {!isNotesEditing ?
         <>
-          {noteInputRef === '' ? '' : noteInputRef.current.value}
-          <i onClick={handleNoteEdit} className="fa fa-solid fa-pencil" />
+          {noteInputValue}
+          <i /*visibility={isNotesEditing}*/ onClick={handleNoteEdit} className="fa fa-solid fa-pencil" />
         </>
-        :
-        <>
-          <Input ref={noteInputRef} placeholder='Write something' /><Button onClick={handleNoteEdit}>Save</Button><Button onClick={handleNoteEdit}>Cancel</Button>
-        </>}
+        <NotesEdit visibility={isNotesEditing}>
+          <Input ref={inputRef} placeholder='Write something' />
+          <Button onClick={() => handleSetNotesValue(inputRef.current.value)}>Save</Button>
+          <Button onClick={handleNoteEdit}>Cancel</Button>
+        </NotesEdit>
         </ContentRevealItem>}
       </ContentReveal> : ''}
     </ContentWrapper>
