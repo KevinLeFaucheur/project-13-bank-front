@@ -8,11 +8,19 @@ const ContentWrapper = styled.div`
   width: 100%;
   padding: 0.75rem 2rem 0.75rem 1rem;
   margin: 2px 0;
+
+  @media (max-width: 720px) {
+    padding: 0.75rem;
+  }
 `
 const ContentHeader = styled.div`
   display: flex;
   margin-bottom: 0.5rem;
   cursor: pointer;
+
+  @media (max-width: 720px) {
+    font-size: 1rem;
+  }
 `
 
 const CollapseIcon = styled.div`
@@ -24,6 +32,10 @@ const CollapseIcon = styled.div`
     font-size: 1.5rem;
     font-weight: 800;
   }
+
+  @media (max-width: 720px) {
+    display: none;
+  }
 `
 
 const Content = styled.div`
@@ -31,6 +43,41 @@ const Content = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+`
+
+const DateWrapper = styled.div`
+  @media (max-width: 720px) {
+    display: none;
+  }
+`
+
+const DateResponsive = styled.div`
+  display: none;
+
+  @media (max-width: 720px) {
+    display: flex;
+    flex-direction: column;
+  }
+
+`
+
+const Day = styled.div`
+
+`
+
+
+const Month = styled.div`
+
+`
+
+const Year = styled.div`
+
+`
+
+const Description = styled.div`
+  @media (max-width: 720px) {
+    max-width: 100px;
+  }
 `
 
 const ContentReveal = styled.div`
@@ -107,8 +154,13 @@ export const Transaction = ({ transaction }) => {
               <i className="fa fa-solid fa-angle-up"></i>}
         </CollapseIcon>
         <Content>
-          <div>{month + ' ' + day + 'th, ' + year}</div>
-          <div>{transaction?.description}</div>
+          <DateWrapper>{month + ' ' + day + 'th, ' + year}</DateWrapper>
+          <DateResponsive>
+            <Month>{month}</Month>
+            <Day>{day + 'th'}</Day>
+            <Year>{year}</Year>
+          </DateResponsive>
+          <Description>{transaction?.description}</Description>
           <div>${transaction?.amount}</div>
           <div>${transaction?.balance}</div>
         </Content>
@@ -119,7 +171,7 @@ export const Transaction = ({ transaction }) => {
         {<ContentRevealItem>Category:&nbsp;
           {!isCategoryEditing ? 
           <>
-            {/* {transaction?.infos?.category} */ selectRef === '' ? '' : selectRef.current.value}
+            {selectRef === '' ? '' : selectRef.current.value}
             <i onClick={handleCategoryEdit} className="fa fa-solid fa-pencil" />
           </>
           :
@@ -133,7 +185,7 @@ export const Transaction = ({ transaction }) => {
         {<ContentRevealItem>Notes:&nbsp;
         {!isNotesEditing ?
         <>
-          {/* {transaction?.infos?.notes} */ noteInputRef === '' ? '' : noteInputRef.current.value}
+          {noteInputRef === '' ? '' : noteInputRef.current.value}
           <i onClick={handleNoteEdit} className="fa fa-solid fa-pencil" />
         </>
         :

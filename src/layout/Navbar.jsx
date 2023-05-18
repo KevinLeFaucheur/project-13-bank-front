@@ -39,6 +39,17 @@ const NavItem = styled(Link)`
   &:hover {
     text-decoration: underline;
   }
+
+  &.sign-out {
+    span {
+      @media (max-width: 720px) {
+        display: none;
+      }
+    }
+    i {
+      font-size: 20px;
+    }
+  }
 `
 
 export const Navbar = () => {
@@ -72,9 +83,9 @@ export const Navbar = () => {
           <i className="fa fa-user-circle"></i>
           &nbsp;{credentials.firstName}&nbsp;
         </NavItem>
-        <NavItem onClick={handleSignOut} to="/">
+        <NavItem className='sign-out' onClick={handleSignOut} to="/">
           <i className="fa fa-sign-out"></i>
-          &nbsp;Sign Out
+          <span>&nbsp;Sign Out</span>
         </NavItem>
       </div>}
     </NavbarWrapper>

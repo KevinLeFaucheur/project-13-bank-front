@@ -64,6 +64,10 @@ const TableHeader = styled.div`
   margin-bottom: 4px;
   color: #fff;
   padding: 0 2rem 0 calc(2rem + 20px);
+
+  @media (max-width: 720px) {
+    padding: 0;
+  }
 `
 
 const Table = styled.div`

@@ -10,7 +10,6 @@ export const Accounts = () => {
   return (
     <main className="main bg-dark">
       <AccountsHeader />
-      <H2>Accounts</H2>
       {accounts.map(account => <Account key={account.id} account={account} />)}
     </main>
   )

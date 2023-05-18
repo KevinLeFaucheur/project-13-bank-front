@@ -8,12 +8,19 @@ const initialState = {
   rememberMe: false
 };
 
+/**
+ * Login Action for the user slice
+ * @param {}  
+ * @returns {}
+*/
 export const login = createAsyncThunk(
   'user/login',
   async ({ email, password }, thunkAPI) => {
     try {
       const response = await signin({ email, password });
+
       console.log(response);
+
       thunkAPI.dispatch(setMessage(response.message));
 
       return response;
@@ -28,6 +35,11 @@ export const login = createAsyncThunk(
   }
 );
 
+/**
+ * Register Action for the user slice
+ * @param {} 
+ * @returns {}
+*/
 export const register = createAsyncThunk(
   'user/register',
   async ({ email, password, firstName, lastName }, thunkAPI) => {
@@ -45,6 +57,11 @@ export const register = createAsyncThunk(
   }
 );
 
+/**
+ * Get Profile Action for the user slice
+ * @param {} 
+ * @returns {}
+*/
 export const getProfile = createAsyncThunk(
   'user/profile',
   async (payload, thunkAPI) => {
@@ -62,6 +79,11 @@ export const getProfile = createAsyncThunk(
   }
 );
 
+/**
+ * Update Profile Action for user slice
+ * @param {} 
+ * @returns {}
+*/
 export const updateProfile = createAsyncThunk(
   'user/update',
   async ({ firstName, lastName }, thunkAPI) => {
@@ -79,6 +101,11 @@ export const updateProfile = createAsyncThunk(
   }
 );
 
+/**
+ * User slice
+ * @param {} 
+ * @returns {}
+*/
 export const { actions, reducer } = createSlice({
   name: 'user',
   initialState: initialState,

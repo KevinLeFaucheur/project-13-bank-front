@@ -2,6 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = { message: '' };
 
+/**
+ * Message slice
+ *  Set Message Action Reducer
+ *  Clear Message Action Reducer
+ */
 export const { actions, reducer } = createSlice({
   name: 'message',
   initialState: initialState,

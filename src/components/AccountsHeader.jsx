@@ -16,16 +16,31 @@ const Button = styled.button`
   font-weight: bold;
   min-width: 120px;
   padding: 10px;
+
+  &.button--edit {
+    width: inherit;
+  }
+
+  @media (max-width: 720px) {
+    width: 100%;
+  }
 `
 
 const Input = styled.input`
   font-weight: bold;
   padding: 10px;
   margin-bottom: 1rem;
+  width: 100%;
 `
 const HeaderEdit = styled.div`
   display: flex;
   justify-content: center;
+  margin: 0;
+
+  @media (max-width: 720px) {
+    width: 80%;
+    margin: 0 auto;
+  }
 `
 
 const HeaderLeft = styled.div`
@@ -33,6 +48,10 @@ const HeaderLeft = styled.div`
   flex-direction: column;
   align-items: flex-end;
   margin-right: 1rem;
+
+  @media (max-width: 720px) {
+    margin-right: 0.5rem; 
+  }
 `
 
 const HeaderRight = styled.div`
@@ -40,6 +59,10 @@ const HeaderRight = styled.div`
   flex-direction: column;
   align-items: flex-start;
   margin-left: 1rem;
+
+  @media (max-width: 720px) {
+    margin-left: 0.5rem;
+  }
 `
 
 export const AccountsHeader = () => {
@@ -84,7 +107,7 @@ export const AccountsHeader = () => {
       : 
       <>
         <h1>Welcome back<br />{credentials?.firstName + ' ' +  credentials?.lastName}!</h1>
-        <Button onClick={handleIsEdit}>Edit Name</Button>
+        <Button className='button--edit' onClick={handleIsEdit}>Edit Name</Button>
       </>}
     </Header>
   )

@@ -8,7 +8,7 @@ const cookies = new Cookies();
 /**
  * Sends user credentials to API by endpoint /user/:userId for login
  * Then retrieves JWT and sets a cookie on success
- * @param {{ email: string, username: string}} loginObject 
+ * @param {{ email: string, password: string }} loginObject 
  * 
  * @returns {{ body: { token: string }, message: string, status: number }} data object
 */
