@@ -10,7 +10,7 @@ const ContentWrapper = styled.div`
   margin: 2px 0;
 
   @media (max-width: 720px) {
-    padding: 0.75rem;
+    padding: 0.5rem;
   }
 `
 const ContentHeader = styled.div`
@@ -45,12 +45,6 @@ const Content = styled.div`
   width: 100%;
 `
 
-const DateWrapper = styled.div`
-  @media (max-width: 720px) {
-    display: none;
-  }
-`
-
 const DateResponsive = styled.div`
   display: none;
 
@@ -74,9 +68,22 @@ const Year = styled.div`
 
 `
 
-const Description = styled.div`
-  @media (max-width: 720px) {
-    max-width: 100px;
+const Column = styled.div`
+  &.column-date {
+    width: 15%;
+    
+    @media (max-width: 720px) {
+      display: none;
+    }
+  }
+  &.column-description {
+    width: 35%; 
+  }
+  &.column-amount {
+    width: 25%;    
+  }
+  &.column-balance {
+    width: 25%;    
   }
 `
 
@@ -173,15 +180,15 @@ export const Transaction = ({ transaction }) => {
               <i className="fa fa-solid fa-angle-up"></i>}
         </CollapseIcon>
         <Content>
-          <DateWrapper>{month + ' ' + day + 'th, ' + year}</DateWrapper>
+          <Column className='column-date'>{month + ' ' + day + 'th, ' + year}</Column>
           <DateResponsive>
             <Month>{month}</Month>
             <Day>{day + 'th'}</Day>
             <Year>{year}</Year>
           </DateResponsive>
-          <Description>{transaction?.description}</Description>
-          <div>${transaction?.amount}</div>
-          <div>${transaction?.balance}</div>
+          <Column className='column-description'>{transaction?.description}</Column>
+          <Column className='column-amount'>${transaction?.amount}</Column>
+          <Column className='column-balance'>${transaction?.balance}</Column>
         </Content>
       </ContentHeader>
       {isOpen ? 

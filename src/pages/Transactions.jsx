@@ -66,6 +66,21 @@ const TableHeader = styled.div`
   }
 `
 
+const Column = styled.div`
+  &.column-date {
+    width: 15%;
+  }
+  &.column-description {
+    width: 35%;    
+  }
+  &.column-amount {
+    width: 25%;    
+  }
+  &.column-balance {
+    width: 25%;    
+  }
+`
+
 const Table = styled.div`
   width: 100%;
   font-weight: bold;
@@ -86,10 +101,10 @@ export const Transactions = () => {
 
         <TableWrapper>      
           <TableHeader>
-            <div>DATE</div>
-            <div>DESCRIPTION</div>
-            <div>AMOUNT</div>
-            <div>BALANCE</div>
+            <Column className='column-date'>DATE</Column>
+            <Column className='column-description'>DESCRIPTION</Column>
+            <Column className='column-amount'>AMOUNT</Column>
+            <Column className='column-balance'>BALANCE</Column>
           </TableHeader>
           <Table>
             {transactions.map(transaction => 
