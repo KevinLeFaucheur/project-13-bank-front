@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getUserProfile, signin, signout, signup, updateUserProfile } from "../services/auth";
+import { getUserProfile, setRememberMeCookie, signin, signout, signup, updateUserProfile } from "../services/auth";
 import { setMessage } from "./message";
 
 const initialState = { 

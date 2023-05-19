@@ -37,6 +37,18 @@ export const signout = () => {
   cookies.remove('jwt', { path: '/' });
 };
 
+export const setRememberMeCookie = (email) => {
+  cookies.set('email', email, { path: '/' });
+};
+
+export const getRememberMeCookie = (email) => {
+  return cookies.get('email', { path: '/' });
+};
+
+export const removeRememberMeCookie = () => {
+  cookies.remove('email', { path: '/' });
+};
+
 /**
  * Sends new user credentials to API for registration
  * @param {{ { email: string, password: string, firstName: string, lastName: string } }} loginObject 

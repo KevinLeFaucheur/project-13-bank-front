@@ -7,6 +7,7 @@ import { Footer } from '../layout/Footer';
 import { Navbar } from '../layout/Navbar';
 import { login, rememberUsername } from '../features/user';
 import { clearMessage } from '../features/message';
+import { getRememberMeCookie, removeRememberMeCookie, setRememberMeCookie } from '../services/auth';
  
 const InputWrapper = styled.div`
   display: flex;
@@ -85,11 +86,16 @@ export const SignIn = () => {
   const [password, setPassword] = useState();
 
   const { isLogged } = useSelector(state => state.user);
-  // const { rememberMe } = useSelector(state => state.user);
-  // const { email } = useSelector(state => state.user);
+  const { rememberMe } = useSelector(state => state.user);
+  const { email } = useSelector(state => state.user);
   const { message } = useSelector(state => state.message);
 
 	const handleRememberMe = () => {
+    if(!rememberMeInput.current.checked) {
+      removeRememberMeCookie();
+			usernameInput.current.value = '';
+      setUsername(null);
+    }
 		dispatch(rememberUsername(rememberMeInput.current.checked));
 	}
 
@@ -99,6 +105,9 @@ export const SignIn = () => {
       dispatch(login({ email: username, password }))
         .unwrap()
         .then(() => {
+          if(rememberMe) {
+            setRememberMeCookie({ email: username });
+          }
           navigate('/user/profile'); 
         })
         .catch((error) => {
@@ -109,10 +118,12 @@ export const SignIn = () => {
 	useEffect(() => {
     dispatch(clearMessage());
 
-		// if(rememberMe) {
-		// 	usernameInput.value = email;
-		// }
-	}, [/*email, rememberMe,*/ dispatch])
+		if(rememberMe && getRememberMeCookie()) {
+      rememberMeInput.current.checked = rememberMe;
+			usernameInput.current.value = getRememberMeCookie()?.email;
+      setUsername(getRememberMeCookie()?.email);
+		}
+	}, [email, rememberMe, dispatch])
 
   if(isLogged) {
     return <Navigate to='/user/profile' />;
@@ -129,7 +140,7 @@ export const SignIn = () => {
           <form onSubmit={handleSubmit}>
             <InputWrapper>
               <label htmlFor="username">Username</label>
-              <input type="email" id="username"ref={usernameInput} onChange={e => setUsername(e.target.value)}/>
+              <input type="email" id="username" ref={usernameInput} onChange={e => setUsername(e.target.value)}/>
             </InputWrapper>
             <InputWrapper>
               <label htmlFor="password">Password</label>
