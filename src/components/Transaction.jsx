@@ -184,8 +184,6 @@ export const Transaction = ({ transaction }) => {
     date.getFullYear(),
   ];
 
-  console.log(isCategoryEditing);
-
   return (
     <ContentWrapper>
       <ContentHeader onClick={openCollapseHandler}>
@@ -224,7 +222,7 @@ export const Transaction = ({ transaction }) => {
           {noteInputValue}
           <i /*visibility={isNotesEditing}*/ onClick={handleNoteEdit} className="fa fa-solid fa-pencil" />
           <NotesEdit visibility={isNotesEditing}>
-            <Input id={`trnasaction-note-${transaction.id}`} ref={inputRef} placeholder='Write something' />
+            <Input id={`transaction-note-${transaction.id}`} ref={inputRef} placeholder='Write something' />
             <Button onClick={() => handleSetNotesValue(inputRef.current.value)}>Save</Button>
             <Button onClick={handleNoteEdit}>Cancel</Button>
           </NotesEdit>
