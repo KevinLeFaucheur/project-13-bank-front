@@ -59,7 +59,6 @@ const Day = styled.div`
 
 `
 
-
 const Month = styled.div`
 
 `
@@ -104,7 +103,7 @@ const ContentRevealItem = styled.div`
     cursor: pointer;
     width: 16px;
     height: 16px;
-    margin-left: 1rem;
+    margin: 0 1rem;
   }
 `
 
@@ -124,13 +123,14 @@ const Select = styled.select`
 `
 
 const NotesEdit = styled.div`
-  display: flex;
+  display: inline;
   visibility: ${(props => props.visibility ? 'visible' : 'collapse')};
 `
 
 const Input = styled.input`
   font-weight: bold;
   padding: 2px;
+  width: 30%;
 `
 
 export const Transaction = ({ transaction }) => {
@@ -172,6 +172,8 @@ export const Transaction = ({ transaction }) => {
     date.getFullYear(),
   ];
 
+  console.log(isCategoryEditing);
+
   return (
     <ContentWrapper>
       <ContentHeader onClick={openCollapseHandler}>
@@ -199,7 +201,7 @@ export const Transaction = ({ transaction }) => {
             {selectValue}
             <i /*visibility={isCategoryEditing}*/ onClick={handleCategoryEdit} className="fa fa-solid fa-pencil" />
           </>
-          <Select visibility={isCategoryEditing} onChange={(e) => handleSetSelectValue(e.target.value)} name="categories" id="category-select">
+          <Select visibility={isCategoryEditing} onChange={(e) => handleSetSelectValue(e.target.value)} name="categories">
             <option value="">--Please choose a category--</option>
             <option value="Food">Food</option>
             <option value="Animals">Animals</option>
@@ -207,15 +209,13 @@ export const Transaction = ({ transaction }) => {
           </Select>
         </ContentRevealItem>}
         {<ContentRevealItem>Notes:&nbsp;
-        <>
           {noteInputValue}
           <i /*visibility={isNotesEditing}*/ onClick={handleNoteEdit} className="fa fa-solid fa-pencil" />
-        </>
-        <NotesEdit visibility={isNotesEditing}>
-          <Input ref={inputRef} placeholder='Write something' />
-          <Button onClick={() => handleSetNotesValue(inputRef.current.value)}>Save</Button>
-          <Button onClick={handleNoteEdit}>Cancel</Button>
-        </NotesEdit>
+          <NotesEdit visibility={isNotesEditing}>
+            <Input id={`trnasaction-note-${transaction.id}`} ref={inputRef} placeholder='Write something' />
+            <Button onClick={() => handleSetNotesValue(inputRef.current.value)}>Save</Button>
+            <Button onClick={handleNoteEdit}>Cancel</Button>
+          </NotesEdit>
         </ContentRevealItem>}
       </ContentReveal> : ''}
     </ContentWrapper>

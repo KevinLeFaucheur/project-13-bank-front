@@ -129,7 +129,7 @@ export const SignIn = () => {
           <form onSubmit={handleSubmit}>
             <InputWrapper>
               <label htmlFor="username">Username</label>
-              <input type="text" id="username" ref={usernameInput} onChange={e => setUsername(e.target.value)}/>
+              <input type="email" id="username"ref={usernameInput} onChange={e => setUsername(e.target.value)}/>
             </InputWrapper>
             <InputWrapper>
               <label htmlFor="password">Password</label>
