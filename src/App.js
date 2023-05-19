@@ -1,10 +1,11 @@
-import { Routes, Route } from "react-router-dom"; 
+import { Routes, Route, Navigate } from "react-router-dom"; 
 import { Home } from "./pages/Home";
 import { SignIn } from "./pages/SignIn";
 import { SignUp } from "./pages/SignUp";
 import { User } from "./pages/User";
 import { Transactions } from "./pages/Transactions";
 import { Accounts } from "./pages/Accounts";
+import { Error } from "./pages/Error";
 
 export const App = () => {
   return (
@@ -16,7 +17,8 @@ export const App = () => {
         <Route path="profile" element={<Accounts />} />
         <Route path="transactions" element={<Transactions />} />
       </Route>
-      {/* <Route path="*" element={<Error />} /> */}
+      <Route path="/404" element={<Error />} />
+      <Route path="*" element={<Navigate to='/404' state={{ message: 'Page not found. ' }} />} />
     </Routes>
   );
 }

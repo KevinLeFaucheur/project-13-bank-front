@@ -35,10 +35,6 @@ const ContentWrapper = styled.div`
     font-weight: normal;
   }
 
-  @media (min-width: 720px) {
-    /* flex-direction: row; */
-  }
-
   width: 100%;
   flex: 1;  
   

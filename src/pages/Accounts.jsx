@@ -1,6 +1,5 @@
 import React from 'react';
 import { Account } from '../components/Account';
-import { H2 } from '../styles/Headers';
 import { accounts } from '../data/accountsMock';
 
 import { AccountsHeader } from '../components/AccountsHeader';
