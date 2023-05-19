@@ -164,11 +164,23 @@ export const Transaction = ({ transaction }) => {
     setIsNotesEditing(!isNotesEditing);
   }
 
+  const dayFormat = (day) => {
+    let nth;
+
+    switch (day % 10) {
+      case 1: nth = day + 'st'; break;
+      case 2: nth = day += 'nd'; break;
+      case 3: nth = day += 'rd'; break;
+      default: nth = day += 'th'; 
+    }
+    return nth;
+  }
+
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   const date = new Date(transaction?.date);
   const [month, day, year] = [
     months[date.getMonth()],
-    date.getDate(),
+    dayFormat(date.getDate()),
     date.getFullYear(),
   ];
 
@@ -182,7 +194,7 @@ export const Transaction = ({ transaction }) => {
               <i className="fa fa-solid fa-angle-up"></i>}
         </CollapseIcon>
         <Content>
-          <Column className='column-date'>{month + ' ' + day + 'th, ' + year}</Column>
+          <Column className='column-date'>{month + ' ' + day + ', ' + year}</Column>
           <DateResponsive>
             <Month>{month}</Month>
             <Day>{day + 'th'}</Day>
