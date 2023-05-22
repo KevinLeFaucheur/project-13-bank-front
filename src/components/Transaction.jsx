@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react'
-import styled from 'styled-components'
+import React, { useRef, useState } from 'react';
+import styled from 'styled-components';
+import { dateFormat } from '../utils/dateFormat';
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -99,12 +100,15 @@ const ContentRevealItem = styled.div`
   text-align: left;
 
   i {
-    /* visibility: ${(props => props.visibility ? 'collapse' : 'visible')}; */
     cursor: pointer;
     width: 16px;
     height: 16px;
     margin: 0 1rem;
   }
+`
+
+const Select = styled.select`
+  visibility: ${(props => props?.visibility ? 'visible' : 'collapse')};
 `
 
 const Button = styled.button`
@@ -116,10 +120,6 @@ const Button = styled.button`
   min-width: 100px;
   padding: 2px;
   margin-left: 0.25rem;
-`
-
-const Select = styled.select`
-  visibility: ${(props => props?.visibility ? 'visible' : 'collapse')};
 `
 
 const NotesEdit = styled.div`
@@ -142,21 +142,9 @@ export const Transaction = ({ transaction }) => {
   const [noteInputValue, setNoteInputValue] = useState('');
   const inputRef = useRef('');
 
-  const openCollapseHandler = () => {
-    setIsOpen(!isOpen);
-  }
-
-  const handleCategoryEdit = () => {
-    setIsCategoryEditing(!isCategoryEditing);
-  }
-
   const handleSetSelectValue = (value) => {
     setSelectValue(value);
     setIsCategoryEditing(!isCategoryEditing);
-  }
-
-  const handleNoteEdit = () => {
-    setIsNotesEditing(!isNotesEditing);
   }
 
   const handleSetNotesValue = (value) => {
@@ -164,32 +152,15 @@ export const Transaction = ({ transaction }) => {
     setIsNotesEditing(!isNotesEditing);
   }
 
-  const dayFormat = (day) => {
-    let nth;
-
-    switch (day % 10) {
-      case 1: nth = day + 'st'; break;
-      case 2: nth = day += 'nd'; break;
-      case 3: nth = day += 'rd'; break;
-      default: nth = day += 'th'; 
-    }
-    return nth;
-  }
-
-  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-  const date = new Date(transaction?.date);
-  const [month, day, year] = [
-    months[date.getMonth()],
-    dayFormat(date.getDate()),
-    date.getFullYear(),
-  ];
+  const categories = ["Food", "Animals", "Energy", "Car"];
+  const [month, day, year] = dateFormat(transaction?.date);
 
   return (
     <ContentWrapper>
-      <ContentHeader onClick={openCollapseHandler}>
+      <ContentHeader onClick={() => setIsOpen(!isOpen)}>
         <CollapseIcon>{isOpen ? 
-              <i className="fa fa-solid fa-angle-down"></i> :
-              <i className="fa fa-solid fa-angle-up"></i>}
+              <i className="fa fa-solid fa-angle-down" /> :
+              <i className="fa fa-solid fa-angle-up" />}
         </CollapseIcon>
         <Content>
           <Column className='column-date'>{month + ' ' + day + ', ' + year}</Column>
@@ -209,25 +180,23 @@ export const Transaction = ({ transaction }) => {
         {<ContentRevealItem>Category:&nbsp;
           <>
             {selectValue}
-            <i onClick={handleCategoryEdit} className="fa fa-solid fa-pencil" />
+            <i onClick={() => setIsCategoryEditing(!isCategoryEditing)} className="fa fa-solid fa-pencil" />
           </>
-          <Select visibility={isCategoryEditing} onChange={(e) => handleSetSelectValue(e.target.value)} name="categories">
+          <Select visibility={isCategoryEditing}  onChange={(e) => handleSetSelectValue(e.target.value)} name="categories">
             <option value="">--Please choose a category--</option>
-            <option value="Food">Food</option>
-            <option value="Animals">Animals</option>
-            <option value="Energy">Energy</option>
+            {categories.map(category => <option key={category} value={category}>{category}</option>)}
           </Select>
         </ContentRevealItem>}
         {<ContentRevealItem>Notes:&nbsp;
           {noteInputValue}
-          <i onClick={handleNoteEdit} className="fa fa-solid fa-pencil" />
+          <i onClick={() => setIsNotesEditing(!isNotesEditing)} className="fa fa-solid fa-pencil" />
           <NotesEdit visibility={isNotesEditing}>
             <Input id={`transaction-note-${transaction.id}`} ref={inputRef} placeholder='Write something' />
             <Button onClick={() => handleSetNotesValue(inputRef.current.value)}>Save</Button>
-            <Button onClick={handleNoteEdit}>Cancel</Button>
+            <Button onClick={() => setIsNotesEditing(!isNotesEditing)}>Cancel</Button>
           </NotesEdit>
         </ContentRevealItem>}
       </ContentReveal> : ''}
     </ContentWrapper>
   )
-}
+};

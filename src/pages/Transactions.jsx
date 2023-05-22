@@ -95,17 +95,6 @@ const Eye = styled.i`
   right: 2%;
 `
 
-const Button = styled.button`
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  appearance: none;
-  width: 2rem;
-  height: 2rem;
-  border: none;
-  border-radius: 5px;
-`
-
 export const Transactions = () => {
   const { state } = useLocation();
   const account = state?.account;
