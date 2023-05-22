@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { dateFormat } from '../utils/dateFormat';
 
 const ContentWrapper = styled.div`
@@ -200,3 +201,18 @@ export const Transaction = ({ transaction }) => {
     </ContentWrapper>
   )
 };
+
+Transaction.propTypes = {
+  transaction: PropTypes.shape({
+    id: PropTypes.number,
+    date: PropTypes.string,
+    description: PropTypes.string,
+    amount: PropTypes.number,
+    balance: PropTypes.number,
+    infos: PropTypes.shape({
+      transactionType: PropTypes.string,
+      category: PropTypes.string,
+      notes: PropTypes.string,
+    })
+  })
+}
