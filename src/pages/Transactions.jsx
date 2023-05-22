@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { Transaction } from '../components/Transaction'
 
 import { transactions } from '../data/transactionsMock'
+import { Modal } from '../components/Modal'
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -93,12 +94,6 @@ const Eye = styled.i`
   top: 30%;
   right: 2%;
 `
-const Dialog = styled.dialog`
-  position: relative;
-  background-color: #2c3e50;
-  width: 80%;
-  min-height: 20%;
-`
 
 const Button = styled.button`
   position: absolute;
@@ -116,19 +111,11 @@ export const Transactions = () => {
   const account = state?.account;
   const { title, amount, description } = account;
 
-  const [isOpen, setIsOpen] = useState(false);
   const [modalTransaction, setModalTransaction] = useState({});
 
-  const showModal = (transaction) => {
-    document.getElementById('modal').showModal();
+  const toggleModal = (transaction) => {
     setModalTransaction(transaction);
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    document.getElementById('modal').close();
-    setModalTransaction({});
-    setIsOpen(false);
+    document.getElementById('modal').classList.toggle('open');
   };
 
   return (
@@ -150,22 +137,12 @@ export const Transactions = () => {
             {transactions.map(transaction => 
               <TransactionWrapper key={transaction?.id}>
                 <Transaction transaction={transaction} />
-                <Eye onClick={() => showModal(transaction)} className="fa fa-regular fa-eye" />
+                <Eye onClick={() => toggleModal(transaction)} className="fa fa-regular fa-eye toggle-button" />
               </TransactionWrapper>
-            )};
+            )}
           </Table>
         </TableWrapper>
-        <Dialog id='modal'>
-          <div id='modal-header'>
-            <p>Transaction:</p>
-            <Button onClick={closeModal} className="fa fa-regular fa-eye"></Button>
-          </div>
-          <div id='modal-body'>
-            {isOpen
-            ? <Transaction transaction={modalTransaction} /> 
-            : ''}
-          </div>
-        </Dialog>
+        <Modal transaction={modalTransaction} />
       </main>
   )
 }

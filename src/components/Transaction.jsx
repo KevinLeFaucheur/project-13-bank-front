@@ -99,7 +99,7 @@ const ContentRevealItem = styled.div`
   text-align: left;
 
   i {
-    visibility: ${(props => props.visibility ? 'collapse' : 'visible')};
+    /* visibility: ${(props => props.visibility ? 'collapse' : 'visible')}; */
     cursor: pointer;
     width: 16px;
     height: 16px;
@@ -119,12 +119,12 @@ const Button = styled.button`
 `
 
 const Select = styled.select`
-  visibility: ${(props => props.visibility ? 'visible' : 'collapse')};
+  visibility: ${(props => props?.visibility ? 'visible' : 'collapse')};
 `
 
 const NotesEdit = styled.div`
   display: inline;
-  visibility: ${(props => props.visibility ? 'visible' : 'collapse')};
+  visibility: ${(props => props?.visibility ? 'visible' : 'collapse')};
 `
 
 const Input = styled.input`
@@ -209,7 +209,7 @@ export const Transaction = ({ transaction }) => {
         {<ContentRevealItem>Category:&nbsp;
           <>
             {selectValue}
-            <i /*visibility={isCategoryEditing}*/ onClick={handleCategoryEdit} className="fa fa-solid fa-pencil" />
+            <i onClick={handleCategoryEdit} className="fa fa-solid fa-pencil" />
           </>
           <Select visibility={isCategoryEditing} onChange={(e) => handleSetSelectValue(e.target.value)} name="categories">
             <option value="">--Please choose a category--</option>
@@ -220,7 +220,7 @@ export const Transaction = ({ transaction }) => {
         </ContentRevealItem>}
         {<ContentRevealItem>Notes:&nbsp;
           {noteInputValue}
-          <i /*visibility={isNotesEditing}*/ onClick={handleNoteEdit} className="fa fa-solid fa-pencil" />
+          <i onClick={handleNoteEdit} className="fa fa-solid fa-pencil" />
           <NotesEdit visibility={isNotesEditing}>
             <Input id={`transaction-note-${transaction.id}`} ref={inputRef} placeholder='Write something' />
             <Button onClick={() => handleSetNotesValue(inputRef.current.value)}>Save</Button>
