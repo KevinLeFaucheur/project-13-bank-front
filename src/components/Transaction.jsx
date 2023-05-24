@@ -158,26 +158,36 @@ export const Transaction = ({ transaction }) => {
 
   return (
     <ContentWrapper>
+
       <ContentHeader onClick={() => setIsOpen(!isOpen)}>
+
         <CollapseIcon>{isOpen ? 
               <i className="fa fa-solid fa-angle-down" /> :
               <i className="fa fa-solid fa-angle-up" />}
         </CollapseIcon>
+
         <Content>
           <Column className='column-date'>{month + ' ' + day + ', ' + year}</Column>
+
           <DateResponsive>
             <Month>{month}</Month>
             <Day>{day + 'th'}</Day>
             <Year>{year}</Year>
           </DateResponsive>
+
           <Column className='column-description'>{transaction?.description}</Column>
           <Column className='column-amount'>${transaction?.amount}</Column>
           <Column className='column-balance'>${transaction?.balance}</Column>
         </Content>
+
       </ContentHeader>
+
       {isOpen ? 
+
       <ContentReveal>
+
         {<ContentRevealItem>Transaction Type: {transaction?.infos?.transactionType}</ContentRevealItem>}
+
         {<ContentRevealItem>Category:&nbsp;
           <>
             {selectValue}
@@ -188,16 +198,21 @@ export const Transaction = ({ transaction }) => {
             {categories.map(category => <option key={category} value={category}>{category}</option>)}
           </Select>
         </ContentRevealItem>}
+
         {<ContentRevealItem>Notes:&nbsp;
           {noteInputValue}
           <i onClick={() => setIsNotesEditing(!isNotesEditing)} className="fa fa-solid fa-pencil" />
+
           <NotesEdit visibility={isNotesEditing}>
             <Input id={`transaction-note-${transaction.id}`} ref={inputRef} placeholder='Write something' />
             <Button onClick={() => handleSetNotesValue(inputRef.current.value)}>Save</Button>
             <Button onClick={() => setIsNotesEditing(!isNotesEditing)}>Cancel</Button>
           </NotesEdit>
+
         </ContentRevealItem>}
+
       </ContentReveal> : ''}
+
     </ContentWrapper>
   )
 };
