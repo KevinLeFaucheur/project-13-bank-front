@@ -23,8 +23,6 @@ export const signin = async ({ email, password }) => {
       const { token } = response.data.body;
       cookies.set('jwt', token, { path: '/' });
 
-      console.log(response);
-
       return response.data;
     }
   })
@@ -35,18 +33,6 @@ export const signin = async ({ email, password }) => {
  */
 export const signout = () => {
   cookies.remove('jwt', { path: '/' });
-};
-
-export const setRememberMeCookie = (email) => {
-  cookies.set('email', email, { path: '/' });
-};
-
-export const getRememberMeCookie = (email) => {
-  return cookies.get('email', { path: '/' });
-};
-
-export const removeRememberMeCookie = () => {
-  cookies.remove('email', { path: '/' });
 };
 
 /**
@@ -71,8 +57,6 @@ export const signup = async ({ email, password, firstName, lastName }) => {
     "firstName": firstName,
     "lastName": lastName
   }).then((response) => {
-
-    console.log(response);
 
     return response.data;
   })
@@ -100,8 +84,6 @@ export const getUserProfile = async () => {
       Authorization: `Bearer ${token}` 
     }
   }).then((response) => {
-
-    console.log(response);
 
     return response.data;
   })
@@ -134,8 +116,22 @@ export const updateUserProfile = async ({ firstName, lastName }) => {
     }
   }).then((response) => {
 
-    console.log(response);
-
     return response.data;
   })
+};
+
+
+/**
+ * Remember Me Cookie functions
+ */
+export const setRememberMeCookie = (email) => {
+  cookies.set('email', email, { path: '/' });
+};
+
+export const getRememberMeCookie = (email) => {
+  return cookies.get('email', { path: '/' });
+};
+
+export const removeRememberMeCookie = () => {
+  cookies.remove('email', { path: '/' });
 };

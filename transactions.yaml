@@ -1,9 +1,9 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   title: Bank Argent API documentation
   description: Contains available API endpoints for the transactions
-  version: '1.0.0'
-  termsOfService: 'http://swagger.io/terms/'
+  version: "1.0.0"
+  termsOfService: "http://swagger.io/terms/"
 host: localhost:3001
 basePath: /api/v1
 schemes:
@@ -13,7 +13,7 @@ paths:
     get:
       tags:
         - Transaction Module
-      summary: Visualize all transactions for the current month
+      summary: Get all transactions for the current month for a unique user
       description: API for Transaction
       parameters:
         - in: query
@@ -28,15 +28,19 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
-          description: Successful Request
+        "200":
+          description: A list of transactions
           schema:
             type: array
             items:
-              $ref: '#/definitions/Transaction'
-        '400':
-          description: Invalid Fields
-        '500':
+              $ref: "#/definitions/Transaction"
+        "400":
+          description: Bar request. User ID must be a positive integer.
+        "401":
+          description: Authorization token is invalid or missing.
+        "404":
+          description: User with this ID was not found.
+        "500":
           description: Internal Server Error
   /transactions/{transaction_id}:
     get:
@@ -57,13 +61,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
-          description: Successful Request
+        "200":
+          description: A Transaction object
           schema:
-            $ref: '#/definitions/Transaction'
-        '400':
-          description: Invalid Fields
-        '500':
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Bar request. Transaction ID must be a positive integer.
+        "401":
+          description: Authorization token is invalid or missing.
+        "404":
+          description: Transaction with this ID was not found.
+        "500":
           description: Internal Server Error
     put:
       security:
@@ -87,17 +95,21 @@ paths:
           description: Update transaction's details
           required: true
           schema:
-            $ref: '#/definitions/TransactionDetails'
+            $ref: "#/definitions/TransactionDetails"
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Transaction's details retrieved successully
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: Bar request. Transaction ID must be a positive integer.
+        "401":
+          description: Authorization token is invalid or missing.
+        "404":
+          description: Transaction with this ID was not found.
+        "500":
           description: Internal Server Error
     delete:
       security:
@@ -119,13 +131,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Transaction Successully Deleted
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: Bar request. Transaction ID must be a positive integer.
+        "401":
+          description: Authorization token is invalid or missing.
+        "404":
+          description: Transaction with this ID was not found.
+        "500":
           description: Internal Server Error
 securityDefinitions:
   Bearer:

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getUserProfile, setRememberMeCookie, signin, signout, signup, updateUserProfile } from "../services/auth";
+import { getUserProfile, signin, signout, signup, updateUserProfile } from "../services/auth";
 import { setMessage } from "./message";
 
 const initialState = { 
@@ -19,16 +19,12 @@ export const login = createAsyncThunk(
     try {
       const response = await signin({ email, password });
 
-      console.log(response);
-
       thunkAPI.dispatch(setMessage(response.message));
 
       return response;
     } 
     catch ({ response }) {
       thunkAPI.dispatch(setMessage(response.data.message));
-
-      console.log(response.data);
 
       return thunkAPI.rejectWithValue();
     }
@@ -45,6 +41,7 @@ export const register = createAsyncThunk(
   async ({ email, password, firstName, lastName }, thunkAPI) => {
     try {
       const response = await signup({ email, password, firstName, lastName });
+
       thunkAPI.dispatch(setMessage(response.message));
 
       return response.message;
@@ -67,8 +64,9 @@ export const getProfile = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await getUserProfile();
+
       thunkAPI.dispatch(setMessage(data.message));
-      console.log(data);
+
       return { credentials: data.body };
     } 
     catch (error) {
@@ -89,8 +87,9 @@ export const updateProfile = createAsyncThunk(
   async ({ firstName, lastName }, thunkAPI) => {
     try {
       const response = await updateUserProfile({ firstName, lastName });
+
       thunkAPI.dispatch(setMessage(response.message));
-      console.log(response);
+
       return response.body;
     } 
     catch (error) {
@@ -103,8 +102,13 @@ export const updateProfile = createAsyncThunk(
 
 /**
  * User slice
- * @param {} 
- * @returns {}
+ * logout                   : 
+ * rememberUserName         :
+ * login.fulfiiled          :
+ * login.rejected           :
+ * register.fulfilled       :
+ * getProfile.fulfilled     :
+ * updateProfile.fulfilled  :
 */
 export const { actions, reducer } = createSlice({
   name: 'user',
@@ -120,22 +124,21 @@ export const { actions, reducer } = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(login.fulfilled, (state, action) => {
+    builder.addCase(login.fulfilled, (state) => {
       state.isLogged = true;
     })
-    builder.addCase(login.rejected, (state, action) => {
-      // console.log('login.rejected');
+    builder.addCase(login.rejected, (state) => {
       state.credentials = null;
       state.isLogged = false;
     })
     builder.addCase(register.fulfilled, (state, action) => {
     })
     builder.addCase(getProfile.fulfilled, (state, action) => {
-      // console.log('getProfile.fulfilled');
       state.credentials = action.payload.credentials;
     })
     builder.addCase(updateProfile.fulfilled, (state, action) => {
       const { firstName, lastName } = action.payload;
+
       state.credentials = {
         ...state.credentials,
         firstName,
