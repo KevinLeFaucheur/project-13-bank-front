@@ -56,12 +56,15 @@ const Separator = styled.div`
 export const Modal = ({ transaction }) => {
   const [month, day, year] = dateFormat(transaction?.date);
 
+  console.log(year);
+
   const close = () => {
     document.getElementById('modal').classList.remove('open');
   }
 
   return (
     <Background id='modal'>
+      {transaction ?
       <Dialog>
         <EyeButton onClick={close} className="fa fa-regular fa-eye"></EyeButton>
         <div id='modal-body'>
@@ -118,7 +121,7 @@ export const Modal = ({ transaction }) => {
 
           </ContentWrapper>
         </div>
-      </Dialog>
+      </Dialog> : ''}
     </Background>
   )   
 }

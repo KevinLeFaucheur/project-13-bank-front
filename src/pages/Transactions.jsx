@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useLocation } from 'react-router-dom'
 import { Transaction } from '../components/Transaction'
