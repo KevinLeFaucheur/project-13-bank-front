@@ -100,7 +100,7 @@ export const Transactions = () => {
   const account = state?.account;
   const { title, amount, description } = account;
 
-  const [modalTransaction, setModalTransaction] = useState({});
+  const [modalTransaction, setModalTransaction] = useState(0);
 
   const toggleModal = (transaction) => {
     setModalTransaction(transaction);

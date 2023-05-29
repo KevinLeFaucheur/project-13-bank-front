@@ -53,7 +53,7 @@ const Separator = styled.div`
   background-color: #2c3e50;
 `
 
-export const Modal = ({ transaction}) => {
+export const Modal = ({ transaction }) => {
   const [month, day, year] = dateFormat(transaction?.date);
 
   const close = () => {

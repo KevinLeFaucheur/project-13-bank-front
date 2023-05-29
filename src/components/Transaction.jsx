@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { 
   Button, CollapseIcon, Column, Content, 
   ContentHeader, ContentReveal, ContentRevealItem, 
@@ -10,8 +10,8 @@ import { dateFormat } from '../utils/dateFormat';
 
 export const Transaction = ({ transaction }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isCategoryEditing, setIsCategoryEditing] = useState(false);
-  const [isNotesEditing, setIsNotesEditing] = useState(false);
+  const [isSelectVisible, setSelectVisibility] = useState('collapse');
+  const [isNotesVisible, setNotesVisibility] = useState('collapse');
 
   const [selectValue, setSelectValue] = useState('');
   const [noteInputValue, setNoteInputValue] = useState('');
@@ -19,12 +19,12 @@ export const Transaction = ({ transaction }) => {
 
   const handleSetSelectValue = (value) => {
     setSelectValue(value);
-    setIsCategoryEditing(!isCategoryEditing);
+    setSelectVisibility('collapse');
   }
 
   const handleSetNotesValue = (value) => {
     setNoteInputValue(value);
-    setIsNotesEditing(!isNotesEditing);
+    setNotesVisibility('collapse');
   }
 
   const categories = ["Food", "Animals", "Energy", "Car"];
@@ -65,22 +65,23 @@ export const Transaction = ({ transaction }) => {
         {<ContentRevealItem>Category:&nbsp;
           <>
             {selectValue}
-            <i onClick={() => setIsCategoryEditing(!isCategoryEditing)} className="fa fa-solid fa-pencil" />
+            <i onClick={() => setSelectVisibility(isSelectVisible === 'visible' ? 'collapse' : 'visible')} className="fa fa-solid fa-pencil" />
           </>
-          <Select visibility={isCategoryEditing}  onChange={(e) => handleSetSelectValue(e.target.value)} name="categories">
+          <Select visibility={isSelectVisible} onChange={(e) => handleSetSelectValue(e.target.value)} name="categories">
             <option value="">--Please choose a category--</option>
             {categories.map(category => <option key={category} value={category}>{category}</option>)}
           </Select>
+            
         </ContentRevealItem>}
 
         {<ContentRevealItem>Notes:&nbsp;
           {noteInputValue}
-          <i onClick={() => setIsNotesEditing(!isNotesEditing)} className="fa fa-solid fa-pencil" />
+          <i onClick={() => setNotesVisibility(isNotesVisible === 'visible' ? 'collapse' : 'visible')} className="fa fa-solid fa-pencil" />
 
-          <NotesEdit visibility={isNotesEditing}>
+          <NotesEdit visibility={isNotesVisible}>
             <Input id={`transaction-note-${transaction.id}`} ref={inputRef} placeholder='Write something' />
             <Button onClick={() => handleSetNotesValue(inputRef.current.value)}>Save</Button>
-            <Button onClick={() => setIsNotesEditing(!isNotesEditing)}>Cancel</Button>
+            <Button onClick={() => setNotesVisibility('collapse')}>Cancel</Button>
           </NotesEdit>
 
         </ContentRevealItem>}

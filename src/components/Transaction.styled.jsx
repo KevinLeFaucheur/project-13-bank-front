@@ -108,7 +108,7 @@ export const ContentRevealItem = styled.div`
 `
 
 export const Select = styled.select`
-  visibility: ${(props => props?.visibility ? 'visible' : 'collapse')};
+  visibility: ${(props => props?.visibility)};
 `
 
 export const Button = styled.button`
@@ -124,7 +124,7 @@ export const Button = styled.button`
 
 export const NotesEdit = styled.div`
   display: inline;
-  visibility: ${(props => props?.visibility ? 'visible' : 'collapse')};
+  visibility: ${(props => props?.visibility)};
 `
 
 export const Input = styled.input`
