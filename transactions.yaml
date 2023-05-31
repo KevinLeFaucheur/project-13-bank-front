@@ -9,7 +9,7 @@ basePath: /api/v1
 schemes:
   - http
 paths:
-  /transactions/?user_id={integer}&current_month:
+  /transactions/{current_month}:
     get:
       tags:
         - Transaction Module
@@ -17,10 +17,10 @@ paths:
       description: API for Transaction
       parameters:
         - in: query
-          name: user_id
-          description: This is the unique identifier for the requested user
-          required: true
-          type: integer
+          name: current_month
+          description: Query to select the current month transactions only
+          required: false
+          type: string
         - in: header
           name: Authorization
           description: Attach Bearer JWT token
