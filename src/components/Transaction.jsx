@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { 
   Button, CollapseIcon, Column, Content, 
   ContentHeader, ContentReveal, ContentRevealItem, 
@@ -7,6 +7,7 @@ import {
 } from './Transaction.styled';
 import PropTypes from 'prop-types';
 import { dateFormat } from '../utils/dateFormat';
+import { Separator } from '../styles/GlobalStyle';
 
 export const Transaction = ({ transaction }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,17 +36,14 @@ export const Transaction = ({ transaction }) => {
 
       <ContentHeader onClick={() => setIsOpen(!isOpen)}>
 
-        <CollapseIcon>{isOpen ? 
-              <i className="fa fa-solid fa-angle-down" /> :
-              <i className="fa fa-solid fa-angle-up" />}
-        </CollapseIcon>
+      <CollapseIcon className={`fa fa-solid ${isOpen ? 'fa-angle-down' : 'fa-angle-up'}`} />
 
         <Content>
           <Column className='column-date'>{month + ' ' + day + ', ' + year}</Column>
 
           <DateResponsive>
             <Month>{month}</Month>
-            <Day>{day + 'th'}</Day>
+            <Day>{day}</Day>
             <Year>{year}</Year>
           </DateResponsive>
 
@@ -59,6 +57,7 @@ export const Transaction = ({ transaction }) => {
       {isOpen ? 
 
       <ContentReveal>
+        <Separator />
 
         {<ContentRevealItem>Transaction Type: {transaction?.infos?.transactionType}</ContentRevealItem>}
 
@@ -93,12 +92,14 @@ export const Transaction = ({ transaction }) => {
 };
 
 Transaction.propTypes = {
+
   transaction: PropTypes.shape({
     id: PropTypes.number,
     date: PropTypes.string,
     description: PropTypes.string,
     amount: PropTypes.number,
     balance: PropTypes.number,
+
     infos: PropTypes.shape({
       transactionType: PropTypes.string,
       category: PropTypes.string,

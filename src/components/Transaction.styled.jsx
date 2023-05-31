@@ -24,15 +24,12 @@ export const ContentHeader = styled.div`
   }
 `
 
-export const CollapseIcon = styled.div`
+export const CollapseIcon = styled.i`
+  cursor: pointer;
   width: 20px;
   margin-right: 1rem;
-
-  i {
-    cursor: pointer;
-    font-size: 1.5rem;
-    font-weight: 800;
-  }
+  font-size: 1.5rem;
+  font-weight: 800;
 
   @media (max-width: 720px) {
     display: none;
@@ -92,6 +89,10 @@ export const ContentReveal = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding-left: calc(1rem + 20px);
+    
+  @media (max-width: 720px) {
+    padding-left: 0;
+  }
 `
 
 export const ContentRevealItem = styled.div`
