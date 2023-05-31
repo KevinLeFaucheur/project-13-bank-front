@@ -67,9 +67,9 @@ You may also see any lint errors in the console.
 
 This extension will let you observe the application's redux state in Developper Tools.
 
-(Chrome Redux Devtools)[https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd]
+[Chrome Redux Devtools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
 
-(Firefox Redux Devtools)[https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/]
+[Firefox Redux Devtools](https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/)
 
 ### Changing the front-end port
 
