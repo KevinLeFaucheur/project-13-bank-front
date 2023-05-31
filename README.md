@@ -1,5 +1,5 @@
-![JAVASCRIPT](./src/assets/badges/-javascript.svg)
-![REACT](./src/assets/badges/-react.svg)
+![JAVASCRIPT](./src/assets/badges/javascript.svg)
+![REACT](./src/assets/badges/react.svg)
 <br>
 ![node.js](https://img.shields.io/badge/node.js-v16.16.0-green?style=for-the-badge&logo=nodedotjs)
 ![react](https://img.shields.io/badge/react-18.2.0-18a7d6?style=for-the-badge&logo=react)
