@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { 
   Button, CollapseIcon, Column, Content, 
-  ContentHeader, ContentReveal, ContentRevealItem, 
+  ContentHeader, ContentResponsive, ContentReveal, ContentRevealItem, 
   ContentWrapper, DateResponsive, 
   Day, Input, Month, NotesEdit, Select, Year 
 } from './Transaction.styled';
@@ -72,19 +72,23 @@ export const Modal = ({ transaction }) => {
 
             <ContentHeader>
 
-              <Content>
-                <Column className='column-date'>{month + ' ' + day + ', ' + year}</Column>
+            <Content>
+              <Column className='column-date'>{month + ' ' + day + ', ' + year}</Column>
+              <Column className='column-description'>{transaction?.description}</Column>
+              <Column className='column-amount'>${transaction?.amount}</Column>
+              <Column className='column-balance'>${transaction?.balance}</Column>
+            </Content>
 
-                <DateResponsive>
-                  <Month>{month}</Month>
-                  <Day>{day + 'th'}</Day>
-                  <Year>{year}</Year>
-                </DateResponsive>
-
-                <Column className='column-description'>{transaction?.description}</Column>
-                <Column className='column-amount'>${transaction?.amount}</Column>
-                <Column className='column-balance'>${transaction?.balance}</Column>
-              </Content>
+            <ContentResponsive>
+              <div className='upper'>
+                <div>{transaction?.description}</div>
+                <div>${transaction?.amount}</div>
+              </div>
+              <div className='lower'>
+                <div>{month + ' ' + day + ', ' + year}</div>
+                <div>${transaction?.balance}</div>
+              </div>
+            </ContentResponsive>
 
             </ContentHeader>
 

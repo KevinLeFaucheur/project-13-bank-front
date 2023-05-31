@@ -1,9 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { 
   Button, CollapseIcon, Column, Content, 
-  ContentHeader, ContentReveal, ContentRevealItem, 
-  ContentWrapper, DateResponsive, 
-  Day, Input, Month, NotesEdit, Select, Year 
+  ContentHeader, ContentResponsive, ContentReveal, ContentRevealItem, 
+  ContentWrapper, Input, NotesEdit, Select,  
 } from './Transaction.styled';
 import PropTypes from 'prop-types';
 import { dateFormat } from '../utils/dateFormat';
@@ -36,21 +35,25 @@ export const Transaction = ({ transaction }) => {
 
       <ContentHeader onClick={() => setIsOpen(!isOpen)}>
 
-      <CollapseIcon className={`fa fa-solid ${isOpen ? 'fa-angle-down' : 'fa-angle-up'}`} />
+        <CollapseIcon className={`fa fa-solid ${isOpen ? 'fa-angle-down' : 'fa-angle-up'}`} />
 
         <Content>
           <Column className='column-date'>{month + ' ' + day + ', ' + year}</Column>
-
-          <DateResponsive>
-            <Month>{month}</Month>
-            <Day>{day}</Day>
-            <Year>{year}</Year>
-          </DateResponsive>
-
           <Column className='column-description'>{transaction?.description}</Column>
           <Column className='column-amount'>${transaction?.amount}</Column>
           <Column className='column-balance'>${transaction?.balance}</Column>
         </Content>
+
+        <ContentResponsive>
+          <div className='upper'>
+            <div>{transaction?.description}</div>
+            <div>${transaction?.amount}</div>
+          </div>
+          <div className='lower'>
+            <div>{month + ' ' + day + ', ' + year}</div>
+            <div>${transaction?.balance}</div>
+          </div>
+        </ContentResponsive>
 
       </ContentHeader>
 

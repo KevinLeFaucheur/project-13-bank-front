@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useLocation } from 'react-router-dom'
 import { Transaction } from '../components/Transaction'
 
 import { transactions } from '../data/transactionsMock'
 import { Modal } from '../components/Modal'
+import { Column } from '../components/Transaction.styled'
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -67,21 +68,6 @@ const TableHeader = styled.div`
   }
 `
 
-const Column = styled.div`
-  &.column-date {
-    width: 15%;
-  }
-  &.column-description {
-    width: 35%;    
-  }
-  &.column-amount {
-    width: 25%;    
-  }
-  &.column-balance {
-    width: 25%;    
-  }
-`
-
 const Table = styled.div`
   width: 100%;
   font-weight: bold;
@@ -91,8 +77,8 @@ const TransactionWrapper = styled.div`
 `
 const Eye = styled.i`
   position: absolute;
-  top: 30%;
-  right: 2%;
+  top: 24px;
+  right: 9px;
 `
 
 export const Transactions = () => {

@@ -21,6 +21,7 @@ export const ContentHeader = styled.div`
 
   @media (max-width: 720px) {
     font-size: 1rem;
+    padding: 0.25rem 0;
   }
 `
 
@@ -41,6 +42,35 @@ export const Content = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+
+  @media (max-width: 720px) {
+    display: none;
+  }
+`
+
+export const ContentResponsive = styled.div`
+  display: none;
+
+  @media (max-width: 720px) {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+
+    .upper, .lower {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .upper {
+      margin-bottom: 10px;
+    }
+
+    .lower {
+      font-size: 0.75rem;
+      color: grey;
+    }
+  }
+
 `
 
 export const DateResponsive = styled.div`
@@ -53,25 +83,9 @@ export const DateResponsive = styled.div`
 
 `
 
-export const Day = styled.div`
-
-`
-
-export const Month = styled.div`
-
-`
-
-export const Year = styled.div`
-
-`
-
 export const Column = styled.div`
   &.column-date {
     width: 15%;
-    
-    @media (max-width: 720px) {
-      display: none;
-    }
   }
   &.column-description {
     width: 35%; 
