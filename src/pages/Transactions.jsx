@@ -5,7 +5,7 @@ import { Transaction } from '../components/Transaction'
 
 import { transactions } from '../data/transactionsMock'
 import { Modal } from '../components/Modal'
-import { Column } from '../components/Transaction.styled'
+import { Column, TableHeader } from '../components/Transaction.styled'
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -53,19 +53,6 @@ const TableWrapper = styled.div`
   align-items: center;
   width: 90%;
   margin: 0 auto;
-`
-
-const TableHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 4px;
-  color: #fff;
-  padding: 0 2rem 0 calc(2rem + 20px);
-
-  @media (max-width: 720px) {
-    padding: 0;
-  }
 `
 
 const Table = styled.div`

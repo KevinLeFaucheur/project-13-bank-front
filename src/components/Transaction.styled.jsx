@@ -1,5 +1,23 @@
 import styled from "styled-components"
 
+export const TableHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 4px;
+  color: #fff;
+  padding: 0 2rem 0 calc(2rem + 20px);
+
+  @media (max-width: 720px) {
+    padding: 0;
+  }
+
+  &.modal {
+    color: #2c3e50;
+    padding: 0;
+  }
+`
+
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -16,7 +34,7 @@ export const ContentWrapper = styled.div`
 
 export const ContentHeader = styled.div`
   display: flex;
-  margin-bottom: 0.5rem;
+  margin: 0.35rem 0;
   cursor: pointer;
 
   @media (max-width: 720px) {

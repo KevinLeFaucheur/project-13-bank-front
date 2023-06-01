@@ -4,7 +4,7 @@ import {
   Button, CollapseIcon, Column, Content, 
   ContentHeader, ContentResponsive, ContentReveal, ContentRevealItem, 
   ContentWrapper, DateResponsive, 
-  Day, Input, Month, NotesEdit, Select, Year 
+  Day, Input, Month, NotesEdit, Select, TableHeader, Year 
 } from './Transaction.styled';
 import { dateFormat } from '../utils/dateFormat';
 
@@ -49,8 +49,8 @@ const EyeButton = styled.button`
 
 const Separator = styled.div`
   margin: 10px 0;
-  height: 2px;
-  background-color: #2c3e50;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.15);
 `
 
 export const Modal = ({ transaction }) => {
@@ -67,8 +67,17 @@ export const Modal = ({ transaction }) => {
       {transaction ?
       <Dialog>
         <EyeButton onClick={close} className="fa fa-regular fa-eye"></EyeButton>
+
         <div id='modal-body'>
           <ContentWrapper>
+            <TableHeader className='modal'>
+              <Column className='column-date'>DATE</Column>
+              <Column className='column-description'>DESCRIPTION</Column>
+              <Column className='column-amount'>AMOUNT</Column>
+              <Column className='column-balance'>BALANCE</Column>
+            </TableHeader>
+        
+            <Separator />
 
             <ContentHeader>
 
