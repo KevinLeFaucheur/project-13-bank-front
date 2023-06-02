@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import logo from '../images/argentBankLogo.png';
-import { logout } from '../features/user';
+import { logout } from '../redux/slices/user';
+import { clearMessage } from '../redux/slices/message';
 
 const NavbarWrapper = styled.nav`
   display: flex;
@@ -58,6 +59,7 @@ export const Navbar = () => {
 
   const handleSignOut = () => {
     dispatch(logout());
+    dispatch(clearMessage());
   };
 
   return (

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { Footer } from '../layout/Footer';
 import { Navbar } from '../layout/Navbar';
-import { register, rememberUsername } from '../features/user';
+import { register, rememberUsername } from '../redux/slices/user';
  
 const InputWrapper = styled.div`
   display: flex;

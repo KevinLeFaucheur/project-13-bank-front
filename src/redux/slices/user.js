@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getUserProfile, signin, signout, signup, updateUserProfile } from "../services/auth";
+import { getUserProfile, signin, signout, signup, updateUserProfile } from "../../services/auth";
 import { setMessage } from "./message";
 
 const initialState = { 
@@ -101,7 +101,7 @@ export const updateProfile = createAsyncThunk(
 );
 
 /**
- * User slice
+ * User Functionality Slice
  * logout                   : 
  * rememberUserName         :
  * login.fulfiiled          :
@@ -114,7 +114,7 @@ export const { actions, reducer } = createSlice({
   name: 'user',
   initialState: initialState,
   reducers: {
-    logout: (state) => {
+    logout: (state, action, thunkAPI) => {
       signout();
       state.credentials = null;
       state.isLogged = false;
@@ -136,6 +136,8 @@ export const { actions, reducer } = createSlice({
     builder.addCase(getProfile.fulfilled, (state, action) => {
       state.credentials = action.payload.credentials;
     })
+    builder.addCase(getProfile.rejected, (state, action) => {
+    })
     builder.addCase(updateProfile.fulfilled, (state, action) => {
       const { firstName, lastName } = action.payload;
 
@@ -144,6 +146,8 @@ export const { actions, reducer } = createSlice({
         firstName,
         lastName
       };
+    })
+    builder.addCase(updateProfile.rejected, (state, action) => {
     })
   }
 });

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProfile, updateProfile } from '../features/user';
+import { getProfile, updateProfile } from '../redux/slices/user';
 
 const Header = styled.header`
   color: #fff;

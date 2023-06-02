@@ -5,8 +5,8 @@ import styled from 'styled-components';
 
 import { Footer } from '../layout/Footer';
 import { Navbar } from '../layout/Navbar';
-import { login, rememberUsername } from '../features/user';
-import { clearMessage } from '../features/message';
+import { login, rememberUsername } from '../redux/slices/user';
+import { clearMessage } from '../redux/slices/message';
 import { getRememberMeCookie, removeRememberMeCookie, setRememberMeCookie } from '../services/auth';
  
 const InputWrapper = styled.div`
@@ -62,8 +62,6 @@ const SignInSection = styled.section`
   }
     
 `
-
-
 
 const Error = styled.p`
   background-color: #FFF;
