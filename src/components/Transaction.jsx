@@ -1,12 +1,8 @@
 import React, { useRef, useState } from 'react';
-import { 
-  Button, CollapseIcon, Column, Content, 
-  ContentHeader, ContentResponsive, ContentReveal, ContentRevealItem, 
-  ContentWrapper, Input, NotesEdit, Select,  
-} from './Transaction.styled';
 import PropTypes from 'prop-types';
 import { dateFormat } from '../utils/dateFormat';
-import { Separator } from '../styles/GlobalStyle';
+
+import { Button, DetailRow, Icon, Input, Notes, Select, TransactionBody, TransactionBodyResponsive, TransactionContainer, TransactionDetails, TransactionItem, TransactionWrapper } from './Transaction.styled';
 
 export const Transaction = ({ transaction }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,20 +27,19 @@ export const Transaction = ({ transaction }) => {
   const [month, day, year] = dateFormat(transaction?.date);
 
   return (
-    <ContentWrapper>
+    <TransactionWrapper>
+      <Icon className={`collapse--icon fa fa-solid ${isOpen ? 'fa-angle-down' : 'fa-angle-up'}`}></Icon>
 
-      <ContentHeader onClick={() => setIsOpen(!isOpen)}>
+      <TransactionContainer>
 
-        <CollapseIcon className={`fa fa-solid ${isOpen ? 'fa-angle-down' : 'fa-angle-up'}`} />
+        <TransactionBody onClick={() => setIsOpen(!isOpen)}>
+          <TransactionItem className='column-date'>{month + ' ' + day + ', ' + year}</TransactionItem>
+          <TransactionItem className='column-description'>{transaction?.description}</TransactionItem>
+          <TransactionItem className='column-amount'>${transaction?.amount}</TransactionItem>
+          <TransactionItem className='column-balance'>${transaction?.balance}</TransactionItem>
+        </TransactionBody>
 
-        <Content>
-          <Column className='column-date'>{month + ' ' + day + ', ' + year}</Column>
-          <Column className='column-description'>{transaction?.description}</Column>
-          <Column className='column-amount'>${transaction?.amount}</Column>
-          <Column className='column-balance'>${transaction?.balance}</Column>
-        </Content>
-
-        <ContentResponsive>
+        <TransactionBodyResponsive onClick={() => setIsOpen(!isOpen)}>
           <div className='upper'>
             <div>{transaction?.description}</div>
             <div>${transaction?.amount}</div>
@@ -53,44 +48,37 @@ export const Transaction = ({ transaction }) => {
             <div>{month + ' ' + day + ', ' + year}</div>
             <div>${transaction?.balance}</div>
           </div>
-        </ContentResponsive>
+        </TransactionBodyResponsive>
 
-      </ContentHeader>
+        {isOpen ?
+          <TransactionDetails>
 
-      {isOpen ? 
+          <DetailRow>Transaction Type: {transaction?.infos?.transactionType}</DetailRow>
 
-      <ContentReveal>
-        <Separator />
-
-        {<ContentRevealItem>Transaction Type: {transaction?.infos?.transactionType}</ContentRevealItem>}
-
-        {<ContentRevealItem>Category:&nbsp;
-          <>
+          <DetailRow>Category:&nbsp;
             {selectValue}
-            <i onClick={() => setSelectVisibility(isSelectVisible === 'visible' ? 'collapse' : 'visible')} className="fa fa-solid fa-pencil" />
-          </>
-          <Select visibility={isSelectVisible} onChange={(e) => handleSetSelectValue(e.target.value)} name="categories">
-            <option value="">--Please choose a category--</option>
-            {categories.map(category => <option key={category} value={category}>{category}</option>)}
-          </Select>
-            
-        </ContentRevealItem>}
+            <Icon onClick={() => setSelectVisibility(isSelectVisible === 'visible' ? 'collapse' : 'visible')} className="pen--icon fa fa-solid fa-pencil" />
+            <Select visibility={isSelectVisible} onChange={(e) => handleSetSelectValue(e.target.value)} name="categories">
+              <option value="">--Please choose a category--</option>
+              {categories.map(category => <option key={category} value={category}>{category}</option>)}
+            </Select>
+          </DetailRow>
+          
+          <DetailRow>Notes:&nbsp;
+            {noteInputValue}
+            <Icon onClick={() => setNotesVisibility(isNotesVisible === 'visible' ? 'collapse' : 'visible')} className="pen--icon fa fa-solid fa-pencil" />
+            <Notes visibility={isNotesVisible}>
+              <Input id={`transaction-note-${transaction.id}`} ref={inputRef} placeholder='Write a note' />
+              <Button onClick={() => handleSetNotesValue(inputRef.current.value)}>Save</Button>
+              <Button onClick={() => setNotesVisibility('collapse')}>Cancel</Button>
+           </Notes>
+          </DetailRow>
 
-        {<ContentRevealItem>Notes:&nbsp;
-          {noteInputValue}
-          <i onClick={() => setNotesVisibility(isNotesVisible === 'visible' ? 'collapse' : 'visible')} className="fa fa-solid fa-pencil" />
+        </TransactionDetails> : ''}
 
-          <NotesEdit visibility={isNotesVisible}>
-            <Input id={`transaction-note-${transaction.id}`} ref={inputRef} placeholder='Write something' />
-            <Button onClick={() => handleSetNotesValue(inputRef.current.value)}>Save</Button>
-            <Button onClick={() => setNotesVisibility('collapse')}>Cancel</Button>
-          </NotesEdit>
+      </TransactionContainer>
 
-        </ContentRevealItem>}
-
-      </ContentReveal> : ''}
-
-    </ContentWrapper>
+    </TransactionWrapper>
   )
 };
 

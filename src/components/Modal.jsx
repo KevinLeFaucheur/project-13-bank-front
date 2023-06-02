@@ -1,10 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { 
-  Button, CollapseIcon, Column, Content, 
-  ContentHeader, ContentResponsive, ContentReveal, ContentRevealItem, 
-  ContentWrapper, DateResponsive, 
-  Day, Input, Month, NotesEdit, Select, TableHeader, Year 
+  DetailRow, Icon, TransactionBody, TransactionBodyResponsive, TransactionContainer, TransactionDetails, TransactionItem, TransactionsHeader 
 } from './Transaction.styled';
 import { dateFormat } from '../utils/dateFormat';
 
@@ -31,20 +28,15 @@ const Dialog = styled.div`
   width: 80%;
   min-height: 200px;
   border-radius: 5px;
-  padding-top: calc(30px + 2rem);
+  padding: 1rem;
   /* background-color: rgba(#2c3e50, 1); */
   background-color: #FFF;
-`
-
-const EyeButton = styled.button`
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  appearance: none;
-  width: 2rem;
-  height: 2rem;
-  border: none;
-  border-radius: 5px;
+  
+  @media (max-width: 720px) {
+    left: 0;
+    width: 100%;
+    border-radius: 0;
+  }
 `
 
 const Separator = styled.div`
@@ -66,29 +58,27 @@ export const Modal = ({ transaction }) => {
     <Background id='modal'>
       {transaction ?
       <Dialog>
-        <EyeButton onClick={close} className="fa fa-regular fa-eye"></EyeButton>
+        <Icon onClick={close} className="modalClose--icon fa fa-regular fa-eye" />
 
         <div id='modal-body'>
-          <ContentWrapper>
-            <TableHeader className='modal'>
-              <Column className='column-date'>DATE</Column>
-              <Column className='column-description'>DESCRIPTION</Column>
-              <Column className='column-amount'>AMOUNT</Column>
-              <Column className='column-balance'>BALANCE</Column>
-            </TableHeader>
-        
-            <Separator />
 
-            <ContentHeader>
+          <TransactionContainer>
 
-            <Content>
-              <Column className='column-date'>{month + ' ' + day + ', ' + year}</Column>
-              <Column className='column-description'>{transaction?.description}</Column>
-              <Column className='column-amount'>${transaction?.amount}</Column>
-              <Column className='column-balance'>${transaction?.balance}</Column>
-            </Content>
+            <TransactionsHeader className='header--modal'>
+              <TransactionItem className='column-date'>DATE</TransactionItem>
+              <TransactionItem className='column-description'>DESCRIPTION</TransactionItem>
+              <TransactionItem className='column-amount'>AMOUNT</TransactionItem>
+              <TransactionItem className='column-balance'>BALANCE</TransactionItem>
+            </TransactionsHeader>
 
-            <ContentResponsive>
+            <TransactionBody>
+              <TransactionItem className='column-date'>{month + ' ' + day + ', ' + year}</TransactionItem>
+              <TransactionItem className='column-description'>{transaction?.description}</TransactionItem>
+              <TransactionItem className='column-amount'>${transaction?.amount}</TransactionItem>
+              <TransactionItem className='column-balance'>${transaction?.balance}</TransactionItem>
+            </TransactionBody>
+
+            <TransactionBodyResponsive>
               <div className='upper'>
                 <div>{transaction?.description}</div>
                 <div>${transaction?.amount}</div>
@@ -97,42 +87,37 @@ export const Modal = ({ transaction }) => {
                 <div>{month + ' ' + day + ', ' + year}</div>
                 <div>${transaction?.balance}</div>
               </div>
-            </ContentResponsive>
-
-            </ContentHeader>
+            </TransactionBodyResponsive>
 
             <Separator />
 
-            <ContentReveal>
+            <TransactionDetails>
 
-              {<ContentRevealItem>Transaction Type: {transaction?.infos?.transactionType}</ContentRevealItem>}
+              <DetailRow>Transaction Type: {transaction?.infos?.transactionType}</DetailRow>
 
-              {<ContentRevealItem>Category:&nbsp;
-                {/* <>
-                  {selectValue}
-                  <i onClick={() => setIsCategoryEditing(!isCategoryEditing)} className="fa fa-solid fa-pencil" />
-                </>
-                <Select visibility={isCategoryEditing}  onChange={(e) => handleSetSelectValue(e.target.value)} name="categories">
+              <DetailRow>Category:&nbsp;
+                {/* {selectValue}
+                <Icon onClick={() => setSelectVisibility(isSelectVisible === 'visible' ? 'collapse' : 'visible')} className="fa fa-solid fa-pencil" />
+                <Select visibility={isSelectVisible} onChange={(e) => handleSetSelectValue(e.target.value)} name="categories">
                   <option value="">--Please choose a category--</option>
                   {categories.map(category => <option key={category} value={category}>{category}</option>)}
                 </Select> */}
-              </ContentRevealItem>}
-
-              {<ContentRevealItem>Notes:&nbsp;
+              </DetailRow>
+              
+              <DetailRow>Notes:&nbsp;
                 {/* {noteInputValue}
-                <i onClick={() => setIsNotesEditing(!isNotesEditing)} className="fa fa-solid fa-pencil" />
-
-                <NotesEdit visibility={isNotesEditing}>
+                <Icon onClick={() => setNotesVisibility(isNotesVisible === 'visible' ? 'collapse' : 'visible')} className="fa fa-solid fa-pencil" />
+                <Notes visibility={isNotesVisible}>
                   <Input id={`transaction-note-${transaction.id}`} ref={inputRef} placeholder='Write something' />
                   <Button onClick={() => handleSetNotesValue(inputRef.current.value)}>Save</Button>
-                  <Button onClick={() => setIsNotesEditing(!isNotesEditing)}>Cancel</Button>
-                </NotesEdit> */}
+                  <Button onClick={() => setNotesVisibility('collapse')}>Cancel</Button>
+                </Notes> */}
+              </DetailRow>
 
-              </ContentRevealItem>}
+            </TransactionDetails>
 
-            </ContentReveal>
-
-          </ContentWrapper>
+          </TransactionContainer>
+          
         </div>
       </Dialog> : ''}
     </Background>

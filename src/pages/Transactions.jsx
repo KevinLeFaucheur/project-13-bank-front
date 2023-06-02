@@ -5,7 +5,7 @@ import { Transaction } from '../components/Transaction'
 
 import { transactions } from '../data/transactionsMock'
 import { Modal } from '../components/Modal'
-import { Column, TableHeader } from '../components/Transaction.styled'
+import { Icon, TransactionItem, TransactionsHeader } from '../components/Transaction.styled'
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -59,13 +59,9 @@ const Table = styled.div`
   width: 100%;
   font-weight: bold;
 `
+
 const TransactionWrapper = styled.div`
   position: relative;
-`
-const Eye = styled.i`
-  position: absolute;
-  top: 24px;
-  right: 9px;
 `
 
 export const Transactions = () => {
@@ -89,17 +85,17 @@ export const Transactions = () => {
         </ContentWrapper>
 
         <TableWrapper>      
-          <TableHeader>
-            <Column className='column-date'>DATE</Column>
-            <Column className='column-description'>DESCRIPTION</Column>
-            <Column className='column-amount'>AMOUNT</Column>
-            <Column className='column-balance'>BALANCE</Column>
-          </TableHeader>
+          <TransactionsHeader>
+            <TransactionItem className='column-date'>DATE</TransactionItem>
+            <TransactionItem className='column-description'>DESCRIPTION</TransactionItem>
+            <TransactionItem className='column-amount'>AMOUNT</TransactionItem>
+            <TransactionItem className='column-balance'>BALANCE</TransactionItem>
+          </TransactionsHeader>
           <Table>
             {transactions.map(transaction => 
               <TransactionWrapper key={transaction?.id}>
                 <Transaction transaction={transaction} />
-                <Eye onClick={() => toggleModal(transaction)} className="fa fa-regular fa-eye toggle-button" />
+                <Icon onClick={() => toggleModal(transaction)} className="modal--icon fa fa-regular fa-eye toggle-button" />
               </TransactionWrapper>
             )}
           </Table>
