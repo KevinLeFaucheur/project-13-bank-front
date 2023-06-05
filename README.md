@@ -32,7 +32,7 @@ You need first the micro API from this repositery: <br>
 [https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API](https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API)
 
 - Follow the instructions from the Back-End API GitHub
--
+- `npm run dev:server`
 - API is running on port 3001 by default
 
 ## 2.2 Launching the front-end project

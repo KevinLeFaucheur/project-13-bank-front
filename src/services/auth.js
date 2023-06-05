@@ -1,7 +1,6 @@
 import axios from "axios";
 import Cookies from "universal-cookie";
 
-// const API_URL = process.env.REACT_APP_API_URL;
 const API_URL = 'http://localhost:3001/api/v1/';
 const cookies = new Cookies();
 
@@ -57,7 +56,6 @@ export const signup = async ({ email, password, firstName, lastName }) => {
     "firstName": firstName,
     "lastName": lastName
   }).then((response) => {
-
     return response.data;
   })
 };
@@ -84,7 +82,6 @@ export const getUserProfile = async () => {
       Authorization: `Bearer ${token}` 
     }
   }).then((response) => {
-
     return response.data;
   })
 };
@@ -115,14 +112,13 @@ export const updateUserProfile = async ({ firstName, lastName }) => {
       Authorization: `Bearer ${token}` 
     }
   }).then((response) => {
-
     return response.data;
   })
 };
 
 
 /**
- * Remember Me Cookie functions
+ * Remember Me Email Cookie Functions
  */
 export const setRememberMeCookie = (email) => {
   cookies.set('email', email, { path: '/' });

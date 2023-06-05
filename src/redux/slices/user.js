@@ -10,18 +10,26 @@ const initialState = {
 
 /**
  * Login Action for the user slice
- * @param {}  
- * @returns {}
+ * @returns { data: { 
+ *              body: {
+ *                token: string
+ *              }, 
+ *              message: string, 
+ *              status: number
+ *              }, 
+ *           } data object
 */
 export const login = createAsyncThunk(
   'user/login',
   async ({ email, password }, thunkAPI) => {
     try {
-      const response = await signin({ email, password });
+      const data = await signin({ email, password });
 
-      thunkAPI.dispatch(setMessage(response.message));
+      console.log(data);
 
-      return response;
+      thunkAPI.dispatch(setMessage(data.message));
+
+      return data;
     } 
     catch ({ response }) {
       thunkAPI.dispatch(setMessage(response.data.message));
@@ -33,21 +41,27 @@ export const login = createAsyncThunk(
 
 /**
  * Register Action for the user slice
- * @param {} 
- * @returns {}
+ * @returns { data: { 
+ *              body: {
+*                token: string
+*              }, 
+*              message: string, 
+*              status: number
+*              }, 
+*           } data object
 */
 export const register = createAsyncThunk(
   'user/register',
   async ({ email, password, firstName, lastName }, thunkAPI) => {
     try {
-      const response = await signup({ email, password, firstName, lastName });
+      const data = await signup({ email, password, firstName, lastName });
 
-      thunkAPI.dispatch(setMessage(response.message));
+      thunkAPI.dispatch(setMessage(data.message));
 
-      return response.message;
+      return data.message;
     } 
-    catch (error) {
-      thunkAPI.dispatch(setMessage(error.message));
+    catch ({ response }) {
+      thunkAPI.dispatch(setMessage(response.data.message));
 
       return thunkAPI.rejectWithValue();
     }
@@ -56,8 +70,14 @@ export const register = createAsyncThunk(
 
 /**
  * Get Profile Action for the user slice
- * @param {} 
- * @returns {}
+ * @returns { data: { 
+ *              body: {
+*                token: string
+*              }, 
+*              message: string, 
+*              status: number
+*              }, 
+*           } data object
 */
 export const getProfile = createAsyncThunk(
   'user/profile',
@@ -69,8 +89,8 @@ export const getProfile = createAsyncThunk(
 
       return { credentials: data.body };
     } 
-    catch (error) {
-      thunkAPI.dispatch(setMessage(error.message));
+    catch ({ response }) {
+      thunkAPI.dispatch(setMessage(response.data.message));
 
       return thunkAPI.rejectWithValue();      
     }
@@ -79,21 +99,27 @@ export const getProfile = createAsyncThunk(
 
 /**
  * Update Profile Action for user slice
- * @param {} 
- * @returns {}
+ * @returns { data: { 
+ *              body: {
+*                token: string
+*              }, 
+*              message: string, 
+*              status: number
+*              }, 
+*           } data object
 */
 export const updateProfile = createAsyncThunk(
   'user/update',
   async ({ firstName, lastName }, thunkAPI) => {
     try {
-      const response = await updateUserProfile({ firstName, lastName });
+      const data = await updateUserProfile({ firstName, lastName });
 
-      thunkAPI.dispatch(setMessage(response.message));
+      thunkAPI.dispatch(setMessage(data.message));
 
-      return response.body;
+      return data.body;
     } 
-    catch (error) {
-      thunkAPI.dispatch(setMessage(error.message));
+    catch ({ response }) {
+      thunkAPI.dispatch(setMessage(response.data.message));
 
       return thunkAPI.rejectWithValue();      
     }
