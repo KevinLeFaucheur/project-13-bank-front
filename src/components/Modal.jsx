@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { 
   DetailRow, Icon, TransactionBody, TransactionBodyResponsive, TransactionContainer, TransactionDetails, TransactionItem, TransactionsHeader 
@@ -47,8 +47,13 @@ const Separator = styled.div`
 
 export const Modal = ({ transaction }) => {
   const [month, day, year] = dateFormat(transaction?.date);
+  const [selectValue, setSelectValue] = useState('');
+  const [noteInputValue, setNoteInputValue] = useState('');
 
-  console.log(year);
+  useEffect(() => {
+    setSelectValue(localStorage.getItem(`category-${transaction?.id}`));
+    setNoteInputValue(localStorage.getItem(`note-${transaction?.id}`));
+  }, [transaction.id])
 
   const close = () => {
     document.getElementById('modal').classList.remove('open');
@@ -96,8 +101,8 @@ export const Modal = ({ transaction }) => {
               <DetailRow>Transaction Type: {transaction?.infos?.transactionType}</DetailRow>
 
               <DetailRow>Category:&nbsp;
-                {/* {selectValue}
-                <Icon onClick={() => setSelectVisibility(isSelectVisible === 'visible' ? 'collapse' : 'visible')} className="fa fa-solid fa-pencil" />
+                {selectValue}
+                {/* <Icon onClick={() => setSelectVisibility(isSelectVisible === 'visible' ? 'collapse' : 'visible')} className="fa fa-solid fa-pencil" />
                 <Select visibility={isSelectVisible} onChange={(e) => handleSetSelectValue(e.target.value)} name="categories">
                   <option value="">--Please choose a category--</option>
                   {categories.map(category => <option key={category} value={category}>{category}</option>)}
@@ -105,8 +110,8 @@ export const Modal = ({ transaction }) => {
               </DetailRow>
               
               <DetailRow>Notes:&nbsp;
-                {/* {noteInputValue}
-                <Icon onClick={() => setNotesVisibility(isNotesVisible === 'visible' ? 'collapse' : 'visible')} className="fa fa-solid fa-pencil" />
+                {noteInputValue}
+                {/* <Icon onClick={() => setNotesVisibility(isNotesVisible === 'visible' ? 'collapse' : 'visible')} className="fa fa-solid fa-pencil" />
                 <Notes visibility={isNotesVisible}>
                   <Input id={`transaction-note-${transaction.id}`} ref={inputRef} placeholder='Write something' />
                   <Button onClick={() => handleSetNotesValue(inputRef.current.value)}>Save</Button>

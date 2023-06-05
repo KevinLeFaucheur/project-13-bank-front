@@ -14,11 +14,13 @@ export const Transaction = ({ transaction }) => {
   const inputRef = useRef('');
 
   const handleSetSelectValue = (value) => {
+    localStorage.setItem(`category-${transaction?.id}`, value); // Set to database once API is ready
     setSelectValue(value);
     setSelectVisibility('collapse');
   }
 
   const handleSetNotesValue = (value) => {
+    localStorage.setItem(`note-${transaction?.id}`, value); // Set to database once API is ready
     setNoteInputValue(value);
     setNotesVisibility('collapse');
   }
