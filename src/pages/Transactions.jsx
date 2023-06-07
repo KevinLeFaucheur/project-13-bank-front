@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import { useLocation } from 'react-router-dom'
-import { Transaction } from '../components/Transaction'
 
+import { Transaction } from '../components/Transaction'
 import { transactions } from '../data/transactionsMock'
 import { Modal } from '../components/Modal'
-import { Icon, TransactionItem, TransactionsHeader } from '../components/Transaction.styled'
+import { GlobalIcon as Icon } from '../styles/GlobalStyle'
+import { TransactionItem, TransactionsHeader } from '../components/Transaction.styled'
 
 const ContentWrapper = styled.div`
   display: flex;

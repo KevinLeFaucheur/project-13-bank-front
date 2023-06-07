@@ -59,3 +59,52 @@ export const Separator = styled.div`
     display: block;
   }
 `
+
+export const GlobalError = styled.p`
+  background-color: #FFF;
+  color: #990000;
+  padding: 10px;
+  margin: 1rem auto;
+  width: 300px;
+`
+
+export const GlobalIcon = styled.i`
+  cursor: pointer;
+
+  &.collapse--icon {
+    position: absolute;
+    top: 0.7rem;
+    left: 1.4rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+
+    @media (max-width: 720px) {
+      display: none;
+    }
+  }
+  &.modal--icon {
+    position: absolute;
+    top: 0.7rem;
+    right: 1.4rem;  
+    font-size: 1rem;
+
+    @media (max-width: 720px) {
+      top: 0.9rem;
+      right: 0.9rem; 
+    }
+  }
+  &.modalClose--icon {
+    position: absolute;
+    top: 1.6rem;
+    right: 1.4rem;  
+    font-size: 1rem;
+
+    @media (max-width: 720px) {
+      right: 1rem; 
+    }
+  }
+  &.pen--icon {
+    font-size: 1rem;
+    margin: 0 0.5rem;
+  }
+`

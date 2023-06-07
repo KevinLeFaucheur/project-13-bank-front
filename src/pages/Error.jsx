@@ -12,7 +12,7 @@ const ErrorWrapper = styled.div`
 
   a, a:link, a:visited, a:hover, a:active {
     text-decoration: underline;
-  color: #00BC77;
+    color: #00BC77;
   }
 `
 

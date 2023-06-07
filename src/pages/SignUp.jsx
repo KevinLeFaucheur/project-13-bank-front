@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import { Layout } from '../layout/Layout'
+import { GlobalError as Error } from '../styles/GlobalStyle'
 import { register, rememberUsername } from '../redux/slices/user'
  
 const InputWrapper = styled.div`
@@ -71,6 +72,7 @@ export const SignUp = () => {
   const { isLogged } = useSelector(state => state.user);
   const { rememberMe } = useSelector(state => state.user);
   const { email } = useSelector(state => state.user);
+  const { message } = useSelector(state => state.message);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -131,6 +133,7 @@ export const SignUp = () => {
             <button type='submit' className="sign-in-button">Sign Up</button>
           </form>
         </SignInSection>
+        {message ? <Error>{message}</Error> : ''}
       </main>      
     </Layout>
   )

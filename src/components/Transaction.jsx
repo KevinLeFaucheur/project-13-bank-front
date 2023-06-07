@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { dateFormat } from '../utils/dateFormat';
 
 import { 
-  Button, DetailRow, Icon, Input, Notes, 
+  Button, DetailRow, Input, Notes, 
   Select, TransactionBody, TransactionBodyResponsive, 
   TransactionDetails, TransactionItem, TransactionWrapper 
 } from './Transaction.styled';
+import { GlobalIcon as Icon } from '../styles/GlobalStyle'
 
 export const Transaction = ({ transaction }) => {
   const [isOpen, setIsOpen] = useState(false);

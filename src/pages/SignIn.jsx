@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import { Layout } from '../layout/Layout'
+import { GlobalError as Error } from '../styles/GlobalStyle'
 import { login, rememberUsername } from '../redux/slices/user'
 import { clearMessage } from '../redux/slices/message'
 import { getRememberMeCookie, removeRememberMeCookie, setRememberMeCookie } from '../services/auth'
@@ -60,14 +61,6 @@ const SignInSection = styled.section`
     font-size: 5rem;
   }
     
-`
-
-const Error = styled.p`
-  background-color: #FFF;
-  color: #990000;
-  padding: 10px;
-  margin: 1rem auto;
-  width: 300px;
 `
 
 export const SignIn = () => {

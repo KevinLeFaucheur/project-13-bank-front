@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { 
-  DetailRow, Icon, TransactionBody, TransactionBodyResponsive, TransactionContainer, TransactionDetails, TransactionItem, TransactionsHeader 
+  DetailRow, TransactionBody, TransactionBodyResponsive, 
+  TransactionDetails, TransactionItem, TransactionsHeader 
 } from './Transaction.styled';
+import { GlobalIcon as Icon } from '../styles/GlobalStyle'
 import { dateFormat } from '../utils/dateFormat';
 
 const Background = styled.div`
