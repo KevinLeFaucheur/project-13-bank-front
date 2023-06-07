@@ -77,30 +77,30 @@ export const Transactions = () => {
   };
 
   return (
-      <main className="main bg-dark">
-        <ContentWrapper>
-          <h3 className="account-title">{title}</h3>
-          <p className="account-amount">${amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
-          <p className="account-amount-description">{description}</p>
-        </ContentWrapper>
+    <main className="main bg-dark">
+      <ContentWrapper>
+        <h3 className="account-title">{title}</h3>
+        <p className="account-amount">${amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
+        <p className="account-amount-description">{description}</p>
+      </ContentWrapper>
 
-        <TableWrapper>      
-          <TransactionsHeader>
-            <TransactionItem className='column-date'>DATE</TransactionItem>
-            <TransactionItem className='column-description'>DESCRIPTION</TransactionItem>
-            <TransactionItem className='column-amount'>AMOUNT</TransactionItem>
-            <TransactionItem className='column-balance'>BALANCE</TransactionItem>
-          </TransactionsHeader>
-          <Table>
-            {transactions.map(transaction => 
-              <TransactionWrapper key={transaction?.id}>
-                <Transaction transaction={transaction} />
-                <Icon onClick={() => toggleModal(transaction)} className="modal--icon fa fa-regular fa-eye toggle-button" />
-              </TransactionWrapper>
-            )}
-          </Table>
-        </TableWrapper>
-        <Modal transaction={modalTransaction} />
-      </main>
+      <TableWrapper>      
+        <TransactionsHeader>
+          <TransactionItem className='column-date'>DATE</TransactionItem>
+          <TransactionItem className='column-description'>DESCRIPTION</TransactionItem>
+          <TransactionItem className='column-amount'>AMOUNT</TransactionItem>
+          <TransactionItem className='column-balance'>BALANCE</TransactionItem>
+        </TransactionsHeader>
+        <Table>
+          {transactions.map(transaction => 
+            <TransactionWrapper key={transaction?.id}>
+              <Transaction transaction={transaction} />
+              <Icon onClick={() => toggleModal(transaction)} className="modal--icon fa fa-regular fa-eye toggle-button" />
+            </TransactionWrapper>
+          )}
+        </Table>
+      </TableWrapper>
+      <Modal transaction={modalTransaction} />
+    </main>
   )
 }

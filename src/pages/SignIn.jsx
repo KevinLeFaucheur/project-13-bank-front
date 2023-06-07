@@ -1,13 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import { useEffect, useRef, useState } from 'react'
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
 
-import { Footer } from '../layout/Footer';
-import { Navbar } from '../layout/Navbar';
-import { login, rememberUsername } from '../redux/slices/user';
-import { clearMessage } from '../redux/slices/message';
-import { getRememberMeCookie, removeRememberMeCookie, setRememberMeCookie } from '../services/auth';
+import { Layout } from '../layout/Layout'
+import { login, rememberUsername } from '../redux/slices/user'
+import { clearMessage } from '../redux/slices/message'
+import { getRememberMeCookie, removeRememberMeCookie, setRememberMeCookie } from '../services/auth'
  
 const InputWrapper = styled.div`
   display: flex;
@@ -128,8 +127,7 @@ export const SignIn = () => {
   }
 
   return (
-    <>
-      <Navbar />
+    <Layout>
       <main className="main bg-dark">
         <SignInSection>
           <i className="fa fa-user-circle sign-in-icon"></i>
@@ -152,8 +150,7 @@ export const SignIn = () => {
           </form>
         </SignInSection>
         {message ? <Error>{message}</Error> : ''}
-      </main>
-      <Footer />
-    </>
+      </main>     
+    </Layout>
   )
 }

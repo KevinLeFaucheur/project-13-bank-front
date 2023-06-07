@@ -3,8 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { Footer } from '../layout/Footer'
-import { Navbar } from '../layout/Navbar'
+import { Layout } from '../layout/Layout'
 import { register, rememberUsername } from '../redux/slices/user'
  
 const InputWrapper = styled.div`
@@ -103,8 +102,7 @@ export const SignUp = () => {
   }
 
   return (
-    <>
-      <Navbar />
+    <Layout>
       <main className="main bg-dark">
         <SignInSection>
           <i className="fa fa-user-circle sign-in-icon"></i>
@@ -133,8 +131,7 @@ export const SignUp = () => {
             <button type='submit' className="sign-in-button">Sign Up</button>
           </form>
         </SignInSection>
-      </main>
-      <Footer />
-    </>
+      </main>      
+    </Layout>
   )
 }

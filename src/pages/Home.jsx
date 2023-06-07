@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import { Footer } from '../layout/Footer'
-import { Navbar } from '../layout/Navbar'
+import { Layout } from '../layout/Layout'
 import { Hero } from '../components/Hero'
 import { Feature } from '../components/Feature'
 import { features } from '../data/features'
@@ -18,8 +17,7 @@ const Section = styled.section`
 export const Home = () => {
 
   return (
-    <>
-      <Navbar />
+    <Layout>
       <main>
         <Hero />
         <Section>
@@ -27,7 +25,6 @@ export const Home = () => {
           {features.map((feature, index) => <Feature key={index} feature={feature} /> )}
         </Section>
       </main>
-      <Footer />
-    </>
+    </Layout>
   )
 }

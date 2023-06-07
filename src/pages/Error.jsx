@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { Navbar } from '../layout/Navbar';
-import { Footer } from '../layout/Footer';
+import { Layout } from '../layout/Layout'
 import { Link, useLocation } from 'react-router-dom';
 
 const ErrorWrapper = styled.div`
@@ -30,8 +29,7 @@ export const Error = () => {
   const { state } =  useLocation();
 
   return (
-    <>
-      <Navbar />
+    <Layout>
       <main className="main bg-dark">
         <ErrorWrapper>
           <ErrorTitle>404</ErrorTitle>
@@ -39,7 +37,6 @@ export const Error = () => {
           <Link to='/'>Back to home page</Link>
         </ErrorWrapper>
       </main>
-      <Footer />
-    </>
+    </Layout>
   )
 }
