@@ -4,7 +4,7 @@ import { dateFormat } from '../utils/dateFormat';
 
 import { 
   Button, DetailRow, Icon, Input, Notes, 
-  Select, TransactionBody, TransactionBodyResponsive, TransactionContainer, 
+  Select, TransactionBody, TransactionBodyResponsive, 
   TransactionDetails, TransactionItem, TransactionWrapper 
 } from './Transaction.styled';
 
@@ -35,9 +35,7 @@ export const Transaction = ({ transaction }) => {
   return (
     <TransactionWrapper>
       <Icon className={`collapse--icon fa fa-solid ${isOpen ? 'fa-angle-down' : 'fa-angle-up'}`}></Icon>
-
-      <TransactionContainer>
-
+      <div>
         <TransactionBody onClick={() => setIsOpen(!isOpen)}>
           <TransactionItem className='column-date'>{month + ' ' + day + ', ' + year}</TransactionItem>
           <TransactionItem className='column-description'>{transaction?.description}</TransactionItem>
@@ -81,9 +79,7 @@ export const Transaction = ({ transaction }) => {
           </DetailRow>
 
         </TransactionDetails> : ''}
-
-      </TransactionContainer>
-
+      </div>
     </TransactionWrapper>
   )
 };

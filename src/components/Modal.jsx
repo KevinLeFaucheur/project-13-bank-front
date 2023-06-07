@@ -65,62 +65,38 @@ export const Modal = ({ transaction }) => {
         <Icon onClick={close} className="modalClose--icon fa fa-regular fa-eye" />
 
         <div id='modal-body'>
+          <TransactionsHeader className='header--modal'>
+            <TransactionItem className='column-date'>DATE</TransactionItem>
+            <TransactionItem className='column-description'>DESCRIPTION</TransactionItem>
+            <TransactionItem className='column-amount'>AMOUNT</TransactionItem>
+            <TransactionItem className='column-balance'>BALANCE</TransactionItem>
+          </TransactionsHeader>
 
-          <TransactionContainer>
+          <TransactionBody>
+            <TransactionItem className='column-date'>{month + ' ' + day + ', ' + year}</TransactionItem>
+            <TransactionItem className='column-description'>{transaction?.description}</TransactionItem>
+            <TransactionItem className='column-amount'>${transaction?.amount}</TransactionItem>
+            <TransactionItem className='column-balance'>${transaction?.balance}</TransactionItem>
+          </TransactionBody>
 
-            <TransactionsHeader className='header--modal'>
-              <TransactionItem className='column-date'>DATE</TransactionItem>
-              <TransactionItem className='column-description'>DESCRIPTION</TransactionItem>
-              <TransactionItem className='column-amount'>AMOUNT</TransactionItem>
-              <TransactionItem className='column-balance'>BALANCE</TransactionItem>
-            </TransactionsHeader>
+          <TransactionBodyResponsive>
+            <div className='upper'>
+              <div>{transaction?.description}</div>
+              <div>${transaction?.amount}</div>
+            </div>
+            <div className='lower'>
+              <div>{month + ' ' + day + ', ' + year}</div>
+              <div>${transaction?.balance}</div>
+            </div>
+          </TransactionBodyResponsive>
 
-            <TransactionBody>
-              <TransactionItem className='column-date'>{month + ' ' + day + ', ' + year}</TransactionItem>
-              <TransactionItem className='column-description'>{transaction?.description}</TransactionItem>
-              <TransactionItem className='column-amount'>${transaction?.amount}</TransactionItem>
-              <TransactionItem className='column-balance'>${transaction?.balance}</TransactionItem>
-            </TransactionBody>
+          <Separator />
 
-            <TransactionBodyResponsive>
-              <div className='upper'>
-                <div>{transaction?.description}</div>
-                <div>${transaction?.amount}</div>
-              </div>
-              <div className='lower'>
-                <div>{month + ' ' + day + ', ' + year}</div>
-                <div>${transaction?.balance}</div>
-              </div>
-            </TransactionBodyResponsive>
-
-            <Separator />
-
-            <TransactionDetails>
-
-              <DetailRow>Transaction Type: {transaction?.infos?.transactionType}</DetailRow>
-
-              <DetailRow>Category:&nbsp;
-                {selectValue}
-                {/* <Icon onClick={() => setSelectVisibility(isSelectVisible === 'visible' ? 'collapse' : 'visible')} className="fa fa-solid fa-pencil" />
-                <Select visibility={isSelectVisible} onChange={(e) => handleSetSelectValue(e.target.value)} name="categories">
-                  <option value="">--Please choose a category--</option>
-                  {categories.map(category => <option key={category} value={category}>{category}</option>)}
-                </Select> */}
-              </DetailRow>
-              
-              <DetailRow>Notes:&nbsp;
-                {noteInputValue}
-                {/* <Icon onClick={() => setNotesVisibility(isNotesVisible === 'visible' ? 'collapse' : 'visible')} className="fa fa-solid fa-pencil" />
-                <Notes visibility={isNotesVisible}>
-                  <Input id={`transaction-note-${transaction.id}`} ref={inputRef} placeholder='Write something' />
-                  <Button onClick={() => handleSetNotesValue(inputRef.current.value)}>Save</Button>
-                  <Button onClick={() => setNotesVisibility('collapse')}>Cancel</Button>
-                </Notes> */}
-              </DetailRow>
-
-            </TransactionDetails>
-
-          </TransactionContainer>
+          <TransactionDetails>
+            <DetailRow>Transaction Type: {transaction?.infos?.transactionType}</DetailRow>
+            <DetailRow>Category:&nbsp;{selectValue}</DetailRow>
+            <DetailRow>Notes:&nbsp;{noteInputValue}</DetailRow>
+          </TransactionDetails>
           
         </div>
       </Dialog> : ''}

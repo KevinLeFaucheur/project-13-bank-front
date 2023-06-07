@@ -7,9 +7,6 @@ export const TransactionWrapper = styled.div`
   margin: 2px 0;
 `
 
-export const TransactionContainer = styled.div`
-`
-
 export const TransactionBody = styled.div`
   cursor: pointer;
   display: flex;
@@ -151,5 +148,5 @@ export const Button = styled(GlobalButton)`
 `
 
 export const Input = styled(GlobalInput)`
-  
+
 `
