@@ -1,11 +1,10 @@
-import React from 'react';
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import logo from '../images/argentBankLogo.png';
 import { logout } from '../redux/slices/user';
-import { clearMessage, setMessage } from '../redux/slices/message';
+import { setMessage } from '../redux/slices/message';
 
 const NavbarWrapper = styled.nav`
   display: flex;

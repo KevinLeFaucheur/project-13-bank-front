@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfile, updateProfile } from '../redux/slices/user';
@@ -79,7 +79,6 @@ export const AccountsHeader = () => {
 
   const handleIsEdit = () => {
     setIsEditing(!isEditing);
-    // dispatch(getProfile());
   };
 
   const handleSaveEdit = () => {

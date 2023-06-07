@@ -1,5 +1,4 @@
-import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const FeatureItem = styled.div`
   .feature-icon {
@@ -27,9 +26,7 @@ export const Feature = ({ feature }) => {
     <FeatureItem>
       <img src={icon} alt="Chat Icon" className="feature-icon" />
       <h3 className="feature-item-title">{title}</h3>
-      <p>
-        {text}
-      </p>
+      <p>{text}</p>
     </FeatureItem>
   )
 }

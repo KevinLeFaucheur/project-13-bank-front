@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import { useEffect, useRef, useState } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
 
-import { Footer } from '../layout/Footer';
-import { Navbar } from '../layout/Navbar';
-import { register, rememberUsername } from '../redux/slices/user';
+import { Footer } from '../layout/Footer'
+import { Navbar } from '../layout/Navbar'
+import { register, rememberUsername } from '../redux/slices/user'
  
 const InputWrapper = styled.div`
   display: flex;
@@ -65,11 +65,9 @@ export const SignUp = () => {
   const firstNameInput = useRef();
   const lastNameInput = useRef();
   const passwordInput = useRef();
-  const confirmPasswordInput = useRef();
   const rememberMeInput = useRef();
 
   const [signup, setSignup] = useState({});
-  const [confirmPassword, setConfirmPassword] = useState();
 
   const { isLogged } = useSelector(state => state.user);
   const { rememberMe } = useSelector(state => state.user);
@@ -128,10 +126,6 @@ export const SignUp = () => {
               <label htmlFor="password">Password</label>
               <input type="password" id="password" ref={passwordInput} onChange={e => handleRegister({ password: e.target.value})} required />
             </InputWrapper>
-            {/* <InputWrapper>
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <input type="confirmPassword" id="confirmPassword" ref={confirmPasswordInput} onChange={e => setConfirmPassword(e.target.value)}/>
-            </InputWrapper> */}
             <InputRememberMe>
               <input type="checkbox" id="remember-me" ref={rememberMeInput} onClick={handleRememberMe}/>
               <label htmlFor="remember-me">Remember me</label>

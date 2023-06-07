@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import { Footer } from '../layout/Footer'
 import { Navbar } from '../layout/Navbar'

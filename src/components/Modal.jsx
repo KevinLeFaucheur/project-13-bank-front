@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { 
   DetailRow, Icon, TransactionBody, TransactionBodyResponsive, TransactionContainer, TransactionDetails, TransactionItem, TransactionsHeader 
@@ -29,7 +29,6 @@ const Dialog = styled.div`
   min-height: 200px;
   border-radius: 5px;
   padding: 1rem;
-  /* background-color: rgba(#2c3e50, 1); */
   background-color: #FFF;
   
   @media (max-width: 720px) {

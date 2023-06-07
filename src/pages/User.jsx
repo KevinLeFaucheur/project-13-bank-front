@@ -1,4 +1,3 @@
-import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { Footer } from '../layout/Footer';
 import { Navbar } from '../layout/Navbar';

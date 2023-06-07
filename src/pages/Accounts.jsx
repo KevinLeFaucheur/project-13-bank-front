@@ -1,7 +1,5 @@
-import React from 'react';
 import { Account } from '../components/Account';
 import { accounts } from '../data/accountsMock';
-
 import { AccountsHeader } from '../components/AccountsHeader';
 
 export const Accounts = () => {

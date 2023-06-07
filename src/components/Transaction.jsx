@@ -1,8 +1,12 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { dateFormat } from '../utils/dateFormat';
 
-import { Button, DetailRow, Icon, Input, Notes, Select, TransactionBody, TransactionBodyResponsive, TransactionContainer, TransactionDetails, TransactionItem, TransactionWrapper } from './Transaction.styled';
+import { 
+  Button, DetailRow, Icon, Input, Notes, 
+  Select, TransactionBody, TransactionBodyResponsive, TransactionContainer, 
+  TransactionDetails, TransactionItem, TransactionWrapper 
+} from './Transaction.styled';
 
 export const Transaction = ({ transaction }) => {
   const [isOpen, setIsOpen] = useState(false);

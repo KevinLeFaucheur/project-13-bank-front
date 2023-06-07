@@ -1,7 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import bankTree from '../images/bank-tree.jpeg';
-import { H2 } from '../styles/Headers';
+import styled from 'styled-components'
+import bankTree from '../images/bank-tree.jpeg'
+import { H2 } from '../styles/Headers'
 
 const HeroWrapper = styled.div`
   background-image: url(${props => props.background});
