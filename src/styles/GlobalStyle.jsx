@@ -29,6 +29,25 @@ export default createGlobalStyle`
   }
 `
 
+export const GlobalButton = styled.button`
+  cursor: pointer;
+  border-color: #00bc77;
+  background-color: #00bc77;
+  color: #FFF;
+  font-weight: bold;
+  min-width: 100px;
+`
+
+export const GlobalInput = styled.input`
+  font-weight: bold;
+  padding: 2px;
+  width: 30%;
+
+  &::placeholder {
+    font-weight: 300;
+  }
+`
+
 export const Separator = styled.div`
   display: none;
   width: 100%;

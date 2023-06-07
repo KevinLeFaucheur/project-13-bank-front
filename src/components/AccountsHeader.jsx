@@ -2,19 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfile, updateProfile } from '../redux/slices/user';
+import { GlobalButton, GlobalInput } from '../styles/GlobalStyle';
 
 const Header = styled.header`
-  color: #fff;
+  color: #FFF;
   margin-bottom: 2rem;
 `
 
-const Button = styled.button`
-  cursor: pointer;
-  border-color: #00bc77;
-  background-color: #00bc77;
-  color: #fff;
-  font-weight: bold;
-  min-width: 120px;
+const Button = styled(GlobalButton)`
   padding: 10px;
 
   &.button--edit {
@@ -26,12 +21,12 @@ const Button = styled.button`
   }
 `
 
-const Input = styled.input`
-  font-weight: bold;
+const Input = styled(GlobalInput)`
   padding: 10px;
   margin-bottom: 1rem;
   width: 100%;
 `
+
 const HeaderEdit = styled.div`
   display: flex;
   justify-content: center;

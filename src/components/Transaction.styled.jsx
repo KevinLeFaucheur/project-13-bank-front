@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { GlobalButton, GlobalInput } from "../styles/GlobalStyle"
 
 export const TransactionWrapper = styled.div`
   background-color: #FFF;
@@ -42,7 +43,6 @@ export const TransactionBodyResponsive = styled.div`
       color: grey;
     }
   }
-
 `
 
 export const TransactionItem = styled.div`
@@ -140,28 +140,16 @@ export const Select = styled.select`
   visibility: ${(props => props?.visibility)};
 `
 
-export const Button = styled.button`
-  cursor: pointer;
-  border-color: #00bc77;
-  background-color: #00bc77;
-  color: #FFF;
-  font-weight: bold;
-  min-width: 100px;
-  padding: 2px;
-  margin-left: 0.25rem;
-`
-
 export const Notes = styled.div`
   display: inline;
   visibility: ${(props => props?.visibility)};
 `
 
-export const Input = styled.input`
-  font-weight: bold;
+export const Button = styled(GlobalButton)`
   padding: 2px;
-  width: 30%;
+  margin-left: 0.25rem;
+`
 
-  &::placeholder {
-    font-weight: 300;
-  }
+export const Input = styled(GlobalInput)`
+  
 `
