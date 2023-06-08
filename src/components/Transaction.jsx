@@ -4,10 +4,11 @@ import { dateFormat } from '../utils/dateFormat';
 
 import { 
   Button, DetailRow, Input, Notes, 
-  Select, TransactionBody, TransactionBodyResponsive, 
-  TransactionDetails, TransactionItem, TransactionWrapper 
+  Select, TableRow, TableRowResponsive, 
+  TransactionDetails, TransactionWrapper 
 } from './Transaction.styled';
 import { GlobalIcon as Icon } from '../styles/GlobalStyle'
+import { TableItem } from './TableHeader';
 
 export const Transaction = ({ transaction }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,14 +38,14 @@ export const Transaction = ({ transaction }) => {
     <TransactionWrapper>
       <Icon className={`collapse--icon fa fa-solid ${isOpen ? 'fa-angle-down' : 'fa-angle-up'}`}></Icon>
       <div>
-        <TransactionBody onClick={() => setIsOpen(!isOpen)}>
-          <TransactionItem className='column-date'>{month + ' ' + day + ', ' + year}</TransactionItem>
-          <TransactionItem className='column-description'>{transaction?.description}</TransactionItem>
-          <TransactionItem className='column-amount'>${transaction?.amount}</TransactionItem>
-          <TransactionItem className='column-balance'>${transaction?.balance}</TransactionItem>
-        </TransactionBody>
+        <TableRow onClick={() => setIsOpen(!isOpen)}>
+          <TableItem colWidth='15%'>{month + ' ' + day + ', ' + year}</TableItem>
+          <TableItem colWidth='35%'>{transaction?.description}</TableItem>
+          <TableItem colWidth='25%'>${transaction?.amount}</TableItem>
+          <TableItem colWidth='25%'>${transaction?.balance}</TableItem>
+        </TableRow>
 
-        <TransactionBodyResponsive onClick={() => setIsOpen(!isOpen)}>
+        <TableRowResponsive onClick={() => setIsOpen(!isOpen)}>
           <div className='upper'>
             <div>{transaction?.description}</div>
             <div>${transaction?.amount}</div>
@@ -53,7 +54,7 @@ export const Transaction = ({ transaction }) => {
             <div>{month + ' ' + day + ', ' + year}</div>
             <div>${transaction?.balance}</div>
           </div>
-        </TransactionBodyResponsive>
+        </TableRowResponsive>
 
         {isOpen ?
           <TransactionDetails>

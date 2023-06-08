@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { 
-  DetailRow, TransactionBody, TransactionBodyResponsive, 
-  TransactionDetails, TransactionItem, TransactionsHeader 
-} from './Transaction.styled';
+import { DetailRow, TableRow, TableRowResponsive, TransactionDetails } from './Transaction.styled';
 import { GlobalIcon as Icon } from '../styles/GlobalStyle'
 import { dateFormat } from '../utils/dateFormat';
+import { TableHeader, TableItem } from './TableHeader';
 
 const Background = styled.div`
   visibility: hidden;
@@ -60,6 +58,13 @@ export const Modal = ({ transaction }) => {
     document.getElementById('modal').classList.remove('open');
   }
 
+  const items = [
+    { name: `${month + ' ' + day + ', ' + year}`, width: '15%' }, 
+    { name: `${transaction?.description}`, width: '35%' }, 
+    { name: `${transaction?.amount}`, width: '25%' }, 
+    { name: `${transaction?.balance}`, width: '25%' }
+  ];
+
   return (
     <Background id='modal'>
       {transaction ?
@@ -67,21 +72,16 @@ export const Modal = ({ transaction }) => {
         <Icon onClick={close} className="modalClose--icon fa fa-regular fa-eye" />
 
         <div id='modal-body'>
-          <TransactionsHeader className='header--modal'>
-            <TransactionItem className='column-date'>DATE</TransactionItem>
-            <TransactionItem className='column-description'>DESCRIPTION</TransactionItem>
-            <TransactionItem className='column-amount'>AMOUNT</TransactionItem>
-            <TransactionItem className='column-balance'>BALANCE</TransactionItem>
-          </TransactionsHeader>
+          <TableHeader items={items} />
 
-          <TransactionBody>
-            <TransactionItem className='column-date'>{month + ' ' + day + ', ' + year}</TransactionItem>
-            <TransactionItem className='column-description'>{transaction?.description}</TransactionItem>
-            <TransactionItem className='column-amount'>${transaction?.amount}</TransactionItem>
-            <TransactionItem className='column-balance'>${transaction?.balance}</TransactionItem>
-          </TransactionBody>
+          <TableRow>
+            <TableItem colWidth='15%'>{month + ' ' + day + ', ' + year}</TableItem>
+            <TableItem colWidth='35%'>{transaction?.description}</TableItem>
+            <TableItem colWidth='25%'>${transaction?.amount}</TableItem>
+            <TableItem colWidth='25%'>${transaction?.balance}</TableItem>
+          </TableRow>
 
-          <TransactionBodyResponsive>
+          <TableRowResponsive>
             <div className='upper'>
               <div>{transaction?.description}</div>
               <div>${transaction?.amount}</div>
@@ -90,7 +90,7 @@ export const Modal = ({ transaction }) => {
               <div>{month + ' ' + day + ', ' + year}</div>
               <div>${transaction?.balance}</div>
             </div>
-          </TransactionBodyResponsive>
+          </TableRowResponsive>
 
           <Separator />
 

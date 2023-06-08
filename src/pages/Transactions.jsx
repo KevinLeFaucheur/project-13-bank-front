@@ -6,7 +6,7 @@ import { Transaction } from '../components/Transaction'
 import { transactions } from '../data/transactionsMock'
 import { Modal } from '../components/Modal'
 import { GlobalIcon as Icon } from '../styles/GlobalStyle'
-import { TransactionItem, TransactionsHeader } from '../components/Transaction.styled'
+import { TableHeader } from '../components/TableHeader'
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -77,6 +77,13 @@ export const Transactions = () => {
     document.getElementById('modal').classList.toggle('open');
   };
 
+  const items = [
+    { name: 'DATE', width: '15%' }, 
+    { name: 'DESCRIPTION', width: '35%' }, 
+    { name: 'AMOUNT', width: '25%' }, 
+    { name: 'BALANCE', width: '25%' }
+  ];
+
   return (
     <main className="main bg-dark">
       <ContentWrapper>
@@ -86,12 +93,7 @@ export const Transactions = () => {
       </ContentWrapper>
 
       <TableWrapper>      
-        <TransactionsHeader>
-          <TransactionItem className='column-date'>DATE</TransactionItem>
-          <TransactionItem className='column-description'>DESCRIPTION</TransactionItem>
-          <TransactionItem className='column-amount'>AMOUNT</TransactionItem>
-          <TransactionItem className='column-balance'>BALANCE</TransactionItem>
-        </TransactionsHeader>
+        <TableHeader items={items} />
         <Table>
           {transactions.map(transaction => 
             <TransactionWrapper key={transaction?.id}>
