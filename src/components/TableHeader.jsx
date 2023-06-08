@@ -23,12 +23,12 @@ const HeaderContainer = styled.div`
 `
 
 export const TableItem = styled.div`
-  width: ${props => props.width};
+  width: ${props => props.colWidth};
 `
 
-export const TableHeader = ({ items }) => {
+export const TableHeader = ({ items, className }) => {
   return (
-    <HeaderContainer>
+    <HeaderContainer className={className}>
       {items.map(item => <TableItem colWidth={item.width}>{item.name}</TableItem>)}
     </HeaderContainer>
   )

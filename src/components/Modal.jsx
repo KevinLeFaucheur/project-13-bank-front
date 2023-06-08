@@ -38,6 +38,10 @@ const Dialog = styled.div`
   }
 `
 
+const TableWrapper = styled.div`
+  padding-right: 5%;
+`
+
 const Separator = styled.div`
   margin: 10px 0;
   height: 1px;
@@ -58,11 +62,18 @@ export const Modal = ({ transaction }) => {
     document.getElementById('modal').classList.remove('open');
   }
 
+  // const items = [
+  //   { name: `${month + ' ' + day + ', ' + year}`, width: '15%' }, 
+  //   { name: `${transaction?.description}`, width: '35%' }, 
+  //   { name: `${transaction?.amount}`, width: '25%' }, 
+  //   { name: `${transaction?.balance}`, width: '25%' }
+  // ];
+  
   const items = [
-    { name: `${month + ' ' + day + ', ' + year}`, width: '15%' }, 
-    { name: `${transaction?.description}`, width: '35%' }, 
-    { name: `${transaction?.amount}`, width: '25%' }, 
-    { name: `${transaction?.balance}`, width: '25%' }
+    { name: 'DATE', width: '15%' }, 
+    { name: 'DESCRIPTION', width: '35%' }, 
+    { name: 'AMOUNT', width: '25%' }, 
+    { name: 'BALANCE', width: '25%' }
   ];
 
   return (
@@ -72,15 +83,17 @@ export const Modal = ({ transaction }) => {
         <Icon onClick={close} className="modalClose--icon fa fa-regular fa-eye" />
 
         <div id='modal-body'>
-          <TableHeader items={items} />
+          <TableWrapper>
+            <TableHeader className='header--modal' items={items} />
 
-          <TableRow>
-            <TableItem colWidth='15%'>{month + ' ' + day + ', ' + year}</TableItem>
-            <TableItem colWidth='35%'>{transaction?.description}</TableItem>
-            <TableItem colWidth='25%'>${transaction?.amount}</TableItem>
-            <TableItem colWidth='25%'>${transaction?.balance}</TableItem>
-          </TableRow>
-
+            <TableRow>
+              <TableItem colWidth='15%'>{month + ' ' + day + ', ' + year}</TableItem>
+              <TableItem colWidth='35%'>{transaction?.description}</TableItem>
+              <TableItem colWidth='25%'>${transaction?.amount}</TableItem>
+              <TableItem colWidth='25%'>${transaction?.balance}</TableItem>
+            </TableRow>
+          </TableWrapper>
+            
           <TableRowResponsive>
             <div className='upper'>
               <div>{transaction?.description}</div>
