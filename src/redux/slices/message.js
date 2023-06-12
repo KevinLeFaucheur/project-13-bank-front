@@ -4,8 +4,8 @@ const initialState = { message: '' };
 
 /**
  * Message Functionality Slice
- *  Set Message Action Reducer
- *  Clear Message Action Reducer
+ *    Set Message Action Reducer
+ *    Clear Message Action Reducer
  */
 export const { actions, reducer } = createSlice({
   name: 'message',

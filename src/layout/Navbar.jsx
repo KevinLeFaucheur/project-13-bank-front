@@ -47,7 +47,7 @@ const NavItem = styled(Link)`
       }
     }
     i {
-      font-size: 20px;
+      font-size: 1rem;
     }
   }
 `

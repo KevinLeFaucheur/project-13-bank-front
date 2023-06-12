@@ -61,13 +61,6 @@ export const Modal = ({ transaction }) => {
   const close = () => {
     document.getElementById('modal').classList.remove('open');
   }
-
-  // const items = [
-  //   { name: `${month + ' ' + day + ', ' + year}`, width: '15%' }, 
-  //   { name: `${transaction?.description}`, width: '35%' }, 
-  //   { name: `${transaction?.amount}`, width: '25%' }, 
-  //   { name: `${transaction?.balance}`, width: '25%' }
-  // ];
   
   const items = [
     { name: 'DATE', width: '15%' }, 

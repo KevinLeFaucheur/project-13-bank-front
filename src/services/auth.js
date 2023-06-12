@@ -118,13 +118,13 @@ export const updateUserProfile = async ({ firstName, lastName }) => {
 
 
 /**
- * Remember Me Email Cookie Functions
+ * 'Remember Me' Email Cookie Functions
  */
 export const setRememberMeCookie = (email) => {
   cookies.set('email', email, { path: '/' });
 };
 
-export const getRememberMeCookie = (email) => {
+export const getRememberMeCookie = () => {
   return cookies.get('email', { path: '/' });
 };
 

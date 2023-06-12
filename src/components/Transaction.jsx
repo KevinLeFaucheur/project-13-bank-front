@@ -17,14 +17,16 @@ export const Transaction = ({ transaction }) => {
 
   const [selectValue, setSelectValue] = useState('');
   const [noteInputValue, setNoteInputValue] = useState('');
-  const inputRef = useRef('');
+  const noteInputRef = useRef('');
 
+  /** Holds Select value in local and state, then closes collapse */
   const handleSetSelectValue = (value) => {
     localStorage.setItem(`category-${transaction?.id}`, value); // Set to database once API is ready
     setSelectValue(value);
     setSelectVisibility('collapse');
   }
 
+  /** Holds Notes value in local and state, then closes collapse */
   const handleSetNotesValue = (value) => {
     localStorage.setItem(`note-${transaction?.id}`, value); // Set to database once API is ready
     setNoteInputValue(value);
@@ -74,9 +76,9 @@ export const Transaction = ({ transaction }) => {
             {noteInputValue}
             <Icon onClick={() => setNotesVisibility(isNotesVisible === 'visible' ? 'collapse' : 'visible')} className="pen--icon fa fa-solid fa-pencil" />
             <Notes visibility={isNotesVisible}>
-              <Input id={`transaction-note-${transaction.id}`} ref={inputRef} placeholder='Write a note' />
-              <Button onClick={() => handleSetNotesValue(inputRef.current.value)}>Save</Button>
-              <Button onClick={() => setNotesVisibility('collapse')}>Cancel</Button>
+              <Input id={`transaction-note-${transaction.id}`} ref={noteInputRef} placeholder='Write a note' />
+              <Button onClick={() => handleSetNotesValue(noteInputRef.current.value)}><span>Save</span><i className="fa fa-solid fa-check" /></Button>
+              <Button onClick={() => setNotesVisibility('collapse')}><span>Cancel</span><i className="fa fa-solid fa-xmark" /></Button>
            </Notes>
           </DetailRow>
 

@@ -65,8 +65,8 @@ const SignInSection = styled.section`
 
 export const SignIn = () => {
   const navigate = useNavigate();
-  const { state } = useLocation();
   const dispatch = useDispatch();
+  const { state } = useLocation();
 
   const usernameInput = useRef();
   const passwordInput = useRef();
@@ -80,6 +80,7 @@ export const SignIn = () => {
   const { email } = useSelector(state => state.user);
   const { message } = useSelector(state => state.message);
 
+  /** Memorize 'Remember Me' checkbox value, clear cookie if unchecked */
 	const handleRememberMe = () => {
     if(!rememberMeInput.current.checked) {
       removeRememberMeCookie();
@@ -89,6 +90,9 @@ export const SignIn = () => {
 		dispatch(rememberUsername(rememberMeInput.current.checked));
 	}
 
+  /** Submit the login request to the User slice, 
+   *  Sets email in cookie if 'Remember Me' is checked
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -100,14 +104,13 @@ export const SignIn = () => {
           }
           navigate('/user/profile'); 
         })
-        .catch((error) => {
-
-        });
+        .catch(error => {})
   }
 
 	useEffect(() => {
     dispatch(clearMessage());
 
+    /** Tries to fill up username if 'Remember Me' was previously set to memorize */
 		if(rememberMe && getRememberMeCookie()) {
       rememberMeInput.current.checked = rememberMe;
 			usernameInput.current.value = getRememberMeCookie()?.email;

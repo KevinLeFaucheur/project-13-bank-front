@@ -128,13 +128,13 @@ export const updateProfile = createAsyncThunk(
 
 /**
  * User Functionality Slice
- * logout                   : 
- * rememberUserName         :
- * login.fulfiiled          :
- * login.rejected           :
- * register.fulfilled       :
- * getProfile.fulfilled     :
- * updateProfile.fulfilled  :
+ * logout                   : clears credentials, sets isLogged false
+ * rememberUserName         : memorizes 'Remember Me' checkbox value
+ * login.fulfiiled          : sets isLogged to true
+ * login.rejected           : resets credentials
+ * register.fulfilled       : 
+ * getProfile.fulfilled     : memorizes credentials to store
+ * updateProfile.fulfilled  : updates credentials as requested
 */
 export const { actions, reducer } = createSlice({
   name: 'user',

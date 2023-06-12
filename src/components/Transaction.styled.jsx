@@ -67,6 +67,23 @@ export const Notes = styled.div`
 export const Button = styled(GlobalButton)`
   padding: 2px;
   margin-left: 0.25rem;
+
+  & > i {
+    display: none;
+  }
+
+  @media (max-width: 720px) {
+    min-width: 2.5rem;
+
+    & > span {
+      display: none;
+    }
+
+    & > i {
+      display: inline;
+    }
+  } 
+
 `
 
 export const Input = styled(GlobalInput)`

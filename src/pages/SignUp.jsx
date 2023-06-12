@@ -86,11 +86,7 @@ export const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-      dispatch(register(signup))
-        .then(() => {
-					navigate('/login');
-        });
+    dispatch(register(signup)).then(() => { navigate('/login'); });
   }
 
 	useEffect(() => {
