@@ -96,15 +96,17 @@ export const SignIn = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-      dispatch(login({ email: username, password }))
-        .unwrap()
-        .then(() => {
-          if(rememberMe) {
-            setRememberMeCookie({ email: username });
-          }
-          navigate('/user/profile'); 
-        })
-        .catch(error => {})
+    dispatch(login({ email: username, password }))
+      .unwrap()
+      .then(() => {
+        if(rememberMe) {
+          setRememberMeCookie({ email: username });
+        }
+        navigate('/user/profile'); 
+      })
+      .catch(error => {
+        console.log(error);
+      })
   }
 
 	useEffect(() => {

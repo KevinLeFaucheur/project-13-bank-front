@@ -25,8 +25,6 @@ export const login = createAsyncThunk(
     try {
       const data = await signin({ email, password });
 
-      console.log(data);
-
       thunkAPI.dispatch(setMessage(data.message));
 
       return data;

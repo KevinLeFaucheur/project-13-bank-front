@@ -29,7 +29,7 @@ export const TableItem = styled.div`
 export const TableHeader = ({ items, className }) => {
   return (
     <HeaderContainer className={className}>
-      {items.map(item => <TableItem colWidth={item.width}>{item.name}</TableItem>)}
+      {items.map(item => <TableItem key={item.name} colWidth={item.width}>{item.name}</TableItem>)}
     </HeaderContainer>
   )
 }
