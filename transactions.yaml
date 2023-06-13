@@ -8,18 +8,19 @@ host: localhost:3001
 basePath: /api/v1
 schemes:
   - http
+  - https
 paths:
-  /transactions/{current_month}:
+  /transactions?month=CURRENT:
     get:
       tags:
         - Transaction Module
-      summary: Get all transactions for the current month for a unique user
+      summary: Get all transactions for current month
       description: API for Transaction
       parameters:
         - in: query
-          name: current_month
+          name: month
           description: Query to select the current month transactions only
-          required: false
+          required: true
           type: string
         - in: header
           name: Authorization
@@ -29,17 +30,55 @@ paths:
         - application/json
       responses:
         "200":
-          description: A list of transactions
+          description: A list of transactions objects
           schema:
             type: array
             items:
               $ref: "#/definitions/Transaction"
         "400":
-          description: Bad request. User ID must be a positive integer.
+          description: Bad request. Query is invalid.
         "401":
           description: Authorization token is invalid or missing.
         "404":
-          description: User with this ID was not found.
+          description: No transaction was found.
+        "500":
+          description: Internal Server Error
+  /transactions?user={user_id}&month=CURRENT:
+    get:
+      tags:
+        - Transaction Module
+      summary: Get all transactions for a single user in current month
+      description: API for Transaction
+      parameters:
+        - in: query
+          name: month
+          description: Query to select the current month
+          required: true
+          type: string
+        - in: query
+          name: user_id
+          description: Query to select a unique user
+          required: true
+          type: integer
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: A list of transactions objects
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Transaction"
+        "400":
+          description: Bad request. Query is invalid.
+        "401":
+          description: Authorization token is invalid or missing.
+        "404":
+          description: No transaction was found.
         "500":
           description: Internal Server Error
   /transactions/{transaction_id}:
